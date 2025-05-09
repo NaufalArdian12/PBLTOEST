@@ -39,7 +39,7 @@
                 {{-- Right side image --}}
                 <div class="lg:block lg:w-1/2">
                     <img src="{{ asset('images/auditorium-seats.png') }}" alt="Blue auditorium seats"
-                        class="rounded-lg w-full h-auto object-cover shadow-lg" loading="lazy">
+                        class="rounded-lg w-full h-auto object-cover" loading="lazy">
                 </div>
             </div>
         </div>
