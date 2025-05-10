@@ -8,12 +8,8 @@ Route::get('/login', function () {
 })->name('login');
 Route::get('/', function () {
     return view('welcome');
-<<<<<<< Updated upstream
 });
 
 Route::get('/auth/redirect', [SocialiteController::class, 'redirect']);
 
 Route::get('/auth/google/callback', [SocialiteController::class, 'callback']);
-=======
-})->name('home');
->>>>>>> Stashed changes
