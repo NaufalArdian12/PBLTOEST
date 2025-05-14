@@ -1,8 +1,3 @@
-<<<<<<< Updated upstream
-<div>
-    <a href="auth/redirect" class="text-white">Login with google</a>
-</div>
-=======
 <!DOCTYPE html>
 <html lang="en">
 
@@ -79,7 +74,7 @@
             </div>
 
             <!-- Google Login Button -->
-            <a href="#"
+            <a href="{{ route('auth.redirect') }}"
                 class="flex items-center justify-center w-full border border-gray-300 rounded-lg py-3 px-4 font-medium text-gray-700 hover:bg-gray-50 transition-colors mb-8">
                 <svg class="w-5 h-5 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                     <path fill="#4285F4"
@@ -98,4 +93,3 @@
 </body>
 
 </html>
->>>>>>> Stashed changes
