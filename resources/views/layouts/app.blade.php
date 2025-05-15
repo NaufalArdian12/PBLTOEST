@@ -13,7 +13,7 @@
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
 
     <!-- Scripts -->
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @vite(['resources/css/app.css'])
 </head>
 <body class="font-sans antialiased">
     <div id="app">
@@ -39,7 +39,7 @@
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">
                                     @csrf
                                 </form>
-                                <a href="{{ route('logout') }}" 
+                                <a href="{{ route('logout') }}"
                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
                                    class="px-3 py-2 text-sm font-medium">
                                     Logout
