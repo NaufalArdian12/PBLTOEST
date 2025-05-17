@@ -40,8 +40,7 @@
     <div class="w-full md:w-1/2 flex items-center justify-center p-6">
         <div class="w-full max-w-md">
             <h1 class="text-3xl font-bold text-gray-800 mb-2">Login</h1>
-            <p class="text-gray-600 mb-8">Belum punya akun? <a href="#"
-                    class="text-blue-600 font-medium hover:underline">buat akun</a></p>
+            <p class="text-gray-600 mb-8">Belum punya akun? <a href="{{ route('register') }}" class="text-blue-600 font-medium hover:underline">buat akun</a></p>
 
             <form class="space-y-6">
                 <!-- Username Field -->
