@@ -1,12 +1,20 @@
-@extends('layouts.app')
+<!DOCTYPE html>
+<html lang="id">
 
-@section('content')
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100">
     <div class="container mx-auto px-4">
         <div class="flex justify-center">
             <div class="w-full md:w-2/3 lg:w-1/2">
                 <div class="bg-white rounded-lg shadow-md overflow-hidden">
                     <div class="bg-gray-800 text-white px-6 py-4">
-                        {{ __('Dashboard') }}
+                        Dashboard
                     </div>
 
                     <div class="p-6">
@@ -17,7 +25,7 @@
                             </div>
                         @endif
 
-                        <p class="text-gray-700">{{ __('You are logged in!') }}</p>
+                        <p class="text-gray-700">You are logged in!</p>
 
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
@@ -31,4 +39,6 @@
             </div>
         </div>
     </div>
-@endsection
+</body>
+
+</html>
