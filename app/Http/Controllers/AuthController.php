@@ -43,14 +43,24 @@ class AuthController extends Controller
     // Proses login
     public function login(Request $request)
     {
+        // Validasi input login
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required|min:6',
+        ]);
+
+        // Cek kredensial
         $credentials = $request->only('email', 'password');
 
         if (Auth::attempt($credentials)) {
-            return redirect()->intended('dashboard');
+            // Redirect ke halaman yang dimaksud setelah login
+            return redirect()->intended('/dashboard');
         }
 
-        return back()->withErrors(['name' => 'Login gagal']);
+        // Jika login gagal
+        return back()->withErrors(['email' => 'Email atau password yang anda masukkan salah.']);
     }
+
 
     public function resend(Request $request)
     {
