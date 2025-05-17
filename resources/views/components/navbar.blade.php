@@ -31,7 +31,7 @@
             <div class="hidden md:flex items-center">
                 <a href="{{ route('login') }}"
                     class="text-blue-600 border border-blue-600 hover:bg-blue-600 hover:text-white px-4 py-2 rounded-md text-sm font-medium">Login</a>
-                <a href=""
+               <a href="{{ route('register') }}"
                     class="ml-4 bg-blue-600 text-white hover:bg-blue-700 px-4 py-2 rounded-md text-sm font-medium">Sign
                     Up</a>
             </div>
