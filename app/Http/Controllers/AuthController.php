@@ -37,8 +37,14 @@ class AuthController extends Controller
     // Tampilkan form login
     public function showLoginForm()
     {
+        // Jika pengguna sudah login, arahkan mereka ke dashboard atau halaman lain
+        if (Auth::check()) {
+            return redirect('dashboard');
+        }
+
         return view('auth.login');
     }
+
 
     // Proses login
     public function login(Request $request)
@@ -58,7 +64,7 @@ class AuthController extends Controller
         }
 
         // Jika login gagal
-        return back()->withErrors(['email' => 'Email atau password yang anda masukkan salah.']);
+        return back()->withErrors(['email' => 'Email or password is incorrect.']);
     }
 
 
