@@ -4,8 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    @vite('resources/css/app.css')
+    <title>Register</title>
+    @vite('resources/css/app.css') <!-- Laravel Vite integration -->
+
     <style>
         .login-container {
             background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('{{ asset('images/login-bg.png') }}');
@@ -14,12 +15,13 @@
 </head>
 
 <body class="min-h-screen flex">
+
     <!-- Left Section with Background Image -->
     <div class="hidden md:block w-1/2 login-container bg-cover bg-center relative">
         <!-- Back Button -->
         <a href="{{ route('home') }}">
             <button
-                class="absolute top-8 left-8 bg-black bg-opacity-50 text-white rounded-full py-2 px-4 flex items-center text-sm">
+                class="fixed top-8 left-8 bg-black bg-opacity-50 text-white rounded-full py-2 px-4 flex items-center text-sm">
                 <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                     xmlns="http://www.w3.org/2000/svg">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -30,7 +32,7 @@
         </a>
 
         <!-- Bottom Text -->
-        <div class="absolute bottom-8 left-8 right-8 text-white">
+        <div class="fixed bottom-8 left-8 right-8 text-white">
             <p class="text-xl font-medium mb-2">Dengan guru yang profesional dan berpengalaman</p>
             <p class="text-lg">Guru terbaik untuk anak</p>
         </div>
@@ -39,46 +41,49 @@
     <!-- Right Section with Login Form -->
     <div class="w-full md:w-1/2 flex items-center justify-center p-6">
         <div class="w-full max-w-md">
-            <h1 class="text-3xl font-bold text-gray-800 mb-2">Login</h1>
-            <p class="text-gray-600 mb-8">Belum punya akun? <a href="{{ route('register') }}" class="text-blue-600 font-medium hover:underline">buat akun</a></p>
+            <h1 class="text-3xl font-bold text-gray-800 mb-2">Register</h1>
+            <p class="text-gray-600 mb-8">Sudah punya akun? <a href="{{ route('login') }}"
+                    class="text-blue-600 font-medium hover:underline">buat akun</a></p>
 
-            <!-- Form login -->
-            <form method="POST" action="{{ route('login') }}" class="space-y-6">
-                @csrf
+            <form class="space-y-6">
                 <!-- Email Field -->
                 <div>
-                    <label for="email" class="block text-gray-700 text-sm font-medium mb-1">Email</label>
-                    <input type="email" name="email" id="email" placeholder="Email"
-                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                        value="{{ old('email') }}" required>
-                    @error('email')
-                        <span class="text-red-500 text-sm">{{ $message }}</span>
-                    @enderror
+                    <label class="block text-gray-700 text-sm font-medium mb-1">Email</label>
+                    <input type="email" placeholder="Email"
+                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                </div>
+
+                <!-- Username Field -->
+                <div>
+                    <label class="block text-gray-700 text-sm font-medium mb-1">Username</label>
+                    <input type="text" placeholder="Username"
+                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
                 </div>
 
                 <!-- Password Field -->
                 <div>
-                    <label for="password" class="block text-gray-700 text-sm font-medium mb-1">Password</label>
-                    <input type="password" name="password" id="password" placeholder="Password"
-                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                        required>
-                    @error('password')
-                        <span class="text-red-500 text-sm">{{ $message }}</span>
-                    @enderror
-                    <a href="#" class="text-blue-600 text-sm mt-2 inline-block hover:underline">Lupa password?</a>
+                    <label class="block text-gray-700 text-sm font-medium mb-1">Password</label>
+                    <input type="password" placeholder="Password"
+                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                </div>
+                <!-- Confirm Password Field -->
+                <div>
+                    <label class="block text-gray-700 text-sm font-medium mb-1">Password Confirm</label>
+                    <input type="password" placeholder="Password Confirm"
+                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
                 </div>
 
                 <!-- Login Button -->
                 <button type="submit"
                     class="w-full bg-blue-600 text-white py-3 px-4 rounded-lg font-medium hover:bg-blue-700 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
-                    Login
+                    Register
                 </button>
             </form>
 
             <!-- Divider -->
             <div class="flex items-center my-8">
                 <div class="flex-grow h-px bg-gray-200"></div>
-                <span class="px-4 text-gray-500 text-sm">atau login dengan</span>
+                <span class="px-4 text-gray-500 text-sm">atau register dengan</span>
                 <div class="flex-grow h-px bg-gray-200"></div>
             </div>
 
@@ -99,6 +104,7 @@
             </a>
         </div>
     </div>
+
 </body>
 
 </html>

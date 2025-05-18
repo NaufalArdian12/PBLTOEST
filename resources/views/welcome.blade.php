@@ -91,6 +91,7 @@
 
             <section>
                 <div class="w-full h-[2px] bg-blue-500 mt-12"></div>
+                 <div class="w-full h-[2px] bg-blue-500 mt-12"></div>
             </section>
 
             <section class="pt-16 sm:pt-20 md:pt-24 lg:pt-32 mx-24">
@@ -151,6 +152,28 @@
                                 <img src="/images/PFP ALL.png" alt="TOEST Logo" class="h-8 sm:h-10 md:h-12 lg:h-14" />
                                 <span class="font-medium">Hach Van</span>
                             </div>
+
+        <section class="bg-gray-100 py-12">
+            <div class="container mx-auto text-center">
+                <h2 class="text-2xl sm:text-3xl font-bold mb-4">Polinema TOEIC Registration Timeline</h2>
+                <p class="text-lg text-gray-600">Follow the steps for a smooth registration process.</p>
+                <ol class="mt-6">
+                    <li>Announcement & Registration Open</li>
+                    <li>Verification and Exam Scheduling</li>
+                    <li>Exam Implementation</li>
+                    <li>Announcement of Results and Certificate Collection</li>
+                </ol>
+            </div>
+        </section>
+
+        <section class="py-12">
+            <div class="container mx-auto">
+                <h2 class="text-2xl sm:text-3xl font-bold text-center mb-8">Take A Look For Our Customer Interest</h2>
+                <div class="flex flex-col md:flex-row justify-center items-center gap-8">
+                    <div class="w-full md:w-1/3 bg-white p-6 rounded-lg shadow-md">
+                        <blockquote>
+                            <p class="text-gray-600">“Sangat membantu untuk mendalami listening dan reading.”</p>
+                            <footer class="mt-4 font-medium">- Hach Van</footer>
                         </blockquote>
                     </div>
                     <div class="w-full md:w-1/3 bg-white p-6 rounded-lg shadow-md">
@@ -162,6 +185,9 @@
                                 <img src="/images/PFP ALL.png" alt="TOEST Logo" class="h-8 sm:h-10 md:h-12 lg:h-14" />
                                 <span class="font-medium">Hach Van</span>
                             </div>
+                            <p class="text-gray-600">“Listening-nya awalnya agak sulit, tetapi latihan sangat membantu.”
+                            </p>
+                            <footer class="mt-4 font-medium">- Marquest Al Jupri</footer>
                         </blockquote>
                     </div>
                     <div class="w-full md:w-1/3 bg-white p-6 rounded-lg shadow-md">
@@ -173,6 +199,8 @@
                                 <img src="/images/PFP ALL.png" alt="TOEST Logo" class="h-8 sm:h-10 md:h-12 lg:h-14" />
                                 <span class="font-medium">Hach Van</span>
                             </div>
+                            <p class="text-gray-600">“Mendapatkan materi yang bermanfaat dan mudah dimengerti.”</p>
+                            <footer class="mt-4 font-medium">- Kipli</footer>
                         </blockquote>
                     </div>
                 </div>
@@ -218,6 +246,29 @@
                          <img src="/images/WhatIs.png" alt="TOEST Logo" class="h-6 sm:h-8 md:h-10 lg:h-12" />
                         <span class="font-semibold">Can I take the TOEIC exam more than once?</span>
                         <p>Payment can be made via bank transfer or other available methods listed on the portal.</p>
+                <h2 class="text-2xl sm:text-3xl font-bold text-center mb-8">
+                    Frequently Asked Questions
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="p-6 bg-white rounded-lg shadow-md">
+                        <h3 class="font-semibold">What is The TOEIC Exam?</h3>
+                        <p class="text-gray-600">Measures English proficiency for the workplace.</p>
+                    </div>
+                    <div class="p-6 bg-white rounded-lg shadow-md">
+                        <h3 class="font-semibold">How Do I Pay For The TOEIC Exam?</h3>
+                        <p class="text-gray-600">Payment options include bank transfer and portal methods.</p>
+                    </div>
+                    <div class="p-6 bg-white rounded-lg shadow-md">
+                        <h3 class="font-semibold">Who Can Take The TOEIC Exam?</h3>
+                        <p class="text-gray-600">Currently enrolled students at POLINEMA.</p>
+                    </div>
+                    <div class="p-6 bg-white rounded-lg shadow-md">
+                        <h3 class="font-semibold">Can I Take The TOEIC Exam More Than Once?</h3>
+                        <p class="text-gray-600">Yes, though additional exams require registration.</p>
+                    </div>
+                    <div class="p-6 bg-white rounded-lg shadow-md">
+                        <h3 class="font-semibold">Can I Reschedule My TOEIC Exam?</h3>
+                        <p class="text-gray-600">Rescheduling depends on availability and fees.</p>
                     </div>
                 </div>
             </div>
