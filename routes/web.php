@@ -1,5 +1,7 @@
 <?php
 use Illuminate\Support\Facades\Route;
+
+use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Auth\SocialiteController;
 use App\Http\Controllers\Auth\VerificationController;
@@ -11,8 +13,7 @@ Route::post('/register', [AuthController::class, 'register'])->name('register');
 // Login
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
-Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout')
 // Verifikasi Email
 Route::get('/verify-email', [VerificationController::class, 'show'])->name('verification.notice');
 Route::get('/email/verify/{id}/{hash}', [VerificationController::class, 'verify'])->name('verification.verify');
@@ -27,6 +28,8 @@ Route::get('/', function () {
 Route::get('/auth/redirect', [SocialiteController::class, 'redirect'])->name('auth.redirect');
 Route::get('/auth/google/callback', [SocialiteController::class, 'callback']);
 
+Route::get('/dashboard', [MahasiswaController::class, 'dashboard'])->name('mahasiswa.dashboard');
+Route::get('/sertifikat', [MahasiswaController::class, 'sertifikat'])->name('mahasiswa.sertifikat');
 // Dashboard (protected by auth and verified middleware)
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/set-password', [VerificationController::class, 'showSetPasswordForm'])->name('password.set');
@@ -35,4 +38,5 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return view('dashboard');
     });
 });
+
 
