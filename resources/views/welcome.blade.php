@@ -1,11 +1,13 @@
 <!doctype html>
 <html>
-  <head>
+
+<head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     @vite('resources/css/app.css')
-  </head>
-  <body>
+</head>
+
+<body>
     @include('components.navbar')
 
     <main class="max-w-7xl mx-auto px-4 sm:px-4 lg:px-4 bg-white py-6 md:px-16">
@@ -13,7 +15,8 @@
             <div class="flex flex-col-reverse lg:flex-row items-center gap-8 lg:gap-12">
                 {{-- Left side content --}}
                 <div class="w-full lg:w-1/2 flex flex-col justify-center items-start gap-6">
-                    <h1 class="text-black text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold leading-[120%] capitalize">
+                    <h1
+                        class="text-black text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold leading-[120%] capitalize">
                         English Test That Measures The Ability To Communicate In Everyday Life.
                     </h1>
 
@@ -43,6 +46,163 @@
                 </div>
             </div>
         </div>
+        <br>
+        <section class="bg-blue-600 py-12 rounded-xl">
+            <div class="container mx-auto text-center">
+                <img src="/images/toest_logo.png" alt="TOEST Logo"
+                    class="w-auto h-16 sm:h-20 md:h-24 lg:h-28 mx-auto" />
+                <p class="text-xl sm:text-2xl md:text-3xl lg:text-4xl text-white mt-12">
+                    Test of English for International Communication
+                </p>
+            </div>
+            <br>
+            <div>
+                <h3 class="text-white px-32 text-lg sm:text-xl md:text-2xl"><b>TOEIC® Exam at Malang State
+                        Polytechnic</b> entitled to one free TOEIC
+                    exam during their studies.
+                    If you wish to take additional exams, they are available through a paid route at a special
+                    discounted price.
+                    This system simplifies the process of registration, verification, and access to exam-related
+                    information.</h3>
+            </div>
+            <div>
+                <div class="text-white px-32">
+                    <h3 class="text-3xl sm:text-4xl font-bold mb-6">Terms and Conditions</h3>
+                    <ul class="list-disc list-inside space-y-3 text-lg sm:text-xl">
+                        <li>
+                            <strong>One Free Exam Policy:</strong> Each student gets one free TOEIC exam during their
+                            studies, non-transferable and must be taken within the institution's eligibility period.
+                        </li>
+                        <li>
+                            <strong>Additional Exams & Fees:</strong> Extra exams are available at a special discounted
+                            price, with payment required before the registration deadline.
+                        </li>
+                        <li>
+                            <strong>Cancellations & Rescheduling:</strong> Notify the administration in advance if
+                            unable to attend. Rescheduling depends on availability and may incur fees.
+                        </li>
+                        <li>
+                            <strong>Results & Certification:</strong> Scores will be available within the set timeframe
+                            and can be downloaded from the portal.
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <section>
+                 <div class="w-full h-[2px] bg-blue-500 mt-12"></div>
+            </section>
+
+            <section class="pt-16 sm:pt-20 md:pt-24 lg:pt-32 mx-24">
+                <div class="container mx-auto">
+                    <h2 class="text-2xl sm:text-3xl font-bold text-center mb-8 text-white">
+                        Our Feature
+                    </h2>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2">
+                        <div class="p-6 bg-[#A0C4FF] rounded-lg shadow-md">
+                            <img src="/images/Scadule.png" alt="Scadule"
+                                class="w-auto h-8 sm:h-10 md:h-12 lg:h-14 mx-auto pb-2" />
+                            <h3 class="font-semibold text-lg text-center text-white">Exam Schedule and Information</h3>
+                        </div>
+                        <div class="p-6 bg-[#A0C4FF] rounded-lg shadow-md">
+                            <img src="/images/User.png" alt="Access"
+                                class="w-auto h-8 sm:h-10 md:h-12 lg:h-14 mx-auto pb-2" />
+                            <h3 class="font-semibold text-lg text-center text-white">User Access and Rights</h3>
+                        </div>
+                        <div class="p-6 bg-[#A0C4FF] rounded-lg shadow-md">
+                            <img src="/images/Search.png" alt="Filter"
+                                class="w-auto h-8 sm:h-10 md:h-12 lg:h-14 mx-auto pb-2" />
+                            <h3 class="font-semibold text-lg text-center text-white">Search and Filter Data</h3>
+                        </div>
+                        <div class="p-6 bg-[#A0C4FF] rounded-lg shadow-md">
+                            <img src="/images/Exam.png" alt="registeration"
+                                class="w-auto h-8 sm:h-10 md:h-12 lg:h-14 mx-auto pb-2" />
+                            <h3 class="font-semibold text-lg text-center text-white">TOEIC Exam Registration</h3>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </section>
+
+
+        <section class="bg-gray-100 py-12">
+            <div class="container mx-auto text-center">
+                <h2 class="text-2xl sm:text-3xl font-bold mb-4">Polinema TOEIC Registration Timeline</h2>
+                <p class="text-lg text-gray-600">Follow the steps for a smooth registration process.</p>
+                <ol class="mt-6">
+                    <li>Announcement & Registration Open</li>
+                    <li>Verification and Exam Scheduling</li>
+                    <li>Exam Implementation</li>
+                    <li>Announcement of Results and Certificate Collection</li>
+                </ol>
+            </div>
+        </section>
+
+        <section class="py-12">
+            <div class="container mx-auto">
+                <h2 class="text-2xl sm:text-3xl font-bold text-center mb-8">Take A Look For Our Customer Interest</h2>
+                <div class="flex flex-col md:flex-row justify-center items-center gap-8">
+                    <div class="w-full md:w-1/3 bg-white p-6 rounded-lg shadow-md">
+                        <blockquote>
+                            <p class="text-gray-600">“Sangat membantu untuk mendalami listening dan reading.”</p>
+                            <footer class="mt-4 font-medium">- Hach Van</footer>
+                        </blockquote>
+                    </div>
+                    <div class="w-full md:w-1/3 bg-white p-6 rounded-lg shadow-md">
+                        <blockquote>
+                            <p class="text-gray-600">“Listening-nya awalnya agak sulit, tetapi latihan sangat membantu.”
+                            </p>
+                            <footer class="mt-4 font-medium">- Marquest Al Jupri</footer>
+                        </blockquote>
+                    </div>
+                    <div class="w-full md:w-1/3 bg-white p-6 rounded-lg shadow-md">
+                        <blockquote>
+                            <p class="text-gray-600">“Mendapatkan materi yang bermanfaat dan mudah dimengerti.”</p>
+                            <footer class="mt-4 font-medium">- Kipli</footer>
+                        </blockquote>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-12">
+            <div class="container mx-auto">
+                <h2 class="text-2xl sm:text-3xl font-bold text-center mb-8">
+                    Frequently Asked Questions
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="p-6 bg-white rounded-lg shadow-md">
+                        <h3 class="font-semibold">What is The TOEIC Exam?</h3>
+                        <p class="text-gray-600">Measures English proficiency for the workplace.</p>
+                    </div>
+                    <div class="p-6 bg-white rounded-lg shadow-md">
+                        <h3 class="font-semibold">How Do I Pay For The TOEIC Exam?</h3>
+                        <p class="text-gray-600">Payment options include bank transfer and portal methods.</p>
+                    </div>
+                    <div class="p-6 bg-white rounded-lg shadow-md">
+                        <h3 class="font-semibold">Who Can Take The TOEIC Exam?</h3>
+                        <p class="text-gray-600">Currently enrolled students at POLINEMA.</p>
+                    </div>
+                    <div class="p-6 bg-white rounded-lg shadow-md">
+                        <h3 class="font-semibold">Can I Take The TOEIC Exam More Than Once?</h3>
+                        <p class="text-gray-600">Yes, though additional exams require registration.</p>
+                    </div>
+                    <div class="p-6 bg-white rounded-lg shadow-md">
+                        <h3 class="font-semibold">Can I Reschedule My TOEIC Exam?</h3>
+                        <p class="text-gray-600">Rescheduling depends on availability and fees.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer class="bg-blue-600 text-white py-6">
+            <div class="container mx-auto text-center">
+                <p>© 2023 POL TOEST. All rights reserved.</p>
+            </div>
+        </footer>
+
     </main>
-  </body>
+</body>
+
 </html>
