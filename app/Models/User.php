@@ -9,7 +9,7 @@ use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasFactory, Notifiable; 
+    use HasFactory, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -20,9 +20,11 @@ class User extends Authenticatable implements MustVerifyEmail
         'name',
         'email',
         'password',
-        'google_refresh_token',
-        'google_token',
         'google_id',
+        'google_token',
+        'google_refresh_token',
+        'email_verified_at',
+        'role',
     ];
 
     /**
@@ -33,10 +35,12 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $hidden = [
         'password',
         'remember_token',
+        'google_token',
+        'google_refresh_token',
     ];
 
     /**
-     * Get the attributes that should be cast.
+     * The attributes that should be cast.
      *
      * @return array<string, string>
      */
@@ -45,6 +49,29 @@ class User extends Authenticatable implements MustVerifyEmail
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'created_at' => 'datetime',
+            'updated_at' => 'datetime',
         ];
+    }
+
+    /**
+     * Get the role of the user.
+     *
+     * @return string
+     */
+    public function getRole(): string
+    {
+        return $this->role ?? 'mahasiswa'; // Default role if not set
+    }
+
+    /**
+     * Check if the user has a specific role.
+     *
+     * @param string $role
+     * @return bool
+     */
+    public function hasRole(string $role): bool
+    {
+        return $this->getRole() === $role;
     }
 }
