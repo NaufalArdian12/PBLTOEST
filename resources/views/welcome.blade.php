@@ -90,7 +90,7 @@
             </div>
 
             <section>
-                 <div class="w-full h-[2px] bg-blue-500 mt-12"></div>
+                <div class="w-full h-[2px] bg-blue-500 mt-12"></div>
             </section>
 
             <section class="pt-16 sm:pt-20 md:pt-24 lg:pt-32 mx-24">
@@ -125,41 +125,54 @@
             </section>
         </section>
 
-
-        <section class="bg-gray-100 py-12">
+        <section class="py-12 px-6 mt-32">
             <div class="container mx-auto text-center">
-                <h2 class="text-2xl sm:text-3xl font-bold mb-4">Polinema TOEIC Registration Timeline</h2>
+                <h2 class="text-2xl sm:text-3xl mb-4">Polinema <b class="text-blue-500">TOEIC</b> Registration Timeline
+                </h2>
                 <p class="text-lg text-gray-600">Follow the steps for a smooth registration process.</p>
-                <ol class="mt-6">
-                    <li>Announcement & Registration Open</li>
-                    <li>Verification and Exam Scheduling</li>
-                    <li>Exam Implementation</li>
-                    <li>Announcement of Results and Certificate Collection</li>
-                </ol>
+                <img src="/images/Timeline.png" alt="TOEST Logo"
+                    class="w-auto h-64 sm:h-80 md:h-96 lg:h-112 mx-auto my-24" />
             </div>
         </section>
 
-        <section class="py-12">
+        <section class="bg-blue-600 py-12 rounded-2xl">
             <div class="container mx-auto">
-                <h2 class="text-2xl sm:text-3xl font-bold text-center mb-8">Take A Look For Our Customer Interest</h2>
-                <div class="flex flex-col md:flex-row justify-center items-center gap-8">
+                <h2 class="text-2xl sm:text-3xl font-bold text-center text-white">Take a Look For our customer
+                    Interest🤩</h2>
+                <h2 class="text-l sm:text-l text-center text-white mb-8">your comments help us provide even better
+                    service🛠️</h2>
+                <div class="flex flex-col md:flex-row justify-center items-center gap-3 mx-12">
                     <div class="w-full md:w-1/3 bg-white p-6 rounded-lg shadow-md">
                         <blockquote>
-                            <p class="text-gray-600">“Sangat membantu untuk mendalami listening dan reading.”</p>
-                            <footer class="mt-4 font-medium">- Hach Van</footer>
+                            <p class="text-gray-600">“This test is really helpful for testing English skills, especially
+                                in listening and reading. It's quite challenging, but the format is clear so it doesn't
+                                make you confused.”</p>
+                            <div class="flex items-center gap-2 mt-4">
+                                <img src="/images/PFP ALL.png" alt="TOEST Logo" class="h-8 sm:h-10 md:h-12 lg:h-14" />
+                                <span class="font-medium">Hach Van</span>
+                            </div>
                         </blockquote>
                     </div>
                     <div class="w-full md:w-1/3 bg-white p-6 rounded-lg shadow-md">
                         <blockquote>
-                            <p class="text-gray-600">“Listening-nya awalnya agak sulit, tetapi latihan sangat membantu.”
-                            </p>
-                            <footer class="mt-4 font-medium">- Marquest Al Jupri</footer>
+                            <p class="text-gray-600">“Listening to the various accents, it was a bit difficult at first,
+                                but the more you practice, the easier it is to grasp the conversation. Overall, this is
+                                a really useful exercise for preparation!”</p>
+                            <div class="flex items-center gap-2 mt-4">
+                                <img src="/images/PFP ALL.png" alt="TOEST Logo" class="h-8 sm:h-10 md:h-12 lg:h-14" />
+                                <span class="font-medium">Hach Van</span>
+                            </div>
                         </blockquote>
                     </div>
                     <div class="w-full md:w-1/3 bg-white p-6 rounded-lg shadow-md">
                         <blockquote>
-                            <p class="text-gray-600">“Mendapatkan materi yang bermanfaat dan mudah dimengerti.”</p>
-                            <footer class="mt-4 font-medium">- Kipli</footer>
+                            <p class="text-gray-600">“Listening to the various accents, it was a bit difficult at first,
+                                but the more you practice, the easier it is to grasp the conversation. Overall, this is
+                                a really useful exercise for preparation!”</p>
+                            <div class="flex items-center gap-2 mt-4">
+                                <img src="/images/PFP ALL.png" alt="TOEST Logo" class="h-8 sm:h-10 md:h-12 lg:h-14" />
+                                <span class="font-medium">Hach Van</span>
+                            </div>
                         </blockquote>
                     </div>
                 </div>
@@ -168,29 +181,34 @@
 
         <section class="py-12">
             <div class="container mx-auto">
-                <h2 class="text-2xl sm:text-3xl font-bold text-center mb-8">
-                    Frequently Asked Questions
+                <h2 class="text-2xl sm:text-3xl font-bold text-center mb-4">
+                    Freqruently Asked Question🤷🏻‍♂️
                 </h2>
+                <p class="text-center text-sm pb-12 text-gray-500">
+                    Got questions? Check out the FAQs below for quick answers<br class="hidden sm:block" />
+                    about the TOEIC exam registration, eligibility, fees, and more! 😊
+                </p>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     <div class="p-6 bg-white rounded-lg shadow-md">
-                        <h3 class="font-semibold">What is The TOEIC Exam?</h3>
+                        <img src="/images/WhatIs.png" alt="TOEST Logo" class="h-6 sm:h-8 md:h-10 lg:h-12" />
+                        <span class="font-semibold">What is The TOEIC Exam?</span>
                         <p class="text-gray-600">Measures English proficiency for the workplace.</p>
                     </div>
                     <div class="p-6 bg-white rounded-lg shadow-md">
-                        <h3 class="font-semibold">How Do I Pay For The TOEIC Exam?</h3>
-                        <p class="text-gray-600">Payment options include bank transfer and portal methods.</p>
+                         <img src="/images/WhatIs.png" alt="TOEST Logo" class="h-6 sm:h-8 md:h-10 lg:h-12" />
+                        <span class="font-semibold">How do I pay for the TOEIC exam?</span>
+                        <p>The TOEIC (Test of English for International Communication) measures English proficiency for the workplace.</p>
                     </div>
                     <div class="p-6 bg-white rounded-lg shadow-md">
-                        <h3 class="font-semibold">Who Can Take The TOEIC Exam?</h3>
-                        <p class="text-gray-600">Currently enrolled students at POLINEMA.</p>
+                         <img src="/images/WhatIs.png" alt="TOEST Logo" class="h-6 sm:h-8 md:h-10 lg:h-12" />
+                        <span class="font-semibold">Who can take the TOEIC exam at Malang State Polytechnic?</span>
+                        <p>Payment can be made via bank transfer or other available methods listed on the portal.</p>
                     </div>
+                    
                     <div class="p-6 bg-white rounded-lg shadow-md">
-                        <h3 class="font-semibold">Can I Take The TOEIC Exam More Than Once?</h3>
-                        <p class="text-gray-600">Yes, though additional exams require registration.</p>
-                    </div>
-                    <div class="p-6 bg-white rounded-lg shadow-md">
-                        <h3 class="font-semibold">Can I Reschedule My TOEIC Exam?</h3>
-                        <p class="text-gray-600">Rescheduling depends on availability and fees.</p>
+                         <img src="/images/WhatIs.png" alt="TOEST Logo" class="h-6 sm:h-8 md:h-10 lg:h-12" />
+                        <span class="font-semibold">Can I take the TOEIC exam more than once?</span>
+                        <p>Payment can be made via bank transfer or other available methods listed on the portal.</p>
                     </div>
                 </div>
             </div>
