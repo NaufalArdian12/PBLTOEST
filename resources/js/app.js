@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 import './bootstrap';
 =======
@@ -13,3 +14,5 @@ $(function () {
 window.$ = $;
 window.jQuery = $;
 >>>>>>> Stashed changes
+=======
+>>>>>>> e1253e9b29705f0ebb0ce30325b8a5a93925a030

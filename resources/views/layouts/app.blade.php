@@ -1,62 +1,27 @@
 <!DOCTYPE html>
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+=======
+<html lang="en">
+
+>>>>>>> e1253e9b29705f0ebb0ce30325b8a5a93925a030
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-
-    <title>{{ config('app.name', 'Laravel') }}</title>
-
-    <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
-
-    <!-- Scripts -->
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <meta charset="UTF-8">
+    <title>Toest App</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('favicon/apple-touch-icon.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('favicon/favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('favicon/favicon-16x16.png') }}">
+    <link rel="manifest" href="{{ asset('favicon/site.webmanifest') }}">
 </head>
-<body class="font-sans antialiased">
-    <div id="app">
-        <!-- Navigation would go here -->
-        <nav class="bg-white shadow-sm">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="flex justify-between h-16">
-                    <div class="flex">
-                        <div class="flex-shrink-0 flex items-center">
-                            <a href="{{ url('/') }}" class="text-xl font-semibold">
-                                {{ config('app.name', 'Laravel') }}
-                            </a>
-                        </div>
-                    </div>
-                    <div class="hidden sm:ml-6 sm:flex sm:items-center">
-                        @guest
-                            <a href="{{ route('login') }}" class="px-3 py-2 text-sm font-medium">Login</a>
-                            @if (Route::has('register'))
-                                <a href="{{ route('register') }}" class="px-3 py-2 text-sm font-medium">Register</a>
-                            @endif
-                        @else
-                            <div class="ml-3 relative">
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">
-                                    @csrf
-                                </form>
-                                <a href="{{ route('logout') }}" 
-                                   onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
-                                   class="px-3 py-2 text-sm font-medium">
-                                    Logout
-                                </a>
-                            </div>
-                        @endguest
-                    </div>
-                </div>
-            </div>
-        </nav>
 
-        <main class="py-8">
-            @yield('content')
-        </main>
-    </div>
+<body>
+    <main class="py-4">
+        @yield('content')
+    </main>
 </body>
+<<<<<<< HEAD
 <html lang="en">
 
 <head>
@@ -75,3 +40,7 @@
     </main>
 </body>
 </html>
+=======
+
+</html>
+>>>>>>> e1253e9b29705f0ebb0ce30325b8a5a93925a030

@@ -1,6 +1,6 @@
 <?php
-
 use Illuminate\Support\Facades\Route;
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 <<<<<<< HEAD
 =======
@@ -38,39 +38,54 @@ Route::get('/login', function () {
 <<<<<<< Updated upstream
 =======
 >>>>>>> cdd0f97b7d6443ae8689f3f379c3fc6b900d5894
-Route::get('/register', [AuthController::class, 'registerForm']);
+=======
 
+use App\Http\Controllers\MahasiswaController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Auth\SocialiteController;
+use App\Http\Controllers\Auth\VerificationController;
+
+// Route untuk halaman register dan login
+>>>>>>> e1253e9b29705f0ebb0ce30325b8a5a93925a030
+Route::get('/register', [AuthController::class, 'registerForm']);
 Route::post('/register', [AuthController::class, 'register'])->name('register');
 
-Route::get('/email/verify', function () {
-    return view('auth.verify-email');
-})->middleware('auth')->name('verification.notice');
+// Login
+Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [AuthController::class, 'login']);
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+// Verifikasi Email
+Route::get('/verify-email', [VerificationController::class, 'show'])->name('verification.notice');
+Route::get('/email/verify/{id}/{hash}', [VerificationController::class, 'verify'])->name('verification.verify');
+Route::post('/email/resend', [VerificationController::class, 'resend'])->name('verification.resend');
 
-Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $req) {
-    $req->fulfill();
-    return redirect('/dashboard');
-})->middleware(['auth', 'signed'])->name('verification.verify');
+// Dashboard Mahasiswa
+Route::get('/mahasiswa/dashboard', [MahasiswaController::class, 'dashboard'])->name('mahasiswa.dashboard');
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 >>>>>>> Stashed changes
 >>>>>>> cdd0f97b7d6443ae8689f3f379c3fc6b900d5894
+=======
+// Home
+>>>>>>> e1253e9b29705f0ebb0ce30325b8a5a93925a030
 Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth','verified'])->name('dashboard');
-
+// Google OAuth
 Route::get('/auth/redirect', [SocialiteController::class, 'redirect'])->name('auth.redirect');
-
 Route::get('/auth/google/callback', [SocialiteController::class, 'callback']);
 
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 Route::post('/logout', [SocialiteController::class, 'logout'])->name('logout');
 =======
 Route::get('/dashboard', [MahasiswaController::class, 'dashboard'])->name('mahasiswa.dashboard');
+=======
+Route::get('/mahasiswa/dashboard', [MahasiswaController::class, 'dashboard'])->name('mahasiswa.dashboard');
+>>>>>>> e1253e9b29705f0ebb0ce30325b8a5a93925a030
 Route::get('/sertifikat', [MahasiswaController::class, 'sertifikat'])->name('mahasiswa.sertifikat');
 
 // Dashboard (protected by auth and verified middleware)
@@ -82,6 +97,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     });
 });
 
+<<<<<<< HEAD
 Route::prefix('major')->group(function () {
     Route::get('/', [majorController::class, 'index']);
     Route::post('/list', [majorController::class, 'list']);
@@ -119,3 +135,6 @@ Route::prefix('toeicTest')->group(function () {
 });
 
 >>>>>>> Stashed changes
+=======
+
+>>>>>>> e1253e9b29705f0ebb0ce30325b8a5a93925a030

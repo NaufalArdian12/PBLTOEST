@@ -31,8 +31,8 @@
 
         <!-- Bottom Text -->
         <div class="absolute bottom-8 left-8 right-8 text-white">
-            <p class="text-xl font-medium mb-2">Dengan guru yang profesional dan berpengalaman</p>
-            <p class="text-lg">Guru terbaik untuk anak</p>
+            <p class="text-xl font-medium mb-2">With professional and experienced teachers</p>
+            <p class="text-lg">The best teacher for children</p>
         </div>
     </div>
 
@@ -40,21 +40,31 @@
     <div class="w-full md:w-1/2 flex items-center justify-center p-6">
         <div class="w-full max-w-md">
             <h1 class="text-3xl font-bold text-gray-800 mb-2">Login</h1>
-            <p class="text-gray-600 mb-8">Belum punya akun? <a href="{{ route('register') }}" class="text-blue-600 font-medium hover:underline">buat akun</a></p>
+            <p class="text-gray-600 mb-8">Don't have an account yet? <a href="{{ route('register') }}" class="text-blue-600 font-medium hover:underline">Create account</a></p>
 
-            <form class="space-y-6">
-                <!-- Username Field -->
+            <!-- Form login -->
+            <form method="POST" action="{{ route('login') }}" class="space-y-6">
+                @csrf
+                <!-- Email Field -->
                 <div>
-                    <label class="block text-gray-700 text-sm font-medium mb-1">Username</label>
-                    <input type="text" placeholder="Username"
-                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                    <label for="email" class="block text-gray-700 text-sm font-medium mb-1">Email</label>
+                    <input type="email" name="email" id="email" placeholder="Email"
+                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                        value="{{ old('email') }}" required>
+                    @error('email')
+                        <span class="text-red-500 text-sm">{{ $message }}</span>
+                    @enderror
                 </div>
 
                 <!-- Password Field -->
                 <div>
-                    <label class="block text-gray-700 text-sm font-medium mb-1">Password</label>
-                    <input type="password" placeholder="Password"
-                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                    <label for="password" class="block text-gray-700 text-sm font-medium mb-1">Password</label>
+                    <input type="password" name="password" id="password" placeholder="Password"
+                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                        required>
+                    @error('password')
+                        <span class="text-red-500 text-sm">{{ $message }}</span>
+                    @enderror
                     <a href="#" class="text-blue-600 text-sm mt-2 inline-block hover:underline">Lupa password?</a>
                 </div>
 

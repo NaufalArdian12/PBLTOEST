@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
+use App\Models\UserModels;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -19,25 +19,36 @@ class SocialiteController extends Controller
     public function callback()
     {
         $socialUser = Socialite::driver('google')->user();
-        $registeredUser = User::where("google_id", $socialUser->id)->first();
+        $registeredUser = UserModels::where("google_id", $socialUser->id)->first();
+
         if (!$registeredUser) {
-            $user = User::updateOrCreate([
+            $user = UserModels::updateOrCreate([
                 'google_id' => $socialUser->id,
             ], [
                 'name' => $socialUser->name,
                 'email' => $socialUser->email,
-                'password' => Hash::make('123'),
                 'google_token' => $socialUser->token,
                 'google_refresh_token' => $socialUser->refreshToken,
             ]);
 
-            Auth::login($user);
+            // Cek apakah email sudah terverifikasi
+            if (!$user->hasVerifiedEmail()) {
+                return redirect('/verify-email');  // Arahkan ke halaman verifikasi
+            }
 
-            return redirect('/dashboard');
+            Auth::login($user);
+        } else {
+            Auth::login($registeredUser);
+
+            // Cek apakah email sudah terverifikasi
+            if (!$registeredUser->hasVerifiedEmail()) {
+                return redirect('/verify-email');  // Arahkan ke halaman verifikasi
+            }
         }
-        Auth::login($registeredUser);
-        return redirect('/dashboard');
+
+        return redirect('mahasiswa/dashboard');
     }
+
 
     public function logout(Request $request)
     {
