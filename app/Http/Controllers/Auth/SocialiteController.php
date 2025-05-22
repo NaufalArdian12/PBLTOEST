@@ -46,7 +46,7 @@ class SocialiteController extends Controller
             }
         }
 
-        return redirect('/dashboard');
+        return redirect('mahasiswa/dashboard');
     }
 
 
