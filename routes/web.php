@@ -15,8 +15,11 @@ Route::post('/register', [AuthController::class, 'register'])->name('register');
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+<<<<<<< HEAD
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
+=======
+>>>>>>> abb3322cf641afa850bb1b4fca282af368ca3810
 // Verifikasi Email
 Route::get('/verify-email', [VerificationController::class, 'show'])->name('verification.notice');
 Route::get('/email/verify/{id}/{hash}', [VerificationController::class, 'verify'])->name('verification.verify');
