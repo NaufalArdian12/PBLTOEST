@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Models\UserModels;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Auth\Events\Registered;
@@ -24,7 +24,7 @@ class AuthController extends Controller
             'password' => 'required|min:6|confirmed',
         ]);
 
-        $user = User::create([
+        $user = UserModels::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => bcrypt($request->password),
@@ -37,8 +37,14 @@ class AuthController extends Controller
     // Tampilkan form login
     public function showLoginForm()
     {
+        // Jika pengguna sudah login, arahkan mereka ke dashboard atau halaman lain
+        if (Auth::check()) {
+            return redirect('dashboard');
+        }
+
         return view('auth.login');
     }
+
 
     // Proses login
     public function login(Request $request)
@@ -58,7 +64,7 @@ class AuthController extends Controller
         }
 
         // Jika login gagal
-        return back()->withErrors(['email' => 'Email atau password yang anda masukkan salah.']);
+        return back()->withErrors(['email' => 'Email or password is incorrect.']);
     }
 
 

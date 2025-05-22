@@ -43,7 +43,7 @@
         <div class="w-full max-w-md">
             <h1 class="text-3xl font-bold text-gray-800 mb-2">Register</h1>
             <p class="text-gray-600 mb-8">Sudah punya akun? <a href="{{ route('login') }}"
-                    class="text-blue-600 font-medium hover:underline">buat akun</a></p>
+                    class="text-blue-600 font-medium hover:underline">Login</a></p>
 
             <form class="space-y-6">
                 <!-- Email Field -->

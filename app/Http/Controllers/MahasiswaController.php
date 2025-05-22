@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller; // ✅ Tambahkan ini!
+use App\Http\Controllers\Controller;
 
 class MahasiswaController extends Controller
 {
@@ -17,4 +17,6 @@ class MahasiswaController extends Controller
         // Logika download sertifikat
         return response()->download(public_path('sertifikat/jupri.pdf'));
     }
+
+    
 }

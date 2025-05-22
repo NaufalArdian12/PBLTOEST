@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
+use App\Models\UserModels;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -19,10 +19,10 @@ class SocialiteController extends Controller
     public function callback()
     {
         $socialUser = Socialite::driver('google')->user();
-        $registeredUser = User::where("google_id", $socialUser->id)->first();
+        $registeredUser = UserModels::where("google_id", $socialUser->id)->first();
 
         if (!$registeredUser) {
-            $user = User::updateOrCreate([
+            $user = UserModels::updateOrCreate([
                 'google_id' => $socialUser->id,
             ], [
                 'name' => $socialUser->name,
@@ -46,7 +46,7 @@ class SocialiteController extends Controller
             }
         }
 
-        return redirect('/dashboard');
+        return redirect('mahasiswa/dashboard');
     }
 
 
