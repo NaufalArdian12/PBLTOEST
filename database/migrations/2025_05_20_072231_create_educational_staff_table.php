@@ -16,6 +16,7 @@ return new class extends Migration {
             $table->string('name', 100);
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->timestamps();
+            $table->timestamp('deleted_at')->nullable();  // Kolom untuk soft delete
         });
     }
 

@@ -14,6 +14,7 @@ return new class extends Migration {
             $table->id();
             $table->string('study_program_name', 100);
             $table->timestamps();
+            $table->timestamp('deleted_at')->nullable();  // Kolom untuk soft delete
         });
     }
 

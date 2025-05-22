@@ -11,8 +11,8 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->timestamp('deleted_at')->nullable();  // Kolom untuk soft delete
-
+            // Set default role_id ke role_id dari 'Student' (id=3 atau sesuai dengan id di tabel roles)
+            $table->foreignId('role_id')->default(3)->constrained('roles')->onDelete('cascade'); // Gantilah `3` dengan id yang sesuai
         });
     }
 
@@ -22,7 +22,7 @@ return new class extends Migration {
     public function down(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('deleted_at'); // Menghapus kolom deleted_at jika rollback
+            //
         });
     }
 };
