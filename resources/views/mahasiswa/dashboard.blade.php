@@ -69,25 +69,25 @@
                         <tbody>
                             <tr>
                                 <td>1.</td>
-                                <td>S1B 1A, 1B</td>
+                                <td>SIB 1A, 1B</td>
                                 <td>Saturday 12 January (07:00-09:00)</td>
                                 <td>RT 1, 2, 3</td>
                             </tr>
                             <tr>
                                 <td>2.</td>
-                                <td>S1B 1C, 1D</td>
+                                <td>SIB 1C, 1D</td>
                                 <td>Saturday 12 January (07:00-09:00)</td>
                                 <td>RT 1, 2, 3</td>
                             </tr>
                             <tr>
                                 <td>3.</td>
-                                <td>S1B 1E, 1F</td>
+                                <td>SIB 1E, 1F</td>
                                 <td>Saturday 12 January (07:00-09:00)</td>
                                 <td>RT 1, 2, 3</td>
                             </tr>
                             <tr>
                                 <td>4.</td>
-                                <td>S1B 1G</td>
+                                <td>SIB 1G</td>
                                 <td>Saturday 12 January (07:00-09:00)</td>
                                 <td>RT 1, 2, 3</td>
                             </tr>
@@ -96,7 +96,7 @@
                 </div>
 
                 <!-- Congratulation Section -->
-                <div class="card text-center p-5 shadow-sm border border-primary rounded-4">
+                <div class="card text-center p-5 shadow-sm border-0 rounded-4">
                 <div class="mb-3">
                     <img src="{{ asset('images/congrat.png') }}" alt="celebration" style="width: 150px;">
                 </div>
