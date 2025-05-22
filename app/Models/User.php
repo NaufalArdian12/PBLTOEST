@@ -4,11 +4,13 @@ namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
+<<<<<<< Updated upstream:app/Models/User.php
     use HasFactory, Notifiable; 
 
     /**
@@ -16,6 +18,12 @@ class User extends Authenticatable implements MustVerifyEmail
      *
      * @var array<int, string>
      */
+=======
+    use HasFactory, Notifiable, SoftDeletes;
+        protected $table = 'users';
+        protected $primaryKey = 'id';
+        public $timestamps = true;
+>>>>>>> Stashed changes:app/Models/UserModels.php
     protected $fillable = [
         'name',
         'email',

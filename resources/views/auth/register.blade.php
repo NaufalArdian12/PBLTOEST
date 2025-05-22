@@ -38,8 +38,14 @@
 
     <div class="w-full md:w-1/2 flex items-center justify-center p-6">
         <div class="w-full max-w-md">
+<<<<<<< Updated upstream
             <h1 class="text-3xl font-bold text-gray-800 mb-2">Buat Akun yuk</h1>
             <p class="text-gray-600 mb-8">Udah punya akun? <a href="{{ route('login') }}" class="text-blue-600 font-medium hover:underline">Langsung login ya</a></p>
+=======
+            <h1 class="text-3xl font-bold text-gray-800 mb-2">Register</h1>
+            <p class="text-gray-600 mb-8">Sudah punya akun? <a href="{{ route('login') }}"
+                    class="text-blue-600 font-medium hover:underline">langsung login yuk</a></p>
+>>>>>>> Stashed changes
 
                 {{-- Pesan Error --}}
     @if ($errors->any())
