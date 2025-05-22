@@ -5,6 +5,8 @@ use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Auth\SocialiteController;
 use App\Http\Controllers\Auth\VerificationController;
+use App\Http\Controllers\Mahasiswa\RegistrasiController;
+use App\Http\Controllers\PendaftaranController;
 
 // Route untuk halaman register dan login
 Route::get('/register', [AuthController::class, 'registerForm']);
@@ -27,7 +29,7 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
-// Google OAuth
+// Google Auth
 Route::get('/auth/redirect', [SocialiteController::class, 'redirect'])->name('auth.redirect');
 Route::get('/auth/google/callback', [SocialiteController::class, 'callback']);
 
@@ -41,6 +43,18 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', function () {
         return view('dashboard');
     });
+
+// Registrasi mahasiswa
+    Route::prefix('mahasiswa')->name('mahasiswa.')->group(function () {
+        Route::get('/registrasi/create', [RegistrasiController::class, 'create'])->name('registrasi.create');
+        Route::post('/registrasi', [RegistrasiController::class, 'store'])->name('registrasi.store');
+    });
+
+//Pendaftaran Mahasiswa
+Route::middleware(['auth', 'verified'])->group(function () {
+// Form pendaftaran (GET)
+Route::get('/pendaftaran', [PendaftaranController::class, 'create'])->name('pendaftaran.create');
+// Proses simpan data (POST)
+Route::post('/pendaftaran', [PendaftaranController::class, 'store'])->name('pendaftaran.store');
+    });
 });
-
-
