@@ -18,5 +18,5 @@ class MahasiswaController extends Controller
         return response()->download(public_path('sertifikat/jupri.pdf'));
     }
 
-    
+
 }

@@ -33,8 +33,8 @@
 
         <!-- Bottom Text -->
         <div class="fixed bottom-8 left-8 right-8 text-white">
-            <p class="text-xl font-medium mb-2">Dengan guru yang profesional dan berpengalaman</p>
-            <p class="text-lg">Guru terbaik untuk anak</p>
+            <p class="text-xl font-medium mb-2">With professional and experienced teachers</p>
+            <p class="text-lg">The best teacher for children</p>
         </div>
     </div>
 
@@ -42,7 +42,7 @@
     <div class="w-full md:w-1/2 flex items-center justify-center p-6">
         <div class="w-full max-w-md">
             <h1 class="text-3xl font-bold text-gray-800 mb-2">Register</h1>
-            <p class="text-gray-600 mb-8">Sudah punya akun? <a href="{{ route('login') }}"
+            <p class="text-gray-600 mb-8">Already have an account? <a href="{{ route('login') }}"
                     class="text-blue-600 font-medium hover:underline">Login</a></p>
 
             <form class="space-y-6">
