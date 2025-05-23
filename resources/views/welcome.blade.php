@@ -245,7 +245,7 @@
                                 in listening and reading. It's quite challenging, but the format is clear so it doesn't
                                 make you confused."</p>
                             <div class="flex items-center gap-2 mt-4">
-                                <img src="/images/PFP ALL.png" alt="User" class="h-8 sm:h-10 md:h-12 lg:h-14 rounded-full">
+                                <img src="/images/profile.png" alt="User" class="h-8 sm:h-10 md:h-12 lg:h-14 rounded-full">
                                 <span class="font-medium">Hach Van</span>
                             </div>
                         </blockquote>
@@ -256,7 +256,7 @@
                                 but the more you practice, the easier it is to grasp the conversation. Overall, this is
                                 a really useful exercise for preparation!"</p>
                             <div class="flex items-center gap-2 mt-4">
-                                <img src="/images/PFP ALL.png" alt="User" class="h-8 sm:h-10 md:h-12 lg:h-14 rounded-full">
+                                <img src="/images/profile.png" alt="User" class="h-8 sm:h-10 md:h-12 lg:h-14 rounded-full">
                                 <span class="font-medium">Hach Van</span>
                             </div>
                         </blockquote>
@@ -265,7 +265,7 @@
                         <blockquote>
                             <p class="text-gray-600">"The test interface is very user-friendly and the results came much faster than I expected. Definitely recommend for anyone looking to certify their English skills."</p>
                             <div class="flex items-center gap-2 mt-4">
-                                <img src="/images/PFP ALL.png" alt="User" class="h-8 sm:h-10 md:h-12 lg:h-14 rounded-full">
+                                <img src="/images/profile.png" alt="User" class="h-8 sm:h-10 md:h-12 lg:h-14 rounded-full">
                                 <span class="font-medium">Hach Van</span>
                             </div>
                         </blockquote>
