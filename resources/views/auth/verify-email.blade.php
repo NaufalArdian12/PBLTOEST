@@ -1,3 +1,17 @@
+<<<<<<< HEAD
+@extends('layouts.app')
+
+@section('content')
+<div class="min-h-screen flex items-center justify-center bg-gray-100 py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-md w-full bg-white shadow-md rounded-lg p-6">
+        <h2 class="text-2xl font-semibold text-gray-800 mb-4">
+            {{ __('Verify Your Email Address') }}
+        </h2>
+
+        @if (session('resent'))
+            <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4" role="alert">
+                {{ __('A fresh verification link has been sent to your email address.') }}
+=======
 <!-- resources/views/auth/verify-email.blade.php -->
 
 <!DOCTYPE html>
@@ -19,10 +33,29 @@
         @if (session('message'))
             <div class="bg-green-100 text-green-800 p-4 rounded mb-4">
                 {{ session('message') }}
+>>>>>>> e1253e9b29705f0ebb0ce30325b8a5a93925a030
             </div>
         @endif
 
         <p class="text-gray-700 mb-4">
+<<<<<<< HEAD
+            {{ __('Before proceeding, please check your email for a verification link.') }}
+        </p>
+        <p class="text-gray-700 mb-4">
+            {{ __('If you did not receive the email') }},
+        </p>
+
+        <form method="POST" action="{{ route('auth.resend') }}">
+            @csrf
+            <button type="submit"
+                class="text-blue-600 hover:underline font-medium">
+                {{ __('Re-send email') }}
+            </button>
+        </form>
+    </div>
+</div>
+@endsection
+=======
             Terima kasih telah mendaftar! Sebelum memulai, kami perlu memastikan bahwa alamat email Anda valid.
             Silakan periksa inbox email Anda dan klik link verifikasi yang telah kami kirimkan.
         </p>
@@ -40,3 +73,4 @@
 </body>
 
 </html>
+>>>>>>> e1253e9b29705f0ebb0ce30325b8a5a93925a030

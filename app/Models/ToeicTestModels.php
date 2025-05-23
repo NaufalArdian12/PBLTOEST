@@ -4,6 +4,18 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+<<<<<<< HEAD
+use Illuminate\Database\Eloquent\SoftDeletes;
+
+class ToeicTestModels extends Model
+{
+    use HasFactory, SoftDeletes;
+        protected $table = 'toeic_tests';
+        protected $primaryKey = 'id';
+        public $timestamps = true;
+
+    protected $fillable = [
+=======
 
 class ToeicTestModels extends Model
 {
@@ -11,6 +23,7 @@ class ToeicTestModels extends Model
 
     protected $fillable = [
         'test_id',
+>>>>>>> e1253e9b29705f0ebb0ce30325b8a5a93925a030
         'admin_id',
         'registration_id',
         'NIM',
