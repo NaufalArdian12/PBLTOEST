@@ -22,6 +22,9 @@ class StudentModels extends Model
         'NIK',
         'study_program_id',
         'major_id',
+        'scan_ktp',
+        'scan_ktm',
+        'pas_photo',
     ];
 
     // Relationships
