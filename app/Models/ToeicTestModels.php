@@ -4,13 +4,20 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\AdminModels;
+use App\Models\RegistrationModels;
+use App\Models\StudentModels;
+use App\Models\EducationalStaffModels;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ToeicTestModels extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
+        protected $table = 'toeic_tests';
+        protected $primaryKey = 'id';
+        public $timestamps = true;
 
     protected $fillable = [
-        'test_id',
         'admin_id',
         'registration_id',
         'NIM',

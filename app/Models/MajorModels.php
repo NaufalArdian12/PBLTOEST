@@ -4,13 +4,21 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\StudyProgramModels;
+use App\Models\StudentModels;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class MajorModels extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
+
+    protected $table = 'majors';
+        protected $primaryKey = 'id';
+        public $timestamps = true;
 
     protected $fillable = [
-        'major_name',
+        'study_program_id',
+        'major_name'
     ];
 
     // Relationships

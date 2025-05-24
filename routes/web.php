@@ -1,14 +1,19 @@
 <?php
 use Illuminate\Support\Facades\Route;
-
-use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\majorController;
+use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\Auth\SocialiteController;
+use App\Http\Controllers\admin\toeicTestController;
 use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\Mahasiswa\RegistrasiController;
 use App\Http\Controllers\PendaftaranController;
+use App\Http\Controllers\admin\studyProgramController;
 
-// Route untuk halaman register dan login
+Route::get('/login', function () {
+    return view('auth.login');
+})->name('login');
+
 Route::get('/register', [AuthController::class, 'registerForm']);
 Route::post('/register', [AuthController::class, 'register'])->name('register');
 
@@ -24,7 +29,6 @@ Route::post('/email/resend', [VerificationController::class, 'resend'])->name('v
 // Dashboard Mahasiswa
 Route::get('/mahasiswa/dashboard', [MahasiswaController::class, 'dashboard'])->name('mahasiswa.dashboard');
 
-// Home
 Route::get('/', function () {
     return view('welcome');
 })->name('home');
@@ -33,6 +37,8 @@ Route::get('/', function () {
 Route::get('/auth/redirect', [SocialiteController::class, 'redirect'])->name('auth.redirect');
 Route::get('/auth/google/callback', [SocialiteController::class, 'callback']);
 
+Route::post('/logout', [SocialiteController::class, 'logout'])->name('logout');
+Route::get('/dashboard', [MahasiswaController::class, 'dashboard'])->name('mahasiswa.dashboard');
 Route::get('/mahasiswa/dashboard', [MahasiswaController::class, 'dashboard'])->name('mahasiswa.dashboard');
 Route::get('/sertifikat', [MahasiswaController::class, 'sertifikat'])->name('mahasiswa.sertifikat');
 
@@ -49,6 +55,42 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/registrasi/create', [RegistrasiController::class, 'create'])->name('registrasi.create');
         Route::post('/registrasi', [RegistrasiController::class, 'store'])->name('registrasi.store');
     });
+Route::prefix('major')->group(function () {
+    Route::get('/', [majorController::class, 'index']);
+    Route::post('/list', [majorController::class, 'list']);
+    Route::post('/ajax', [majorController::class, 'store_ajax']);
+    Route::get('/{id}/delete_ajax', [majorController::class, 'confirm_ajax']);
+    Route::get('/{id}/edit_ajax', [majorController::class, 'edit_ajax']);
+    Route::put('/{id}/update_ajax', [majorController::class, 'update_ajax']);
+    Route::delete('/{id}/delete_ajax', [majorController::class, 'delete_ajax']);
+    Route::get('/create_ajax', [majorController::class, 'create_ajax']);
+    Route::get('/{id}/show_ajax', [majorController::class, 'show_ajax']);
+});
+
+Route::prefix('studyProgram')->group(function () {
+    Route::get('/', [studyProgramController::class, 'index']);
+    Route::post('/list', [studyProgramController::class, 'list']);
+    Route::post('/ajax', [studyProgramController::class, 'store_ajax']);
+    Route::get('/{id}/delete_ajax', [studyProgramController::class, 'confirm_ajax']);
+    Route::get('/{id}/edit_ajax', [studyProgramController::class, 'edit_ajax']);
+    Route::put('/{id}/update_ajax', [studyProgramController::class, 'update_ajax']);
+    Route::delete('/{id}/delete_ajax', [studyProgramController::class, 'delete_ajax']);
+    Route::get('/create_ajax', [studyProgramController::class, 'create_ajax']);
+    Route::get('/{id}/show_ajax', [studyProgramController::class, 'show_ajax']);
+});
+
+Route::prefix('toeicTest')->group(function () {
+    Route::get('/', [toeicTestController::class, 'index']);
+    Route::post('/list', [toeicTestController::class, 'list']);
+    Route::post('/ajax', [toeicTestController::class, 'store_ajax']);
+    Route::get('/{id}/delete_ajax', [toeicTestController::class, 'confirm_ajax']);
+    Route::get('/{id}/edit_ajax', [toeicTestController::class, 'edit_ajax']);
+    Route::put('/{id}/update_ajax', [toeicTestController::class, 'update_ajax']);
+    Route::delete('/{id}/delete_ajax', [toeicTestController::class, 'delete_ajax']);
+    Route::get('/create_ajax', [toeicTestController::class, 'create_ajax']);
+    Route::get('/{id}/show_ajax', [toeicTestController::class, 'show_ajax']);
+});
+
 
 //Pendaftaran Mahasiswa
 Route::middleware(['auth', 'verified'])->group(function () {

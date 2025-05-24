@@ -4,10 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\UserModels;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class EducationalStaffModels extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
+
+        protected $table = 'educational_staff';
+        protected $primaryKey = 'id';
+        public $timestamps = true;
 
     protected $fillable = [
         'NIP',
