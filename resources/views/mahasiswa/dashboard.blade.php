@@ -56,6 +56,7 @@
             </div>
         </div>
 
+<<<<<<< HEAD
         <!-- Main Section: Schedule and Sidebar -->
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
             <!-- Schedule Table and Congratulation -->
@@ -116,6 +117,79 @@
                         <img src="{{ asset('images/Subtract.png') }}" alt="Download" class="w-5 h-5">
                         <span>Get your certificate</span>
                     </a>
+=======
+        <!-- Bagian Utama: Jadwal dan Sidebar -->
+        <div class="row gx-4">
+            <!-- Tabel Jadwal dan Congratulation -->
+            <div class="col-md-8">
+                <!-- Jadwal -->
+                <div class="card border-0 shadow-sm rounded-4 p-3 mb-4">
+                    <table class="table table-borderless text-center mb-0">
+                        <thead class="bg-gray-600">
+                            <tr class="border-b border-gray-200 bg-white text-gray-600">
+                                <th class="py-2 px-4">Sesi</th>
+                                <th class="py-2 px-4">Kelas</th>
+                                <th class="py-2 px-4">Waktu</th>
+                                <th class="py-2 px-4">Tempat</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1.</td>
+                                <td>SIB 1A, 1B</td>
+                                <td>Saturday 12 January (07:00-09:00)</td>
+                                <td>RT 1, 2, 3</td>
+                            </tr>
+                            <tr>
+                                <td>2.</td>
+                                <td>SIB 1C, 1D</td>
+                                <td>Saturday 12 January (07:00-09:00)</td>
+                                <td>RT 1, 2, 3</td>
+                            </tr>
+                            <tr>
+                                <td>3.</td>
+                                <td>SIB 1E, 1F</td>
+                                <td>Saturday 12 January (07:00-09:00)</td>
+                                <td>RT 1, 2, 3</td>
+                            </tr>
+                            <tr>
+                                <td>4.</td>
+                                <td>SIB 1G</td>
+                                <td>Saturday 12 January (07:00-09:00)</td>
+                                <td>RT 1, 2, 3</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Congratulation Section -->
+                <div class="card text-center p-5 shadow-sm border-0 rounded-4">
+                <div class="mb-3">
+                    <img src="{{ asset('images/congrat.png') }}" alt="celebration" style="width: 150px;">
+                </div>
+                <h2 class="fw-bold mb-2" style="font-size: 24px;">Congratulation!</h2>
+                <p class="text-muted" style="font-size: 13px;">
+                    You have done your Toest test. You can download your certificate below.
+                </p>
+                <a href="{{ route('mahasiswa.sertifikat') }}"
+                    class="btn btn-primary mt-2 d-inline-flex align-items-center justify-content-center gap-2"
+                    style="padding: 10px 18px;">
+                    <img src="{{ asset('images/Subtract.png') }}" alt="Download" style="w-20 h-20; py-2">
+                    <span class="align-middle">Get your certificate</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Sidebar Kanan -->
+        <div class="col-md-4">
+            <!-- Kalender Dinamis -->
+            <div class="card mb-4 border-0 shadow-sm rounded-3">
+                <div class="card-header bg-white border-0">
+                    <h5 class="m-0"></h5>
+                </div>
+                <div class="card-body p-3">
+                    <div id="datepicker" class="datepicker-inline w-100"></div>
+>>>>>>> a8f4cc020145946fae943213781f11eabd178746
                 </div>
             </div>
 

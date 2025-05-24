@@ -23,6 +23,4 @@ class MahasiswaController extends Controller
         // Logika download sertifikat
         return response()->download(public_path('sertifikat/jupri.pdf'));
     }
-
-
 }
