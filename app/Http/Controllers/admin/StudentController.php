@@ -28,11 +28,6 @@ class StudentController extends Controller
         //menambahkan data program studi dan jurusan dari model terkait
         $studyPrograms = StudyProgramModels::all();
         $majors = MajorModels::all();
-<<<<<<< HEAD
-
-=======
-        
->>>>>>> a8f4cc020145946fae943213781f11eabd178746
         return view('mahasiswa.create', compact('studyPrograms', 'majors'));
     }
 
@@ -95,11 +90,6 @@ class StudentController extends Controller
         $student = StudentModels::with('user')->findOrFail($id);
         $studyPrograms = StudyProgramModels::all();
         $majors = MajorModels::all();
-<<<<<<< HEAD
-
-=======
-        
->>>>>>> a8f4cc020145946fae943213781f11eabd178746
         return view('mahasiswa.edit', compact('student', 'studyPrograms', 'majors'));
     }
 
@@ -109,11 +99,6 @@ class StudentController extends Controller
     public function update(Request $request, string $id)
     {
         $student = StudentModels::findOrFail($id);
-<<<<<<< HEAD
-
-=======
-        
->>>>>>> a8f4cc020145946fae943213781f11eabd178746
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email,'.$student->user_id,
@@ -186,17 +171,10 @@ class StudentController extends Controller
     public function forceDelete(string $id)
     {
         $student = StudentModels::onlyTrashed()->findOrFail($id);
-<<<<<<< HEAD
 
         // Hapus user terkait jika diperlukan
         // $student->user()->delete();
 
-=======
-        
-        // Hapus user terkait jika diperlukan
-        // $student->user()->delete();
-        
->>>>>>> a8f4cc020145946fae943213781f11eabd178746
         $student->forceDelete();
 
         return redirect()->route('mahasiswa.trashed')
@@ -253,8 +231,4 @@ class StudentController extends Controller
     }
 
     // Tambahkan method AJAX lainnya sesuai kebutuhan (show_ajax, edit_ajax, update_ajax, delete_ajax)
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> a8f4cc020145946fae943213781f11eabd178746

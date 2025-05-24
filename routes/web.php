@@ -4,7 +4,6 @@ use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MajorController;
-use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\Auth\SocialiteController;
 use App\Http\Controllers\admin\ToeicTestController;
 use App\Http\Controllers\Auth\VerificationController;
