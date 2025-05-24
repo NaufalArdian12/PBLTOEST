@@ -11,9 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('educational_staff', function (Blueprint $table) {
-            $table->timestamp('deleted_at')->nullable();  // Kolom untuk soft delete
-            
+        Schema::table('majors', function (Blueprint $table) {
+            $table->softDeletes();
         });
     }
 
@@ -22,8 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('educational_staff', function (Blueprint $table) {
-            //
+        Schema::table('majors', function (Blueprint $table) {
+            $table->dropSoftDeletes();
         });
     }
 };

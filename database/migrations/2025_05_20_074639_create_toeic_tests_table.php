@@ -20,6 +20,7 @@ return new class extends Migration {
             $table->text('zoom_link');
             $table->integer('max_participants');
             $table->timestamps();
+            $table->timestamp('deleted_at')->nullable();  // Kolom untuk soft delete
         });
     }
 
