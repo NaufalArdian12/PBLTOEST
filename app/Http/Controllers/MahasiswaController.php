@@ -12,6 +12,12 @@ class MahasiswaController extends Controller
         return view('mahasiswa.dashboard');
     }
 
+    public function profile()
+    {
+        // Logika untuk menampilkan profil mahasiswa
+        return view('mahasiswa.profile');
+    }
+
     public function sertifikat()
     {
         // Logika download sertifikat
