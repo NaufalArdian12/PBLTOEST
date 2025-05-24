@@ -13,6 +13,8 @@ class UserModels extends Authenticatable implements MustVerifyEmail
     use HasFactory, Notifiable, SoftDeletes;
 
     protected $table = 'users';
+    protected $primaryKey = 'id';
+    public $timestamps = true; 
 
     /**
      * The attributes that are mass assignable.
