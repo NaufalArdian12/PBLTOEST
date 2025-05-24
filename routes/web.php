@@ -40,6 +40,7 @@ Route::get('/auth/google/callback', [SocialiteController::class, 'callback']);
 Route::post('/logout', [SocialiteController::class, 'logout'])->name('logout');
 Route::get('/dashboard', [MahasiswaController::class, 'dashboard'])->name('mahasiswa.dashboard');
 Route::get('/mahasiswa/dashboard', [MahasiswaController::class, 'dashboard'])->name('mahasiswa.dashboard');
+Route::get('/mahasiswa/profile', [MahasiswaController::class, 'profile'])->name('mahasiswa.profile');
 Route::get('/sertifikat', [MahasiswaController::class, 'sertifikat'])->name('mahasiswa.sertifikat');
 
 // Dashboard (protected by auth and verified middleware)
