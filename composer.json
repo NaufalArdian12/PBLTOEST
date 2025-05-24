@@ -10,6 +10,7 @@
         "laravel/socialite": "^5.20",
         "laravel/tinker": "^2.9",
         "laravel/ui": "^4.6",
+        "tymon/jwt-auth": "2.1.1",
         "yajra/laravel-datatables": "11.0"
     },
     "require-dev": {
