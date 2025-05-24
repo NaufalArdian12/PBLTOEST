@@ -65,7 +65,7 @@
                     @error('password')
                         <span class="text-red-500 text-sm">{{ $message }}</span>
                     @enderror
-                    <a href="#" class="text-blue-600 text-sm mt-2 inline-block hover:underline">Lupa password?</a>
+                    <a href="#" class="text-blue-600 text-sm mt-2 inline-block hover:underline">Forgot password?</a>
                 </div>
 
                 <!-- Login Button -->
@@ -78,7 +78,7 @@
             <!-- Divider -->
             <div class="flex items-center my-8">
                 <div class="flex-grow h-px bg-gray-200"></div>
-                <span class="px-4 text-gray-500 text-sm">atau login dengan</span>
+                <span class="px-4 text-gray-500 text-sm">or login with</span>
                 <div class="flex-grow h-px bg-gray-200"></div>
             </div>
 
