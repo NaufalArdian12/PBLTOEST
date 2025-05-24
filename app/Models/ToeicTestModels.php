@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Traits\Timestamp;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\AdminModels;
@@ -13,6 +14,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class ToeicTestModels extends Model
 {
     use HasFactory, SoftDeletes;
+
         protected $table = 'toeic_tests';
         protected $primaryKey = 'id';
         public $timestamps = true;

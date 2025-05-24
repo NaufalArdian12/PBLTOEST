@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Traits\Timestamp;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\UserModels;
@@ -16,8 +17,9 @@ class StudentModels extends Model
     protected $table = 'students';
     protected $primaryKey = 'id';
     public $timestamps = true;
-
+    
     protected $fillable = [
+        'user_id',
         'NIM',
         'NIK',
         'study_program_id',
