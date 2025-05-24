@@ -16,6 +16,7 @@ return new class extends Migration {
             $table->date('registration_date');
             $table->string('status', 20);
             $table->timestamps();
+            $table->timestamp('deleted_at')->nullable();  // Kolom untuk soft delete
         });
     }
 

@@ -5,12 +5,18 @@ namespace App\Models;
 use Carbon\Traits\Timestamp;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\UserModels;
+use App\Models\StudyProgramModels;
+use App\Models\MajorModels;
+use App\Models\RegistrationModels;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class StudentModels extends Model
 {
-    use HasFactory, SoftDeletes, Timestamp;
-
+    use HasFactory, SoftDeletes;
+    protected $table = 'students';
+    protected $primaryKey = 'id';
+    public $timestamps = true;
     
     protected $fillable = [
         'user_id',
@@ -18,6 +24,9 @@ class StudentModels extends Model
         'NIK',
         'study_program_id',
         'major_id',
+        'scan_ktp',
+        'scan_ktm',
+        'pas_photo',
     ];
 
     // Relationships

@@ -4,12 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\StudentModels;
+use App\Models\ToeicTestModels;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Carbon\Traits\Timestamp;
 
 class RegistrationModels extends Model
 {
-    use HasFactory, SoftDeletes, Timestamp;
+    use HasFactory, SoftDeletes;
+    protected $table = 'registrations';
+    protected $primaryKey = 'id';
+    public $timestamps = true;
 
     protected $fillable = [
         'NIM',

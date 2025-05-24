@@ -8,11 +8,15 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class UserModels extends Authenticatable implements MustVerifyEmail
 {
-    use HasFactory, Notifiable, SoftDeletes, Timestamp;
+    use HasFactory, Notifiable, SoftDeletes;
+
     protected $table = 'users';
+    protected $primaryKey = 'id';
+    public $timestamps = true; 
 
     /**
      * The attributes that are mass assignable.
@@ -27,7 +31,7 @@ class UserModels extends Authenticatable implements MustVerifyEmail
         'google_token',
         'google_refresh_token',
         'email_verified_at',
-        'role',
+        'role_id',  // Ganti 'role' dengan 'role_id'
     ];
 
     /**
@@ -54,6 +58,7 @@ class UserModels extends Authenticatable implements MustVerifyEmail
             'password' => 'hashed',
             'created_at' => 'datetime',
             'updated_at' => 'datetime',
+            'deleted_at' => 'datetime',
         ];
     }
 
@@ -64,7 +69,18 @@ class UserModels extends Authenticatable implements MustVerifyEmail
      */
     public function getRole(): string
     {
-        return $this->role ?? 'mahasiswa'; // Default role if not set
+        // Mengambil nama role dari relasi role
+        return $this->roleRelation->name ?? 'mahasiswa'; // Default role if not set
+    }
+
+    /**
+     * Relationship to the RoleModels.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function roleRelation()
+    {
+        return $this->belongsTo(RoleModels::class, 'role_id');
     }
 
     /**
@@ -73,8 +89,8 @@ class UserModels extends Authenticatable implements MustVerifyEmail
      * @param string $role
      * @return bool
      */
-    public function hasRole(string $role): bool
+    public function role(string $role): bool
     {
-        return $this->getRole() === $role;
+        return $this->roleRelation->name === $role;
     }
 }

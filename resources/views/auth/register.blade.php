@@ -45,48 +45,6 @@
             <p class="text-gray-600 mb-8">Already have an account? <a href="{{ route('login') }}"
                     class="text-blue-600 font-medium hover:underline">Login</a></p>
 
-            <form class="space-y-6">
-                <!-- Email Field -->
-                <div>
-                    <label class="block text-gray-700 text-sm font-medium mb-1">Email</label>
-                    <input type="email" placeholder="Email"
-                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-                </div>
-
-                <!-- Username Field -->
-                <div>
-                    <label class="block text-gray-700 text-sm font-medium mb-1">Username</label>
-                    <input type="text" placeholder="Username"
-                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-                </div>
-
-                <!-- Password Field -->
-                <div>
-                    <label class="block text-gray-700 text-sm font-medium mb-1">Password</label>
-                    <input type="password" placeholder="Password"
-                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-                </div>
-                <!-- Confirm Password Field -->
-                <div>
-                    <label class="block text-gray-700 text-sm font-medium mb-1">Password Confirm</label>
-                    <input type="password" placeholder="Password Confirm"
-                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-                </div>
-
-                <!-- Login Button -->
-                <button type="submit"
-                    class="w-full bg-blue-600 text-white py-3 px-4 rounded-lg font-medium hover:bg-blue-700 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
-                    Register
-                </button>
-            </form>
-
-            <!-- Divider -->
-            <div class="flex items-center my-8">
-                <div class="flex-grow h-px bg-gray-200"></div>
-                <span class="px-4 text-gray-500 text-sm">atau register dengan</span>
-                <div class="flex-grow h-px bg-gray-200"></div>
-            </div>
-
             <!-- Google Login Button -->
             <a href="{{ route('auth.redirect') }}"
                 class="flex items-center justify-center w-full border border-gray-300 rounded-lg py-3 px-4 font-medium text-gray-700 hover:bg-gray-50 transition-colors mb-8">

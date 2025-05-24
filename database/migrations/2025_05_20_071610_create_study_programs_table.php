@@ -10,16 +10,16 @@ return new class extends Migration {
      */
     public function up()
     {
-        Schema::table('students', function (Blueprint $table) {
-            $table->renameColumn('passport_photo', 'pas_foto');
+        Schema::create('study_programs', function (Blueprint $table) {
+            $table->id();
+            $table->string('study_program_name', 100);
+            $table->timestamps();
         });
     }
 
     public function down()
     {
-        Schema::table('students', function (Blueprint $table) {
-            $table->renameColumn('pas_foto', 'passport_photo');
-        });
+        Schema::dropIfExists('study_programs');
     }
 
 };

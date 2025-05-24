@@ -15,6 +15,7 @@ return new class extends Migration {
             $table->string('major_name', 100);
             $table->foreignId('study_program_id')->constrained('study_programs')->onDelete('cascade');
             $table->timestamps();
+            $table->timestamp('deleted_at')->nullable();  // Kolom untuk soft delete
         });
     }
 
