@@ -111,9 +111,35 @@
 
                             <!-- Profile Picture -->
                             <div class="md:col-span-2">
-                                <label for="profile_picture" class="block text-sm font-medium text-gray-700 mb-2">Profile Picture</label>
+                                <label for="profile_picture" class="block text-sm font-medium text-gray-700 mb-2">Passport Photo</label>
                                 <div class="flex items-center space-x-4">
-                                    <input type="file" id="profile_picture" name="profile_picture" accept="image/*"
+                                    <input type="file" id="profile_picture" name="pas_photo" accept="image/*"
+                                        class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 transition-colors duration-200">
+                                </div>
+                                <p class="text-xs text-gray-500 mt-1">Maximum file size: 2MB. Supported formats: JPG, PNG, GIF</p>
+                                @error('profile_picture')
+                                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                                @enderror
+                            </div>
+
+                            <!-- Profile Picture -->
+                            <div class="md:col-span-2">
+                                <label for="profile_picture" class="block text-sm font-medium text-gray-700 mb-2">Scan KTP</label>
+                                <div class="flex items-center space-x-4">
+                                    <input type="file" id="profile_picture" name="scan_ktp" accept="image/*"
+                                        class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 transition-colors duration-200">
+                                </div>
+                                <p class="text-xs text-gray-500 mt-1">Maximum file size: 2MB. Supported formats: JPG, PNG, GIF</p>
+                                @error('profile_picture')
+                                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                                @enderror
+                            </div>
+
+                            <!-- Profile Picture -->
+                            <div class="md:col-span-2">
+                                <label for="profile_picture" class="block text-sm font-medium text-gray-700 mb-2">Scan KTM</label>
+                                <div class="flex items-center space-x-4">
+                                    <input type="file" id="profile_picture" name="scan_ktm" accept="image/*"
                                         class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 transition-colors duration-200">
                                 </div>
                                 <p class="text-xs text-gray-500 mt-1">Maximum file size: 2MB. Supported formats: JPG, PNG, GIF</p>

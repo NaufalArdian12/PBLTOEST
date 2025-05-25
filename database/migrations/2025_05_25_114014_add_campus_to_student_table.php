@@ -10,9 +10,9 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            // Set default role_id ke role_id dari 'Student' (id=3 atau sesuai dengan id di tabel roles)
-            $table->foreignId('role_id')->default(3)->constrained('roles')->onDelete('cascade'); // Gantilah `3` dengan id yang sesuai
+        Schema::table('students', function (Blueprint $table) {
+            $table->string('campus')->nullable(); // Add campus column
+
         });
     }
 
@@ -21,7 +21,7 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::table('users', function (Blueprint $table) {
+        Schema::table('students', function (Blueprint $table) {
             //
         });
     }
