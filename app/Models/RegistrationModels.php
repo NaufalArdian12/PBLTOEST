@@ -16,7 +16,7 @@ class RegistrationModels extends Model
     public $timestamps = true;
 
     protected $fillable = [
-        'NIM',
+        'student_id',
         'registration_date',
         'status',
     ];
@@ -24,7 +24,7 @@ class RegistrationModels extends Model
     // Relationships
     public function student()
     {
-        return $this->belongsTo(StudentModels::class, 'NIM');
+        return $this->belongsTo(StudentModels::class, 'student_id');
     }
 
     public function toeicTest()
