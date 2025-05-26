@@ -5,7 +5,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\StudyProgramModels;
-use App\Models\StudentModels;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class MajorModels extends Model
@@ -17,18 +16,18 @@ class MajorModels extends Model
         public $timestamps = true;
 
     protected $fillable = [
-        'study_program_id',
-        'major_name'
+        'major_name',
+        'campus_id',
     ];
 
     // Relationships
     public function studyProgram()
     {
-        return $this->belongsTo(StudyProgramModels::class);
+        return $this->hasMany(StudyProgramModels::class, 'major_id');
     }
 
-    public function students()
+   public function campus()
     {
-        return $this->hasMany(StudentModels::class);
+        return $this->belongsTo(CampusModels::class, 'campus_id');
     }
 }
