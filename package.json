@@ -20,6 +20,7 @@
         "@tailwindcss/vite": "^4.1.5",
         "datatables.net": "^2.3.1",
         "datatables.net-dt": "^2.3.1",
-        "jquery": "^3.7.1"
+        "jquery": "^3.7.1",
+        "tailwind-scrollbar-hide": "^2.0.0"
     }
 }
