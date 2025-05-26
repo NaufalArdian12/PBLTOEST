@@ -17,7 +17,7 @@ class StudentModels extends Model
     protected $table = 'students';
     protected $primaryKey = 'id';
     public $timestamps = true;
-    
+
     protected $fillable = [
         'user_id',
         'NIM',
@@ -27,6 +27,9 @@ class StudentModels extends Model
         'scan_ktp',
         'scan_ktm',
         'pas_photo',
+        'current_address',
+        'recent_address',
+        'phone_number',
     ];
 
     // Relationships
@@ -40,13 +43,8 @@ class StudentModels extends Model
         return $this->belongsTo(StudyProgramModels::class, 'study_program_id');
     }
 
-    public function major()
+    public function registration()
     {
-        return $this->belongsTo(MajorModels::class, 'major_id');
-    }
-
-    public function registrations()
-    {
-        return $this->hasMany(RegistrationModels::class, 'NIM');
+        return $this->hasOne(RegistrationModels::class, 'student_id', 'id');
     }
 }
