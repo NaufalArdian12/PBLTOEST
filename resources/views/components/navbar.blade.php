@@ -71,9 +71,9 @@
         </div>
         <div class="pt-4 pb-3 border-t border-gray-200">
             <div class="items-center justify-center space-x-4 px-4">
-                <a href=""
+                <a href="{{route('login')}}"
                     class="mb-2 text-blue-600 border border-white hover:bg-blue-600 hover:text-white block w-full text-center px-4 py-2 rounded-md text-sm font-medium">Login</a>
-                <a href=""
+                <a href="{{route('register')}}"
                     class="bg-white text-blue-600 border border-blue-600 hover:bg-blue-700 hover:text-white block w-full text-center px-4 py-2 rounded-md text-sm font-medium">Sign
                     Up</a>
             </div>
