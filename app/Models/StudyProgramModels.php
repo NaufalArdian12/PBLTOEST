@@ -23,13 +23,13 @@ class StudyProgramModels extends Model
     ];
 
     // Relationships
-    public function students()
-    {
-        return $this->hasMany(StudentModels::class);
-    }
-
     public function majors()
     {
-        return $this->hasMany(MajorModels::class);
+        return $this->belongsTo(MajorModels::class, 'major_id');
+    }
+
+    public function students()
+    {
+        return $this->hasMany(StudentModels::class, 'study_program_id');
     }
 }
