@@ -28,7 +28,6 @@ class StudentController extends Controller
         //menambahkan data program studi dan jurusan dari model terkait
         $studyPrograms = StudyProgramModels::all();
         $majors = MajorModels::all();
-        
         return view('mahasiswa.create', compact('studyPrograms', 'majors'));
     }
 
@@ -91,7 +90,6 @@ class StudentController extends Controller
         $student = StudentModels::with('user')->findOrFail($id);
         $studyPrograms = StudyProgramModels::all();
         $majors = MajorModels::all();
-        
         return view('mahasiswa.edit', compact('student', 'studyPrograms', 'majors'));
     }
 
@@ -101,7 +99,6 @@ class StudentController extends Controller
     public function update(Request $request, string $id)
     {
         $student = StudentModels::findOrFail($id);
-        
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email,'.$student->user_id,
@@ -174,10 +171,10 @@ class StudentController extends Controller
     public function forceDelete(string $id)
     {
         $student = StudentModels::onlyTrashed()->findOrFail($id);
-        
+
         // Hapus user terkait jika diperlukan
         // $student->user()->delete();
-        
+
         $student->forceDelete();
 
         return redirect()->route('mahasiswa.trashed')

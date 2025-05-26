@@ -5,7 +5,6 @@ namespace App\Models;
 use Carbon\Traits\Timestamp;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -15,7 +14,7 @@ class UserModels extends Authenticatable implements MustVerifyEmail
 
     protected $table = 'users';
     protected $primaryKey = 'id';
-    public $timestamps = true; 
+    public $timestamps = true;
 
     /**
      * The attributes that are mass assignable.
