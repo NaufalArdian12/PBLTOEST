@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class UserModels extends Authenticatable implements MustVerifyEmail
 {
@@ -31,7 +30,7 @@ class UserModels extends Authenticatable implements MustVerifyEmail
         'google_token',
         'google_refresh_token',
         'email_verified_at',
-        'role_id',  // Ganti 'role' dengan 'role_id'
+        'role_id', 
     ];
 
     /**

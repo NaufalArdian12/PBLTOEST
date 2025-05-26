@@ -62,9 +62,9 @@
 <body class="font-sans scroll-smooth">
     @include('components.navbar')
 
-    <main class="max-w-7xl mx-auto px-4 sm:px-4 lg:px-4 bg-white py-6 md:px-16">
+    <main class="mx-auto bg-white">
         <!-- Hero Section -->
-        <div class="container mx-auto">
+        <div class="container px-24 px-md-5 mx-2 mx-md-auto">
             <div class="flex flex-col-reverse lg:flex-row items-center gap-8 lg:gap-12">
                 <!-- Left content -->
                 <div
@@ -103,7 +103,7 @@
 
         <!-- Blue Gradient Section -->
         <section
-            class="py-12 rounded-xl bg-gradient-to-b from-blue-800 via-blue-700 to-blue-600 via-30% from-10% mt-16 animate-on-scroll opacity-0 scale-95 transition-all duration-600 ease-out">
+            class="py-12 mx-24 rounded-xl bg-gradient-to-b from-blue-800 via-blue-700 to-blue-600 via-30% from-10% mt-16 animate-on-scroll opacity-0 scale-95 transition-all duration-600 ease-out">
             <div class="container mx-auto text-center">
                 <img src="/images/toest_logo.png" alt="TOEST Logo"
                     class="w-auto h-16 sm:h-20 md:h-24 lg:h-28 mx-auto transform hover:scale-105 transition-transform">
@@ -200,7 +200,7 @@
 
         <!-- Testimonials Section -->
         <section
-            class="bg-blue-600 py-12 rounded-2xl bg-gradient-to-b from-blue-800 via-blue-700 to-blue-600 via-30% from-10% animate-on-scroll opacity-0 transition-all duration-700 ease-out">
+            class="bg-blue-600 py-12 mx-24 rounded-2xl bg-gradient-to-b from-blue-800 via-blue-700 to-blue-600 via-30% from-10% animate-on-scroll opacity-0 transition-all duration-700 ease-out">
             <div class="container mx-auto">
                 <h2 class="text-2xl sm:text-3xl font-bold text-center text-white">Take a Look At Our Customer Interest
                     🤩</h2>
@@ -253,7 +253,7 @@
         </section>
 
         <!-- FAQ Section -->
-        <section class="py-12 animate-on-scroll opacity-0 transition-all duration-700 ease-out" data-stagger
+        <section class="py-12 mx-24 animate-on-scroll opacity-0 transition-all duration-700 ease-out" data-stagger
             data-stagger-delay="100">
             <div class="container mx-auto px-4 sm:px-6">
                 <h2 class="text-2xl sm:text-3xl font-bold text-center mb-4">
@@ -342,8 +342,8 @@
 
         <!-- Footer -->
         <footer
-            class="bg-blue-100 text-blue-600 text-sm animate-on-scroll opacity-0 transition-all duration-700 ease-out">
-            <div class="max-w-7xl mx-auto px-6">
+            class="px-8 bg-blue-100 text-blue-600 text-sm animate-on-scroll opacity-0 transition-all duration-700 ease-out">
+            <div class="mx-auto px-6">
                 <div class="flex flex-col md:flex-row justify-between py-8">
                     <!-- Logo & Contact -->
                     <div class="mb-8 md:mb-0">
