@@ -12,7 +12,7 @@
 <table border="0" cellpadding="0" cellspacing="0" role="presentation">
 <tr>
 <td>
- <a href="{{ $url }}" class="button" target="_blank" style="background-color: #3b82f6; padding: 14px 28px; color: #ffffff; border-radius: 6px; text-decoration: none; display: inline-block;">
+ <a href="{{ $url }}" class="button" style="background-color: #3b82f6; padding: 14px 28px; color: #ffffff; border-radius: 6px; text-decoration: none; display: inline-block;">
         {{ $slot }}
     </a>
 </td>
@@ -24,3 +24,11 @@
 </td>
 </tr>
 </table>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('a').forEach(link => {
+            link.setAttribute('target', '_self');
+        });
+    });
+</script>
+
