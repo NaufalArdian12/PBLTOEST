@@ -1,15 +1,16 @@
 <?php
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MahasiswaController;
-use App\Http\Controllers\StudentController;
+use App\Http\Controllers\Admin\StudentController;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\MajorController;
+use App\Http\Controllers\Admin\MajorController;
 use App\Http\Controllers\Auth\SocialiteController;
-use App\Http\Controllers\admin\ToeicTestController;
+use App\Http\Controllers\Admin\ToeicTestController;
 use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\Mahasiswa\RegistrasiController;
-use App\Http\Controllers\PendaftaranController;
-use App\Http\Controllers\admin\StudyProgramController;
+use App\Http\Controllers\Mahasiswa\PendaftaranController;
+use App\Http\Controllers\Admin\StudyProgramController;
+use App\Http\Controllers\Admin\AdminController;
 
 Route::get('/login', function () {
     return view('auth.login');
@@ -111,4 +112,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
         // Proses simpan data (POST)
         Route::post('/pendaftaran', [PendaftaranController::class, 'store'])->name('pendaftaran.store');
     });
+
+    Route::resource('admins', AdminController::class);
 });
