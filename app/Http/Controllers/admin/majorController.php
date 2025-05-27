@@ -1,14 +1,15 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Models\MajorModels;
 use App\Models\StudyProgramModels;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\Facades\DataTables;
+use App\Http\Controllers\Controller;
 
-class majorController extends Controller
+class MajorController extends Controller
 {
     public function index()
     {
@@ -71,16 +72,16 @@ class majorController extends Controller
         }
 
         return DataTables::of($major)
-            // menambahkan kolom index / no urut (default nama kolom: DT_RowIndex) 
+            // menambahkan kolom index / no urut (default nama kolom: DT_RowIndex)
             ->addIndexColumn()
-            ->addColumn('action', function ($major) {  // menambahkan kolom action 
-                $btn  = '<button onclick="modalAction(\'' . url('/major/' . $major->id . '/show_ajax') . '\')" 
+            ->addColumn('action', function ($major) {  // menambahkan kolom action
+                $btn  = '<button onclick="modalAction(\'' . url('/major/' . $major->id . '/show_ajax') . '\')"
     class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded text-sm mr-1">Detail</button>';
 
-                $btn .= '<button onclick="modalAction(\'' . url('/major/' . $major->id . '/edit_ajax') . '\')" 
+                $btn .= '<button onclick="modalAction(\'' . url('/major/' . $major->id . '/edit_ajax') . '\')"
     class="bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-1 rounded text-sm mr-1">Edit</button>';
 
-                $btn .= '<button onclick="modalAction(\'' . url('/major/' . $major->id . '/delete_ajax') . '\')" 
+                $btn .= '<button onclick="modalAction(\'' . url('/major/' . $major->id . '/delete_ajax') . '\')"
     class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded text-sm">Delete</button>';
 
                 return $btn;
@@ -88,7 +89,7 @@ class majorController extends Controller
             ->editColumn('study_program', function ($major) {
                 return $major->study_program->study_program_name ?? '-';
             })
-            ->rawColumns(['action']) // memberitahu bahwa kolom aksi adalah html 
+            ->rawColumns(['action']) // memberitahu bahwa kolom aksi adalah html
             ->make(true);
     }
 
@@ -111,21 +112,21 @@ class majorController extends Controller
 
     public function update_ajax(Request $request, $id)
     {
-        // cek apakah request dari ajax 
+        // cek apakah request dari ajax
         if ($request->ajax() || $request->wantsJson()) {
             $rules = [
                 'study_program_id' => ['required', 'integer', 'exists:study_programs,study_program_id'],
                 'major_name' => 'required|string|max: 100',
             ];
 
-            // use Illuminate\Support\Facades\Validator; 
+            // use Illuminate\Support\Facades\Validator;
             $validator = Validator::make($request->all(), $rules);
 
             if ($validator->fails()) {
                 return response()->json([
-                    'status'   => false,    // respon json, true: berhasil, false: gagal 
+                    'status'   => false,    // respon json, true: berhasil, false: gagal
                     'message'  => 'failed validation.',
-                    'msgField' => $validator->errors()  // menunjukkan field mana yang error 
+                    'msgField' => $validator->errors()  // menunjukkan field mana yang error
                 ]);
             }
             $check = MajorModels::find($id);

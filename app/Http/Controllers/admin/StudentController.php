@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Models\StudentModels;
 use App\Models\UserModels;
@@ -8,6 +8,8 @@ use App\Models\MajorModels;
 use App\Models\StudyProgramModels;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Controllers\Controller;
+
 
 class StudentController extends Controller
 {
