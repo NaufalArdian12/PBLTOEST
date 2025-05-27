@@ -19,7 +19,6 @@ class AdminModels extends Model
     public $timestamps = true;
 
     protected $fillable = [
-        'admin_name',
     ];
 
     // Relationships

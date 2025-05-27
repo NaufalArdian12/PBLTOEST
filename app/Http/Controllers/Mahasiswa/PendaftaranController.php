@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Mahasiswa;
 
 use Illuminate\Http\Request;
 use App\Models\Student;
 use App\Models\StudentModels;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 
 class PendaftaranController extends Controller
