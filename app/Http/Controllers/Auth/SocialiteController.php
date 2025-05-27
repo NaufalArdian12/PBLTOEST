@@ -13,7 +13,9 @@ class SocialiteController extends Controller
 {
     public function redirect()
     {
-        return Socialite::driver('google')->redirect();
+        return Socialite::driver('google')
+            ->with(['prompt' => 'select_account'])  // Menambahkan parameter 'prompt' untuk memilih akun
+            ->redirect();
     }
 
     public function callback()
@@ -50,13 +52,34 @@ class SocialiteController extends Controller
     }
 
 
+    /**
+     * Handle an incoming logout request from the application.
+     *
+     * This method will invalidate the user's session, regenerate their CSRF
+     * token, and remove any authentication information from the session.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function logout(Request $request)
     {
+        // Logout dari aplikasi Laravel
         Auth::logout();
 
+        // Invalidasi sesi pengguna
         $request->session()->invalidate();
+
+        // Regenerasi token CSRF untuk mencegah serangan CSRF
         $request->session()->regenerateToken();
 
+        // Menghapus sesi yang terkait dengan Google OAuth
+        session()->forget('google_token');
+        session()->forget('google_refresh_token');
+
+        // Atau jika menggunakan session lain untuk menyimpan data OAuth
+        session()->forget('socialite_google'); // Hapus sesi yang terkait jika Anda menyimpannya
+
+        // Redirect ke halaman login
         return redirect('/login');
     }
 }
