@@ -13,13 +13,14 @@ class StudyProgramModels extends Model
 {
     use HasFactory, SoftDeletes;
 
-        protected $table = 'study_programs';
-        protected $primaryKey = 'id';
-        public $timestamps = true;
+    protected $table = 'study_programs';
+    protected $primaryKey = 'id';
+    public $timestamps = true;
 
     protected $fillable = [
         'study_program_name',
-        ''
+        'major_id',
+        'campus_id',
     ];
 
     // Relationships
@@ -31,5 +32,10 @@ class StudyProgramModels extends Model
     public function students()
     {
         return $this->hasMany(StudentModels::class, 'study_program_id');
+    }
+
+    public function campus()
+    {
+        return $this->belongsTo(CampusModels::class, 'campus_id');
     }
 }
