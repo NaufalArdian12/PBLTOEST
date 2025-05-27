@@ -2,30 +2,28 @@
 
 namespace App\Http\Controllers\admin;
 
+use App\Models\CampusModels;
 use Illuminate\Http\Request;
-use App\Models\StudyProgramModels;
 use App\Http\Controllers\Controller;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Validator;
 
-class StudyProgramController extends Controller
+class CampusController extends Controller
 {
-    public function index()
+        public function index()
     {
-        $study_program = StudyProgramModels::with('campus','majors')->get();
+        $campus = CampusModels::all();
 
         return response()->json([
             'status' => true,
-            'data'   => $study_program
+            'data'   => $campus
         ], 200);
     }
 
     public function store(Request $request)
     {
         $rules = [
-            'campus_id' => 'required|exists:campuses,id',
-            'major_id' => 'required|exists:majors,id',
-            'study_program_name' => 'required|string|max:100'
+            'campus_name' => 'required|string|max:100'
         ];
 
         $validator = Validator::make($request->all(), $rules);
@@ -38,44 +36,25 @@ class StudyProgramController extends Controller
             ], 422);
         }
 
-        $study_program = StudyProgramModels::create([
-            'campus_id' => $request->campus_id,
-            'major_id' => $request->major_id,
-            'study_program_name' => $request->study_program_name
-        ]);
-
+        $campus = CampusModels::create($request->all());
 
         return response()->json([
             'status'  => true,
             'message' => 'Data created successfully',
-            'data'    =>  [
-                'id'          => $study_program->id,
-                'campus_id'   => $study_program->campus_id,
-                'major_id'   => $study_program->major_id,
-                'study_program_name'  => $study_program->study_program_name,
-                'created_at'  => $study_program->created_at,
-                'updated_at'  => $study_program->updated_at
-            ]
+            'data'    => $campus
         ], 201);
     }
 
     public function list()
     {
-        $study_program = StudyProgramModels::with('campus','majors')
-        ->select('id', 'study_program_name','campus_id','major_id');
+        $campus = CampusModels::select('id', 'campus_name');
 
-        return DataTables::of($study_program)
+        return DataTables::of($campus)
             ->addIndexColumn()
-                ->addColumn('major', function ($study_program) {
-            return $study_program->majors->major_name ?? '-';
-        })
-                 ->addColumn('campus', function ($study_program) {
-            return $study_program->campus->campus_name ?? '-';
-        })
-            ->addColumn('action', function ($study_program) {
-                $btn  = '<button onclick="modalAction(\'' . url('/study_program/' . $study_program->id . '/show') . '\')" class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded text-sm mr-1">Detail</button>';
-                $btn .= '<button onclick="modalAction(\'' . url('/study_program/' . $study_program->id . '/edit') . '\')" class="bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-1 rounded text-sm mr-1">Edit</button>';
-                $btn .= '<button onclick="modalAction(\'' . url('/study_program/' . $study_program->id . '/confirm') . '\')" class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded text-sm">Delete</button>';
+            ->addColumn('action', function ($campus) {
+                $btn  = '<button onclick="modalAction(\'' . url('/campus/' . $campus->id . '/show') . '\')" class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded text-sm mr-1">Detail</button>';
+                $btn .= '<button onclick="modalAction(\'' . url('/campus/' . $campus->id . '/edit') . '\')" class="bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-1 rounded text-sm mr-1">Edit</button>';
+                $btn .= '<button onclick="modalAction(\'' . url('/campus/' . $campus->id . '/confirm') . '\')" class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded text-sm">Delete</button>';
                 return $btn;
             })
             ->rawColumns(['action'])
@@ -84,9 +63,9 @@ class StudyProgramController extends Controller
 
     public function show(string $id)
     {
-        $study_program = StudyProgramModels::with('campus','majors')->find($id);
+        $campus = CampusModels::find($id);
 
-        if (!$study_program) {
+        if (!$campus) {
             return response()->json([
                 'status'  => false,
                 'message' => 'Data not found'
@@ -95,7 +74,7 @@ class StudyProgramController extends Controller
 
         return response()->json([
             'status' => true,
-            'data'   => $study_program
+            'data'   => $campus
         ]);
     }
 
@@ -107,9 +86,7 @@ class StudyProgramController extends Controller
     public function update(Request $request, $id)
     {
         $rules = [
-            'campus_id' => 'required|exists:campuses,id',
-            'major_id' => 'required|exists:majors,id',
-            'study_program_name' => 'required|string|max:100'
+            'campus_name' => 'required|string|max:100'
         ];
 
         $validator = Validator::make($request->all(), $rules);
@@ -122,33 +99,29 @@ class StudyProgramController extends Controller
             ], 422);
         }
 
-        $study_program = StudyProgramModels::find($id);
+        $campus = CampusModels::find($id);
 
-        if (!$study_program) {
+        if (!$campus) {
             return response()->json([
                 'status'  => false,
                 'message' => 'Data not found'
             ], 404);
         }
 
-        $study_program->update([
-            'campus_id' => $request->campus_id,
-            'major_id' => $request->major_id,
-            'study_program_name'       => $request->study_program_name
-        ]);
+        $campus->update($request->all());
 
         return response()->json([
             'status'  => true,
             'message' => 'Data updated successfully',
-            'data'    => $study_program
+            'data'    => $campus
         ]);
     }
 
     public function confirm(string $id)
     {
-        $study_program = StudyProgramModels::find($id);
+        $campus = CampusModels::find($id);
 
-        if (!$study_program) {
+        if (!$campus) {
             return response()->json([
                 'status'  => false,
                 'message' => 'Data not found'
@@ -158,23 +131,23 @@ class StudyProgramController extends Controller
         return response()->json([
             'status'  => true,
             'message' => 'Are you sure you want to delete this data?',
-            'data'    => $study_program
+            'data'    => $campus
         ]);
     }
 
     // Soft delete
     public function destroy($id)
     {
-        $study_program = StudyProgramModels::find($id);
+        $campus = CampusModels::find($id);
 
-        if (!$study_program) {
+        if (!$campus) {
             return response()->json([
                 'status'  => false,
                 'message' => 'Data not found'
             ], 404);
         }
 
-        $study_program->delete();
+        $campus->delete();
 
         return response()->json([
             'status'  => true,
@@ -185,7 +158,7 @@ class StudyProgramController extends Controller
     // Menampilkan data yang sudah di-soft delete
     public function trashed()
     {
-        $trashed = StudyProgramModels::onlyTrashed()->with('campus','majors')->get();
+        $trashed = CampusModels::onlyTrashed()->get();
 
         return response()->json([
             'status' => true,
@@ -196,16 +169,16 @@ class StudyProgramController extends Controller
     // Mengembalikan data yang di-soft delete
     public function restore($id)
     {
-        $study_program = StudyProgramModels::onlyTrashed()->find($id);
+        $campus = CampusModels::onlyTrashed()->find($id);
 
-        if (!$study_program) {
+        if (!$campus) {
             return response()->json([
                 'status'  => false,
                 'message' => 'Data not found in trash'
             ], 404);
         }
 
-        $study_program->restore();
+        $campus->restore();
 
         return response()->json([
             'status'  => true,
@@ -216,16 +189,16 @@ class StudyProgramController extends Controller
     // Menghapus secara permanen
     public function forceDelete($id)
     {
-        $study_program = StudyProgramModels::onlyTrashed()->find($id);
+        $campus = CampusModels::onlyTrashed()->find($id);
 
-        if (!$study_program) {
+        if (!$campus) {
             return response()->json([
                 'status'  => false,
                 'message' => 'Data not found in trash'
             ], 404);
         }
 
-        $study_program->forceDelete();
+        $campus->forceDelete();
 
         return response()->json([
             'status'  => true,

@@ -1,10 +1,11 @@
 <?php
 
 namespace App\Models;
-
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-<<<<<<< HEAD
+use App\Models\MajorModels;
+use App\Models\CampusModels;
+use App\Models\StudentModels;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class StudyProgramModels extends Model
@@ -17,26 +18,24 @@ class StudyProgramModels extends Model
 
     protected $fillable = [
         'study_program_name',
-        ''
-=======
-
-class StudyProgramModels extends Model
-{
-    use HasFactory;
-
-    protected $fillable = [
-        'study_program_name',
->>>>>>> e1253e9b29705f0ebb0ce30325b8a5a93925a030
+        'campus_id',
+        'major_id'
     ];
 
     // Relationships
-    public function students()
-    {
-        return $this->hasMany(StudentModels::class);
-    }
-
     public function majors()
     {
-        return $this->hasMany(MajorModels::class);
+        return $this->belongsTo(MajorModels::class, 'major_id');
+    }
+
+        public function campus()
+    {
+        return $this->belongsTo(CampusModels::class, 'campus_id');
+    }
+
+
+    public function students()
+    {
+        return $this->hasMany(StudentModels::class, 'student_id');
     }
 }

@@ -2,122 +2,177 @@
 
 namespace App\Http\Controllers\admin;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\ToeicTestModels;
+use App\Http\Controllers\Controller;
+use Yajra\DataTables\Facades\DataTables;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Validator;
 
-class ToeicTestController extends Controller
+class toeicTestController extends Controller
 {
-    // Get all TOEIC test records
     public function index()
     {
-        $data = ToeicTestModels::all();
+        $breadcrumb = (object) [
+            'title' => 'Study Program List',
+            'list' => ['Home', 'Study Program']
+        ];
+        $page = (object) [
+            'title' => 'Study program list integreted in system'
+        ];
+        $activeMenu = 'toeic_test';
+        $toeic_test = ToeicTestModels::all();
 
-        return response()->json([
-            'status' => true,
-            'data' => $data
-        ]);
+        return view('toeic_test.index', compact('breadcrumb', 'page', 'activeMenu'));
     }
 
-    // Create a new TOEIC test record
-    public function store(Request $request)
+    public function create_ajax()
     {
-        $validator = Validator::make($request->all(), [
-            'toeic_test_name' => 'required|string|max:100',
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json([
-                'status' => false,
-                'message' => 'Validation failed.',
-                'errors' => $validator->errors()
-            ], 422);
-        }
-
-        $data = ToeicTestModels::create($request->all());
-
-        return response()->json([
-            'status' => true,
-            'message' => 'Data successfully saved.',
-            'data' => $data
-        ], 201);
+        return view('toeic_test.create_ajax');
     }
 
-    // Show a specific TOEIC test record
-    public function show($id)
+    // Menyimpan data toeic_test baru
+    public function store_ajax(Request $request)
     {
-        $data = ToeicTestModels::find($id);
-
-        if (!$data) {
-            return response()->json([
-                'status' => false,
-                'message' => 'Data not found.'
-            ], 404);
-        }
-
-        return response()->json([
-            'status' => true,
-            'data' => $data
-        ]);
-    }
-
-    // Update an existing TOEIC test record
-    public function update(Request $request, $id)
-    {
-        $validator = Validator::make($request->all(), [
-            'toeic_test_name' => 'required|string|max:100',
+        $request->validate([
+            'toeic_test_name' => 'required|string|max: 100'
         ]);
 
-        if ($validator->fails()) {
-            return response()->json([
-                'status' => false,
-                'message' => 'Validation failed.',
-                'errors' => $validator->errors()
-            ], 422);
-        }
+        if ($request->ajax() || $request->wantsJson()) {
+            $rules = [
+                'toeic_test_name' => 'required|string|max: 100'
+            ];
+            $validator = Validator::make($request->all(), $rules);
 
-        $data = ToeicTestModels::find($id);
-
-        if (!$data) {
-            return response()->json([
-                'status' => false,
-                'message' => 'Data not found.'
-            ], 404);
-        }
-
-        $data->update($request->all());
-
-        return response()->json([
-            'status' => true,
-            'message' => 'Data successfully updated.',
-            'data' => $data
-        ]);
-    }
-
-    // Delete a TOEIC test record
-    public function destroy($id)
-    {
-        $data = ToeicTestModels::find($id);
-
-        if (!$data) {
-            return response()->json([
-                'status' => false,
-                'message' => 'Data not found.'
-            ], 404);
-        }
-
-        try {
-            $data->delete();
+            if ($validator->fails()) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Failed validation',
+                    'msgField' => $validator->errors()
+                ]);
+            }
+            ToeicTestModels ::create($request->all());
             return response()->json([
                 'status' => true,
-                'message' => 'Data successfully deleted.'
+                'message' => 'Data successfully saved'
             ]);
-        } catch (\Illuminate\Database\QueryException $e) {
-            return response()->json([
-                'status' => false,
-                'message' => 'Cannot delete this record because it is linked to another table.'
-            ], 400);
         }
+        redirect('/');
+    }
+
+    public function list(Request $request)
+    {
+        $toeic_test = ToeicTestModels ::select('id', 'toeic_test_name');
+
+        return DataTables::of($toeic_test)
+            // menambahkan kolom index / no urut (default nama kolom: DT_RowIndex) 
+            ->addIndexColumn()
+            ->addColumn('action', function ($toeic_test) {  // menambahkan kolom action 
+                $btn  = '<button onclick="modalAction(\'' . url('/toeic_test/' . $toeic_test->id . '/show_ajax') . '\')" 
+    class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded text-sm mr-1">Detail</button>';
+
+                $btn .= '<button onclick="modalAction(\'' . url('/toeic_test/' . $toeic_test->id . '/edit_ajax') . '\')" 
+    class="bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-1 rounded text-sm mr-1">Edit</button>';
+
+                $btn .= '<button onclick="modalAction(\'' . url('/toeic_test/' . $toeic_test->id . '/delete_ajax') . '\')" 
+    class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded text-sm">Delete</button>';
+
+                return $btn;
+            })
+            ->rawColumns(['action']) // memberitahu bahwa kolom aksi adalah html 
+            ->make(true);
+    }
+
+    // Menampilkan detail toeic_test
+    public function show_ajax(string $id)
+    {
+        $toeic_test = ToeicTestModels::find($id);
+        return view('toeic_test.show_ajax', compact('toeic_test'));
+    }
+
+
+    // Menampilkan halaman form edit toeic_test
+    public function edit_ajax(string $id)
+    {
+        $toeic_test = ToeicTestModels ::find($id);
+        return view('toeic_test.edit_ajax', compact('toeic_test'));
+    }
+
+    public function update_ajax(Request $request, $id)
+    {
+        // cek apakah request dari ajax 
+        if ($request->ajax() || $request->wantsJson()) {
+            $rules = [
+                'toeic_test_name' => 'required|string|max: 100',
+            ];
+
+            // use Illuminate\Support\Facades\Validator; 
+            $validator = Validator::make($request->all(), $rules);
+
+            if ($validator->fails()) {
+                return response()->json([
+                    'status'   => false,    // respon json, true: berhasil, false: gagal 
+                    'message'  => 'failed validation.',
+                    'msgField' => $validator->errors()  // menunjukkan field mana yang error 
+                ]);
+            }
+            $check = ToeicTestModels ::find($id);
+            if ($check) {
+                $check->update($request->all());
+                return response()->json([
+                    'status'  => true,
+                    'message' => 'Data succesful changed'
+                    
+                ]);
+            } else {
+                return response()->json([
+                    'status'  => false,
+                    'message' => 'Data not found'
+                ]);
+            }
+        }
+        redirect('/');
+    }
+
+    // Menghapus data toeic_test
+    public function confirm_ajax(string $id)
+    {
+        $toeic_test = ToeicTestModels ::find($id);
+        return view('toeic_test.confirm_ajax', ['toeic_test' => $toeic_test]);
+    }
+
+    public function delete_ajax(Request $request, $id)
+    {
+        if ($request->ajax() || $request->wantsJson()) {
+            $toeic_test = ToeicTestModels ::find($id);
+            if ($toeic_test) {
+                try {
+                    ToeicTestModels ::destroy($id);
+                    return response()->json([
+                        'status'  => true,
+                        'message' => 'Data successful deleted'
+                    ]);
+                } catch (\Illuminate\Database\QueryException $e) {
+                    return response()->json([
+                        'status'  => false,
+                        'message' => 'toeic_test data cannot deleted because it is linked to another table.'
+                    ]);
+                }
+            } else {
+                return response()->json([
+                    'status'  => false,
+                    'message' => 'Data is not found'
+                ]);
+            }
+        }
+        redirect('/');
+    }
+        public function exportPdf()
+    {
+        $data = ToeicTestModels::orderBy('created_at', 'desc')->get();
+
+        $pdf = Pdf::loadView('exports.toeic_pdf', ['data' => $data]);
+
+        return $pdf->download('toeic_test_data.pdf');
     }
 }

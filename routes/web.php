@@ -1,14 +1,15 @@
 <?php
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\api\MajorController;
+use App\Http\Controllers\StudentController;
 use App\Http\Controllers\MahasiswaController;
-use App\Http\Controllers\PendaftaranController;
+use App\Http\Controllers\admin\MajorController;
 use App\Http\Controllers\Auth\SocialiteController;
 use App\Http\Controllers\admin\ToeicTestController;
 use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\admin\StudyProgramController;
 use App\Http\Controllers\Mahasiswa\RegistrasiController;
+use App\Http\Controllers\Mahasiswa\PendaftaranController;
 
 Route::get('/login', function () {
     return view('auth.login');
@@ -21,6 +22,9 @@ Route::post('/register', [AuthController::class, 'register'])->name('register');
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+
 // Verifikasi Email
 Route::get('/verify-email', [VerificationController::class, 'show'])->name('verification.notice');
 Route::get('/email/verify/{id}/{hash}', [VerificationController::class, 'verify'])->name('verification.verify');
@@ -40,7 +44,15 @@ Route::get('/auth/google/callback', [SocialiteController::class, 'callback']);
 Route::post('/logout', [SocialiteController::class, 'logout'])->name('logout');
 Route::get('/dashboard', [MahasiswaController::class, 'dashboard'])->name('mahasiswa.dashboard');
 Route::get('/mahasiswa/dashboard', [MahasiswaController::class, 'dashboard'])->name('mahasiswa.dashboard');
+Route::get('/mahasiswa/profile', [MahasiswaController::class, 'profile'])->name('mahasiswa.profile');
 Route::get('/sertifikat', [MahasiswaController::class, 'sertifikat'])->name('mahasiswa.sertifikat');
+
+Route::resource('mahasiswa', MahasiswaController::class);
+
+// Route untuk fitur soft delete
+Route::get('mahasiswa/trashed', [StudentController::class, 'trashed'])->name('mahasiswa.trashed');
+Route::patch('mahasiswa/{id}/restore', [StudentController::class, 'restore'])->name('mahasiswa.restore');
+Route::delete('mahasiswa/{id}/force-delete', [StudentController::class, 'forceDelete'])->name('mahasiswa.force-delete');
 
 // Dashboard (protected by auth and verified middleware)
 Route::middleware(['auth', 'verified'])->group(function () {
