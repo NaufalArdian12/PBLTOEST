@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\admin;
+namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Models\ToeicTestModels;
@@ -8,7 +8,7 @@ use App\Http\Controllers\Controller;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Validator;
 
-class toeicTestController extends Controller
+class ToeicTestController extends Controller
 {
     public function index()
     {
@@ -64,21 +64,21 @@ class toeicTestController extends Controller
         $toeic_test = ToeicTestModels ::select('id', 'toeic_test_name');
 
         return DataTables::of($toeic_test)
-            // menambahkan kolom index / no urut (default nama kolom: DT_RowIndex) 
+            // menambahkan kolom index / no urut (default nama kolom: DT_RowIndex)
             ->addIndexColumn()
-            ->addColumn('action', function ($toeic_test) {  // menambahkan kolom action 
-                $btn  = '<button onclick="modalAction(\'' . url('/toeic_test/' . $toeic_test->id . '/show_ajax') . '\')" 
+            ->addColumn('action', function ($toeic_test) {  // menambahkan kolom action
+                $btn  = '<button onclick="modalAction(\'' . url('/toeic_test/' . $toeic_test->id . '/show_ajax') . '\')"
     class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded text-sm mr-1">Detail</button>';
 
-                $btn .= '<button onclick="modalAction(\'' . url('/toeic_test/' . $toeic_test->id . '/edit_ajax') . '\')" 
+                $btn .= '<button onclick="modalAction(\'' . url('/toeic_test/' . $toeic_test->id . '/edit_ajax') . '\')"
     class="bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-1 rounded text-sm mr-1">Edit</button>';
 
-                $btn .= '<button onclick="modalAction(\'' . url('/toeic_test/' . $toeic_test->id . '/delete_ajax') . '\')" 
+                $btn .= '<button onclick="modalAction(\'' . url('/toeic_test/' . $toeic_test->id . '/delete_ajax') . '\')"
     class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded text-sm">Delete</button>';
 
                 return $btn;
             })
-            ->rawColumns(['action']) // memberitahu bahwa kolom aksi adalah html 
+            ->rawColumns(['action']) // memberitahu bahwa kolom aksi adalah html
             ->make(true);
     }
 
@@ -99,20 +99,20 @@ class toeicTestController extends Controller
 
     public function update_ajax(Request $request, $id)
     {
-        // cek apakah request dari ajax 
+        // cek apakah request dari ajax
         if ($request->ajax() || $request->wantsJson()) {
             $rules = [
                 'toeic_test_name' => 'required|string|max: 100',
             ];
 
-            // use Illuminate\Support\Facades\Validator; 
+            // use Illuminate\Support\Facades\Validator;
             $validator = Validator::make($request->all(), $rules);
 
             if ($validator->fails()) {
                 return response()->json([
-                    'status'   => false,    // respon json, true: berhasil, false: gagal 
+                    'status'   => false,    // respon json, true: berhasil, false: gagal
                     'message'  => 'failed validation.',
-                    'msgField' => $validator->errors()  // menunjukkan field mana yang error 
+                    'msgField' => $validator->errors()  // menunjukkan field mana yang error
                 ]);
             }
             $check = ToeicTestModels ::find($id);
@@ -121,7 +121,7 @@ class toeicTestController extends Controller
                 return response()->json([
                     'status'  => true,
                     'message' => 'Data succesful changed'
-                    
+
                 ]);
             } else {
                 return response()->json([
