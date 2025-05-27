@@ -15,8 +15,6 @@ class EducationalStaffSeeder extends Seeder
      */
     public function run(): void
     {
-            // Menambahkan pengguna admin baru
-        // Seeder untuk menambahkan admin ke tabel admins
         $user = UserModels::create([
             'name' => 'Dosen 2',
             'email' => 'oranjistudioofficial@gmail.com',
@@ -24,7 +22,6 @@ class EducationalStaffSeeder extends Seeder
             'role_id' => 2,  // Admin role
         ]);
 
-        // Setelah pengguna dibuat, masukkan ke dalam tabel admins
         EducationalStaffModels::create([
             'user_id' => $user->id,
             'NIP' => '1234567891',
