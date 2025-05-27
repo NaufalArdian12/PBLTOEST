@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\UserModels;
 use App\Models\StudyProgramModels;
-use App\Models\MajorModels;
 use App\Models\RegistrationModels;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -28,7 +27,7 @@ class StudentModels extends Model
         'scan_ktm',
         'pas_photo',
         'current_address',
-        'recent_address',
+        'origin_address',
         'phone_number',
     ];
 
