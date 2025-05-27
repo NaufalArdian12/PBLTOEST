@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Carbon\Traits\Timestamp;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -30,7 +29,7 @@ class UserModels extends Authenticatable implements MustVerifyEmail
         'google_token',
         'google_refresh_token',
         'email_verified_at',
-        'role_id',  // Ganti 'role' dengan 'role_id'
+        'role_id',  // Menggunakan 'role_id' sesuai dengan tabel 'users'
     ];
 
     /**
@@ -42,7 +41,7 @@ class UserModels extends Authenticatable implements MustVerifyEmail
         'password',
         'remember_token',
         'google_token',
-        'google_refresh_token',
+        'google_refresh_token', // Menyembunyikan token
     ];
 
     /**
@@ -62,24 +61,13 @@ class UserModels extends Authenticatable implements MustVerifyEmail
     }
 
     /**
-     * Get the role of the user.
-     *
-     * @return string
-     */
-    public function getRole(): string
-    {
-        // Mengambil nama role dari relasi role
-        return $this->roleRelation->name ?? 'mahasiswa'; // Default role if not set
-    }
-
-    /**
-     * Relationship to the RoleModels.
+     * Relationship to the Role model.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function roleRelation()
     {
-        return $this->belongsTo(RoleModels::class, 'role_id');
+        return $this->belongsTo(RoleModels::class, 'role_id'); // Memastikan relasi dengan role_id
     }
 
     /**
@@ -90,6 +78,6 @@ class UserModels extends Authenticatable implements MustVerifyEmail
      */
     public function role(string $role): bool
     {
-        return $this->roleRelation->name === $role;
+        return $this->roleRelation ? $this->roleRelation->name === $role : false; // Menangani jika roleRelation tidak ada
     }
 }
