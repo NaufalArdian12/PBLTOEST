@@ -1,16 +1,19 @@
 <?php
-
 namespace App\Http\Controllers\Admin;
 
 use App\Models\MajorModels;
 use App\Models\StudyProgramModels;
+use App\Http\Requests\StoreMajorRequest;
+use App\Http\Requests\UpdateMajorRequest;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
-use Yajra\DataTables\Facades\DataTables;
 use App\Http\Controllers\Controller;
+use Yajra\DataTables\Facades\DataTables;
 
 class MajorController extends Controller
 {
+    /**
+     * Display a listing of the resource.
+     */
     public function index()
     {
         $breadcrumb = (object) [
@@ -18,7 +21,7 @@ class MajorController extends Controller
             'list' => ['Home', 'Major']
         ];
         $page = (object) [
-            'title' => 'Major list integreted in system'
+            'title' => 'Major list integrated in system'
         ];
         $activeMenu = 'major';
         $study_program = StudyProgramModels::all();
@@ -26,157 +29,159 @@ class MajorController extends Controller
         return view('barang.index', compact('breadcrumb', 'page', 'study_program', 'activeMenu'));
     }
 
+    /**
+     * Show the form for creating a new resource.
+     */
     public function create_ajax()
     {
         $study_program = StudyProgramModels::all();
         return view('major.create_ajax')->with('study_program', $study_program);
     }
 
-    // Menyimpan data major baru
-    public function store_ajax(Request $request)
+    /**
+     * Store a newly created resource in storage (AJAX).
+     */
+    public function store_ajax(StoreMajorRequest $request)
     {
-        $request->validate([
-            'study_program_id' => ['required', 'integer', 'exists:study_programs,study_program_id'],
-            'major_name' => 'required|string|max: 100'
-        ]);
-
         if ($request->ajax() || $request->wantsJson()) {
-            $rules = [
-                'study_program_id' => ['required', 'integer', 'exists:study_programs,study_program_id'],
-                'major_name' => 'required|string|max: 100'
-            ];
-            $validator = Validator::make($request->all(), $rules);
-
-            if ($validator->fails()) {
-                return response()->json([
-                    'status' => false,
-                    'message' => 'Failed validation',
-                    'msgField' => $validator->errors()
-                ]);
-            }
-            MajorModels::create($request->all());
+            // Buat data major
+            MajorModels::create($request->validated());
             return response()->json([
                 'status' => true,
-                'message' => 'Data successfully saved'
+                'message' => 'Data berhasil disimpan'
             ]);
         }
-        redirect('/');
+        return response()->json([
+            'status' => false,
+            'message' => 'Request tidak valid'
+        ]);
     }
 
-    public function list(Request $request)
-    {
-        $major = MajorModels::select('id', 'major_name',  'study_program_id')->with('study_program');
-
-        if ($request->study_program_id) {
-            $major->where('study_program_id', $request->study_program_id);
-        }
-
-        return DataTables::of($major)
-            // menambahkan kolom index / no urut (default nama kolom: DT_RowIndex)
-            ->addIndexColumn()
-            ->addColumn('action', function ($major) {  // menambahkan kolom action
-                $btn  = '<button onclick="modalAction(\'' . url('/major/' . $major->id . '/show_ajax') . '\')"
-    class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded text-sm mr-1">Detail</button>';
-
-                $btn .= '<button onclick="modalAction(\'' . url('/major/' . $major->id . '/edit_ajax') . '\')"
-    class="bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-1 rounded text-sm mr-1">Edit</button>';
-
-                $btn .= '<button onclick="modalAction(\'' . url('/major/' . $major->id . '/delete_ajax') . '\')"
-    class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded text-sm">Delete</button>';
-
-                return $btn;
-            })
-            ->editColumn('study_program', function ($major) {
-                return $major->study_program->study_program_name ?? '-';
-            })
-            ->rawColumns(['action']) // memberitahu bahwa kolom aksi adalah html
-            ->make(true);
-    }
-
-    // Menampilkan detail major
+    /**
+     * Display the specified resource (AJAX).
+     */
     public function show_ajax(string $id)
     {
         $major = MajorModels::with('study_program')->find($id);
-        $study_program = StudyProgramModels::select('study_program_id', 'study_program_name')->get();
-        return view('major.show_ajax', compact('study_program', 'major'));
+        if ($major) {
+            return response()->json([
+                'status' => true,
+                'data' => $major
+            ]);
+        } else {
+            return response()->json([
+                'status' => false,
+                'message' => 'Data major tidak ditemukan'
+            ]);
+        }
     }
 
-
-    // Menampilkan halaman form edit major
+    /**
+     * Show the form for editing the specified resource (AJAX).
+     */
     public function edit_ajax(string $id)
     {
         $major = MajorModels::find($id);
-        $study_program = StudyProgramModels::select('study_program_id', 'study_program_name')->get();
-        return view('major.edit_ajax', compact('major', 'study_program'));
+        $study_program = StudyProgramModels::all();
+        if ($major) {
+            return response()->json([
+                'status' => true,
+                'data' => [
+                    'major' => $major,
+                    'study_program' => $study_program
+                ]
+            ]);
+        } else {
+            return response()->json([
+                'status' => false,
+                'message' => 'Data major tidak ditemukan'
+            ]);
+        }
     }
 
-    public function update_ajax(Request $request, $id)
+    /**
+     * Update the specified resource in storage (AJAX).
+     */
+    public function update_ajax(UpdateMajorRequest $request, $id)
     {
-        // cek apakah request dari ajax
         if ($request->ajax() || $request->wantsJson()) {
-            $rules = [
-                'study_program_id' => ['required', 'integer', 'exists:study_programs,study_program_id'],
-                'major_name' => 'required|string|max: 100',
-            ];
-
-            // use Illuminate\Support\Facades\Validator;
-            $validator = Validator::make($request->all(), $rules);
-
-            if ($validator->fails()) {
+            $major = MajorModels::find($id);
+            if ($major) {
+                $major->update($request->validated());
                 return response()->json([
-                    'status'   => false,    // respon json, true: berhasil, false: gagal
-                    'message'  => 'failed validation.',
-                    'msgField' => $validator->errors()  // menunjukkan field mana yang error
-                ]);
-            }
-            $check = MajorModels::find($id);
-            if ($check) {
-                $check->update($request->all());
-                return response()->json([
-                    'status'  => true,
-                    'message' => 'Data succesful changed'
+                    'status' => true,
+                    'message' => 'Data berhasil diperbarui'
                 ]);
             } else {
                 return response()->json([
-                    'status'  => false,
-                    'message' => 'Data not found'
+                    'status' => false,
+                    'message' => 'Data major tidak ditemukan'
                 ]);
             }
         }
-        redirect('/');
+        return response()->json([
+            'status' => false,
+            'message' => 'Request tidak valid'
+        ]);
     }
 
-    // Menghapus data major
-    public function confirm_ajax(string $id)
-    {
-        $major = MajorModels::find($id);
-        return view('major.confirm_ajax', ['major' => $major]);
-    }
-
+    /**
+     * Soft delete the specified resource (AJAX).
+     */
     public function delete_ajax(Request $request, $id)
     {
         if ($request->ajax() || $request->wantsJson()) {
             $major = MajorModels::find($id);
             if ($major) {
-                try {
-                    MajorModels::destroy($id);
-                    return response()->json([
-                        'status'  => true,
-                        'message' => 'Data successful deleted'
-                    ]);
-                } catch (\Illuminate\Database\QueryException $e) {
-                    return response()->json([
-                        'status'  => false,
-                        'message' => 'major data cannot deleted because the table connected with another table'
-                    ]);
-                }
+                // Soft delete
+                $major->delete();
+                return response()->json([
+                    'status' => true,
+                    'message' => 'Data berhasil dihapus (soft delete)'
+                ]);
             } else {
                 return response()->json([
-                    'status'  => false,
-                    'message' => 'Data is not found'
+                    'status' => false,
+                    'message' => 'Data major tidak ditemukan'
                 ]);
             }
         }
-        redirect('/');
+        return response()->json([
+            'status' => false,
+            'message' => 'Request tidak valid'
+        ]);
+    }
+
+    /**
+     * Display a listing of trashed resources.
+     */
+    public function trashed()
+    {
+        $majors = MajorModels::onlyTrashed()->with('study_program')->get();
+        return view('major.trashed', compact('majors'));
+    }
+
+    /**
+     * Restore the specified resource from trash.
+     */
+    public function restore(string $id)
+    {
+        $major = MajorModels::onlyTrashed()->findOrFail($id);
+        $major->restore();
+
+        return redirect()->route('major.trashed')
+            ->with('success', 'Data berhasil dipulihkan');
+    }
+
+    /**
+     * Permanently delete the specified resource.
+     */
+    public function forceDelete(string $id)
+    {
+        $major = MajorModels::onlyTrashed()->findOrFail($id);
+        $major->forceDelete();
+
+        return redirect()->route('major.trashed')
+            ->with('success', 'Data berhasil dihapus permanen');
     }
 }
