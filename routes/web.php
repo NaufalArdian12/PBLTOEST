@@ -7,8 +7,8 @@ use App\Http\Controllers\Admin\MajorController;
 use App\Http\Controllers\Auth\SocialiteController;
 use App\Http\Controllers\Admin\ToeicTestController;
 use App\Http\Controllers\Auth\VerificationController;
-use App\Http\Controllers\Mahasiswa\RegistrasiController;
-use App\Http\Controllers\Mahasiswa\PendaftaranController;
+use App\Http\Controllers\Mahasiswa\RegistrationController;
+use App\Http\Controllers\Mahasiswa\EnrollmentController;
 use App\Http\Controllers\Admin\StudyProgramController;
 use App\Http\Controllers\Admin\AdminController;
 
@@ -65,8 +65,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // Registrasi mahasiswa
     Route::prefix('mahasiswa')->name('mahasiswa.')->group(function () {
-        Route::get('/registrasi/create', [RegistrasiController::class, 'create'])->name('registrasi.create');
-        Route::post('/registrasi', [RegistrasiController::class, 'store'])->name('registrasi.store');
+        Route::get('/registrasi/create', [RegistrationController::class, 'create'])->name('registrasi.create');
+        Route::post('/registrasi', [RegistrationController::class, 'store'])->name('registrasi.store');
     });
     Route::prefix('major')->group(function () {
         Route::get('/', [MajorController::class, 'index']);
@@ -108,9 +108,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     //Pendaftaran Mahasiswa
     Route::middleware(['auth', 'verified'])->group(function () {
         // Form pendaftaran (GET)
-        Route::get('/pendaftaran', [PendaftaranController::class, 'create'])->name('pendaftaran.create');
+        Route::get('/pendaftaran', [EnrollmentController::class, 'create'])->name('pendaftaran.create');
         // Proses simpan data (POST)
-        Route::post('/pendaftaran', [PendaftaranController::class, 'store'])->name('pendaftaran.store');
+        Route::post('/pendaftaran', [EnrollmentController::class, 'store'])->name('pendaftaran.store');
     });
 
     Route::resource('admins', AdminController::class);
