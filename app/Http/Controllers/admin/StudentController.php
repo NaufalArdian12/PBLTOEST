@@ -7,8 +7,9 @@ use App\Models\UserModels;
 use App\Models\MajorModels;
 use App\Models\StudyProgramModels;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
+use App\Http\Requests\UpdateStudentRequest;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreStudentRequest;
 
 
 class StudentController extends Controller
@@ -34,48 +35,6 @@ class StudentController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|min:8',
-            'NIM' => 'required|string|unique:students,NIM',
-            'NIK' => 'required|string|unique:students,NIK',
-            'study_program_id' => 'required|exists:study_programs,id',
-            'major_id' => 'required|exists:majors,id',
-        ]);
-
-        if ($validator->fails()) {
-            return redirect()->back()
-                ->withErrors($validator)
-                ->withInput();
-        }
-
-        // Buat user terlebih dahulu
-        $user = UserModels::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => bcrypt($request->password),
-            'role' => 'mahasiswa',
-        ]);
-
-        // Buat data mahasiswa terkait
-        $student = StudentModels::create([
-            'user_id' => $user->id,
-            'NIM' => $request->NIM,
-            'NIK' => $request->NIK,
-            'study_program_id' => $request->study_program_id,
-            'major_id' => $request->major_id,
-        ]);
-
-        return redirect()->route('mahasiswa.index')
-            ->with('success', 'Data mahasiswa berhasil ditambahkan');
-    }
-
-    /**
      * Display the specified resource.
      */
     public function show(string $id)
@@ -84,55 +43,6 @@ class StudentController extends Controller
         return view('mahasiswa.show', compact('student'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        $student = StudentModels::with('user')->findOrFail($id);
-        $studyPrograms = StudyProgramModels::all();
-        $majors = MajorModels::all();
-        return view('mahasiswa.edit', compact('student', 'studyPrograms', 'majors'));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        $student = StudentModels::findOrFail($id);
-        $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email,'.$student->user_id,
-            'NIM' => 'required|string|unique:students,NIM,'.$id,
-            'NIK' => 'required|string|unique:students,NIK,'.$id,
-            'study_program_id' => 'required|exists:study_programs,id',
-            'major_id' => 'required|exists:majors,id',
-        ]);
-
-        if ($validator->fails()) {
-            return redirect()->back()
-                ->withErrors($validator)
-                ->withInput();
-        }
-
-        // Update data user
-        $student->user->update([
-            'name' => $request->name,
-            'email' => $request->email,
-        ]);
-
-        // Update data mahasiswa
-        $student->update([
-            'NIM' => $request->NIM,
-            'NIK' => $request->NIK,
-            'study_program_id' => $request->study_program_id,
-            'major_id' => $request->major_id,
-        ]);
-
-        return redirect()->route('mahasiswa.index')
-            ->with('success', 'Data mahasiswa berhasil diperbarui');
-    }
 
     /**
      * Remove the specified resource from storage (soft delete).
@@ -186,27 +96,11 @@ class StudentController extends Controller
     /**
      * AJAX version of store
      */
-    public function store_ajax(Request $request)
+    public function store_ajax(StoreStudentRequest $request)
     {
         if ($request->ajax() || $request->wantsJson()) {
-            $validator = Validator::make($request->all(), [
-                'name' => 'required|string|max:255',
-                'email' => 'required|email|unique:users,email',
-                'password' => 'required|min:8',
-                'NIM' => 'required|string|unique:students,NIM',
-                'NIK' => 'required|string|unique:students,NIK',
-                'study_program_id' => 'required|exists:study_programs,id',
-                'major_id' => 'required|exists:majors,id',
-            ]);
-
-            if ($validator->fails()) {
-                return response()->json([
-                    'status' => false,
-                    'message' => 'Validasi gagal',
-                    'errors' => $validator->errors()
-                ], 422);
-            }
-
+            // Validasi berhasil pada StoreStudentRequest
+            // Buat user terlebih dahulu
             $user = UserModels::create([
                 'name' => $request->name,
                 'email' => $request->email,
@@ -214,6 +108,7 @@ class StudentController extends Controller
                 'role' => 'mahasiswa',
             ]);
 
+            // Buat data mahasiswa terkait
             $student = StudentModels::create([
                 'user_id' => $user->id,
                 'NIM' => $request->NIM,
@@ -229,8 +124,108 @@ class StudentController extends Controller
             ]);
         }
 
-        return redirect('/');
+        return response()->json([
+            'status' => false,
+            'message' => 'Request tidak valid'
+        ]);
     }
 
-    // Tambahkan method AJAX lainnya sesuai kebutuhan (show_ajax, edit_ajax, update_ajax, delete_ajax)
+
+    public function show_ajax($id)
+    {
+        $student = StudentModels::with(['user', 'studyProgram', 'major'])->find($id);
+        if ($student) {
+            return response()->json([
+                'status' => true,
+                'data' => $student
+            ]);
+        } else {
+            return response()->json([
+                'status' => false,
+                'message' => 'Data mahasiswa tidak ditemukan'
+            ]);
+        }
+    }
+
+    public function edit_ajax($id)
+    {
+        $student = StudentModels::with('user')->find($id);
+        if ($student) {
+            $studyPrograms = StudyProgramModels::all();
+            $majors = MajorModels::all();
+            return response()->json([
+                'status' => true,
+                'data' => [
+                    'student' => $student,
+                    'studyPrograms' => $studyPrograms,
+                    'majors' => $majors
+                ]
+            ]);
+        } else {
+            return response()->json([
+                'status' => false,
+                'message' => 'Data mahasiswa tidak ditemukan'
+            ]);
+        }
+    }
+
+    public function update_ajax(UpdateStudentRequest $request, $id)
+    {
+        if ($request->ajax() || $request->wantsJson()) {
+            $student = StudentModels::find($id);
+            if ($student) {
+                $student->user->update([
+                    'name' => $request->name,
+                    'email' => $request->email,
+                ]);
+
+                $student->update([
+                    'NIM' => $request->NIM,
+                    'NIK' => $request->NIK,
+                    'study_program_id' => $request->study_program_id,
+                    'major_id' => $request->major_id,
+                ]);
+
+                return response()->json([
+                    'status' => true,
+                    'message' => 'Data mahasiswa berhasil diperbarui'
+                ]);
+            } else {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Data mahasiswa tidak ditemukan'
+                ]);
+            }
+        }
+        return response()->json([
+            'status' => false,
+            'message' => 'Request tidak valid'
+        ]);
+    }
+
+    public function delete_ajax(Request $request, $id)
+    {
+        if ($request->ajax() || $request->wantsJson()) {
+            $student = StudentModels::find($id);
+            if ($student) {
+                // Soft delete data mahasiswa
+                $student->delete();
+
+                return response()->json([
+                    'status' => true,
+                    'message' => 'Data mahasiswa berhasil dihapus (soft delete)'
+                ]);
+            } else {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Data mahasiswa tidak ditemukan'
+                ]);
+            }
+        }
+        return response()->json([
+            'status' => false,
+            'message' => 'Request tidak valid'
+        ]);
+    }
+
 }
