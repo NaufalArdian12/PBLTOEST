@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Auth;
 
 use App\Models\UserModels;
 use Illuminate\Http\Request;
@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Auth\Events\Registered;
 use App\Http\Requests\SignUpRequest;
 use App\Http\Requests\SignInRequest;
+use App\Http\Controllers\Controller;
 
 class AuthController extends Controller
 {
