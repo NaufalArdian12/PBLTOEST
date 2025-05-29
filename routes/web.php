@@ -1,8 +1,8 @@
 <?php
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\MahasiswaController;
+use App\Http\Controllers\Mahasiswa\MahasiswaController;
 use App\Http\Controllers\Admin\StudentController;
-use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Admin\MajorController;
 use App\Http\Controllers\Auth\SocialiteController;
 use App\Http\Controllers\Admin\ToeicTestController;
