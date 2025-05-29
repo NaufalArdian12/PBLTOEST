@@ -62,6 +62,7 @@ class VerificationController extends Controller
 
     public function resend(Request $request)
     {
+        $user = $request->user();
         if (!$request->user()) {
             return redirect('/login');
         }

@@ -12,14 +12,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class AdminModels extends Model
 {
 
-    use HasFactory, SoftDeletes ;
+    use HasFactory, SoftDeletes;
 
     protected $table = 'admins';
     protected $primaryKey = 'id';
     public $timestamps = true;
 
     protected $fillable = [
-        'admin_name',
     ];
 
     // Relationships

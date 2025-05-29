@@ -1,11 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Models\UserModels;
 use App\Models\AdminModels;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreAdminRequest;
+use App\Http\Requests\UpdateAdminRequest;
 
 class AdminController extends Controller
 {
@@ -16,111 +18,120 @@ class AdminController extends Controller
 
         return response()->json([
             'status' => true,
-            'data'   => $admins
+            'data' => $admins
         ]);
     }
 
     // Detail satu admin
-    public function show(string $id)
+    public function show_ajax(string $id)
     {
         $admin = AdminModels::with('user')->findOrFail($id);
-
         return response()->json([
             'status' => true,
-            'data'   => $admin
+            'data' => $admin
         ]);
+    }
+
+    public function edit_ajax(string $id)
+    {
+        $admin = AdminModels::find($id);
+        if ($admin) {
+            return response()->json([
+                'status' => true,
+                'data' => $admin
+            ]);
+        } else {
+            return response()->json([
+                'status' => false,
+                'message' => 'Data tidak ditemukan'
+            ]);
+        }
     }
 
     // Create admin baru (buat record user + admin)
-    public function store(Request $request)
+    public function store_ajax(StoreAdminRequest $request)
     {
-        $validator = Validator::make($request->all(), [
-            'admin_name' => 'required|string|max:255',
-            'email'      => 'required|email|unique:users,email',
-            'password'   => 'required|string|min:8',
-        ]);
+        if ($request->ajax() || $request->wantsJson()) {
+            // Create the user first
+            $user = UserModels::create([
+                'name' => $request->admin_name,
+                'email' => $request->email,
+                'password' => bcrypt($request->password),
+                'role' => 'admin',
+            ]);
 
-        if ($validator->fails()) {
+            // Create the admin record
+            $admin = AdminModels::create([
+                'user_id' => $user->id,
+                'admin_name' => $request->admin_name,
+            ]);
+
             return response()->json([
-                'status'  => false,
-                'errors'  => $validator->errors(),
-                'message' => 'Validasi gagal',
-            ], 422);
+                'status' => true,
+                'message' => 'Admin berhasil ditambahkan',
+                'data' => $admin->load('user'),
+            ], 201);
         }
 
-        // Buat user
-        $user = UserModels::create([
-            'name'     => $request->admin_name,
-            'email'    => $request->email,
-            'password' => bcrypt($request->password),
-            'role'     => 'admin',
-        ]);
-
-        // Buat admin record
-        $admin = AdminModels::create([
-            'user_id'    => $user->id,
-            'admin_name' => $request->admin_name,
-        ]);
-
         return response()->json([
-            'status'  => true,
-            'message' => 'Admin berhasil ditambahkan',
-            'data'    => $admin->load('user'),
-        ], 201);
+            'status' => false,
+            'message' => 'Request tidak valid'
+        ]);
     }
+
 
     // Update data admin
-    public function update(Request $request, string $id)
+    public function update_ajax(UpdateAdminRequest $request, string $id)
     {
-        $admin = AdminModels::findOrFail($id);
+        if ($request->ajax() || $request->wantsJson()) {
+            $admin = AdminModels::findOrFail($id);
+            $admin->user->update([
+                'name' => $request->admin_name,
+                'email' => $request->email,
+            ]);
+            $admin->update([
+                'admin_name' => $request->admin_name,
+            ]);
 
-        $validator = Validator::make($request->all(), [
-            'admin_name' => 'required|string|max:255',
-            'email'      => 'required|email|unique:users,email,'.$admin->user_id,
-            'password'   => 'nullable|string|min:8',
-        ]);
-
-        if ($validator->fails()) {
             return response()->json([
-                'status'  => false,
-                'errors'  => $validator->errors(),
-                'message' => 'Validasi gagal',
-            ], 422);
+                'status' => true,
+                'message' => 'Admin berhasil diperbarui',
+                'data' => $admin->load('user'),
+            ]);
         }
-
-        // Update user
-        $dataUser = [
-            'name'  => $request->admin_name,
-            'email' => $request->email,
-        ];
-        if ($request->filled('password')) {
-            $dataUser['password'] = bcrypt($request->password);
-        }
-        $admin->user->update($dataUser);
-
-        // Update admin record
-        $admin->update([
-            'admin_name' => $request->admin_name,
-        ]);
 
         return response()->json([
-            'status'  => true,
-            'message' => 'Admin berhasil diperbarui',
-            'data'    => $admin->load('user'),
+            'status' => false,
+            'message' => 'Request tidak valid'
         ]);
     }
+
 
     // Soft delete
-    public function destroy(string $id)
+    public function delete_ajax(Request $request, string $id)
     {
-        $admin = AdminModels::findOrFail($id);
-        $admin->delete();
-
+        if ($request->ajax() || $request->wantsJson()) {
+            $admin = AdminModels::findOrFail($id);
+            if ($admin) {
+                // Soft delete
+                $admin->delete();
+                return response()->json([
+                    'status' => true,
+                    'message' => 'Admin berhasil dihapus (soft delete)'
+                ]);
+            } else {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Data tidak ditemukan'
+                ]);
+            }
+        }
         return response()->json([
-            'status'  => true,
-            'message' => 'Admin berhasil dihapus (soft delete)',
+            'status' => false,
+            'message' => 'Request tidak valid'
         ]);
     }
+
 
     // List yang sudah ter‐soft delete
     public function trashed()
@@ -129,7 +140,7 @@ class AdminController extends Controller
 
         return response()->json([
             'status' => true,
-            'data'   => $admins
+            'data' => $admins
         ]);
     }
 
@@ -140,7 +151,7 @@ class AdminController extends Controller
         $admin->restore();
 
         return response()->json([
-            'status'  => true,
+            'status' => true,
             'message' => 'Admin berhasil dipulihkan',
         ]);
     }
@@ -152,7 +163,7 @@ class AdminController extends Controller
         $admin->forceDelete();
 
         return response()->json([
-            'status'  => true,
+            'status' => true,
             'message' => 'Admin berhasil dihapus permanen',
         ]);
     }

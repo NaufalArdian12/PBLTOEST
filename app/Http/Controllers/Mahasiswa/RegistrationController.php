@@ -7,8 +7,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\StudentModels;
 use App\Models\RegistrationModels;
+use App\Http\Requests\RegistrationRequest;
 
-class RegistrasiController extends Controller
+class RegistrationController extends Controller
 {
     /**
      * Tampilkan form registrasi.
@@ -21,13 +22,9 @@ class RegistrasiController extends Controller
     /**
      * Simpan data registrasi.
      */
-    public function store(Request $request)
+    public function store(RegistrationRequest $request) 
     {
-        $request->validate([
-            'registration_date' => 'required|date',
-            'status' => 'required|string|max:20',
-        ]);
-
+        // Data sudah tervalidasi pada saat request diterima
         // Ambil mahasiswa berdasarkan user yang login
         $student = StudentModels::where('user_id', Auth::id())->firstOrFail();
 

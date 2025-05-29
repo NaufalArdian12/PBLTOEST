@@ -6,6 +6,8 @@ use App\Models\UserModels;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Auth\Events\Registered;
+use App\Http\Requests\SignUpRequest;
+use App\Http\Requests\SignInRequest;
 
 class AuthController extends Controller
 {
@@ -16,14 +18,9 @@ class AuthController extends Controller
     }
 
     // Proses register
-    public function register(Request $request)
+    public function register(SignUpRequest $request)
     {
-        $request->validate([
-            'name' => 'required|unique:users,name',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|min:6|confirmed',
-        ]);
-
+        // Data sudah tervalidasi pada saat request diterima
         $user = UserModels::create([
             'name' => $request->name,
             'email' => $request->email,
@@ -47,15 +44,9 @@ class AuthController extends Controller
 
 
     // Proses login
-    public function login(Request $request)
+    public function login(SignInRequest $request)
     {
-        // Validasi input login
-        $request->validate([
-            'email' => 'required|email',
-            'password' => 'required|min:6',
-        ]);
-
-        // Cek kredensial
+        // Data sudah tervalidasi pada saat request diterima
         $credentials = $request->only('email', 'password');
 
         if (Auth::attempt($credentials)) {
@@ -64,7 +55,7 @@ class AuthController extends Controller
         }
 
         // Jika login gagal
-        return back()->withErrors(['email' => 'Email or password is incorrect.']);
+        return back()->withErrors(['email' => 'Email atau password salah.']);
     }
 
 

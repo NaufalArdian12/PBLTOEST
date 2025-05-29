@@ -1,5 +1,5 @@
 <nav class="bg-white relative z-10">
-    <div class="max-w-7xl mx-auto px-4 sm:px-4 lg:px-4">
+    <div class="w-full mx-auto bg-white px-4 sm:px-6 lg:px-8 ">
         <div class="flex justify-between h-16">
             <!-- Logo -->
             <div class="flex items-center">
@@ -31,7 +31,7 @@
             <div class="hidden md:flex items-center">
                 <a href="{{ route('login') }}"
                     class="text-blue-600 border border-blue-600 hover:bg-blue-600 hover:text-white px-4 py-2 rounded-md text-sm font-medium">Login</a>
-               <a href="{{ route('register') }}"
+                <a href="{{ route('register') }}"
                     class="ml-4 bg-blue-600 text-white hover:bg-blue-700 px-4 py-2 rounded-md text-sm font-medium">Sign
                     Up</a>
             </div>
@@ -71,9 +71,9 @@
         </div>
         <div class="pt-4 pb-3 border-t border-gray-200">
             <div class="items-center justify-center space-x-4 px-4">
-                <a href=""
+                <a href="{{route('login')}}"
                     class="mb-2 text-blue-600 border border-white hover:bg-blue-600 hover:text-white block w-full text-center px-4 py-2 rounded-md text-sm font-medium">Login</a>
-                <a href=""
+                <a href="{{route('register')}}"
                     class="bg-white text-blue-600 border border-blue-600 hover:bg-blue-700 hover:text-white block w-full text-center px-4 py-2 rounded-md text-sm font-medium">Sign
                     Up</a>
             </div>

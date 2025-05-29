@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\UserModels;
 use App\Models\StudyProgramModels;
-use App\Models\MajorModels;
 use App\Models\RegistrationModels;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -17,7 +16,7 @@ class StudentModels extends Model
     protected $table = 'students';
     protected $primaryKey = 'id';
     public $timestamps = true;
-    
+
     protected $fillable = [
         'user_id',
         'NIM',
@@ -27,6 +26,9 @@ class StudentModels extends Model
         'scan_ktp',
         'scan_ktm',
         'pas_photo',
+        'current_address',
+        'origin_address',
+        'phone_number',
     ];
 
     // Relationships
@@ -40,13 +42,8 @@ class StudentModels extends Model
         return $this->belongsTo(StudyProgramModels::class, 'study_program_id');
     }
 
-    public function major()
+    public function registration()
     {
-        return $this->belongsTo(MajorModels::class, 'major_id');
-    }
-
-    public function registrations()
-    {
-        return $this->hasMany(RegistrationModels::class, 'NIM');
+        return $this->hasOne(RegistrationModels::class, 'student_id', 'id');
     }
 }

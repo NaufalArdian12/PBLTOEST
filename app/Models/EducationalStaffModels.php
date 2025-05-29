@@ -17,7 +17,6 @@ class EducationalStaffModels extends Model
 
     protected $fillable = [
         'NIP',
-        'lecturer_name',
     ];
 
     // Relationships
