@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\UserModels;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 use Laravel\Socialite\Facades\Socialite;
 
 class SocialiteController extends Controller
@@ -63,7 +62,14 @@ class SocialiteController extends Controller
             }
         }
 
-        return redirect('mahasiswa/dashboard');
+        // Cek peran pengguna dan arahkan ke dashboard yang sesuai
+        if (Auth::user()->role_id === 1) {
+            return redirect()->route('admin.dashboard');  // Redirect ke Admin Dashboard
+        } elseif (Auth::user()->role_id === 3) {
+            return redirect()->route('mahasiswa.dashboard');  // Redirect ke Mahasiswa Dashboard
+        } else {
+            return redirect()->route('login');  // Jika tidak cocok, redirect ke halaman login
+        }
     }
 
     /**
