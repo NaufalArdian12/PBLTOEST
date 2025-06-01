@@ -51,8 +51,21 @@ class AuthController extends Controller
         $credentials = $request->only('email', 'password');
 
         if (Auth::attempt($credentials)) {
-            // Redirect ke halaman yang dimaksud setelah login
-            return redirect()->intended('/dashboard');
+            // Cek peran pengguna setelah login
+            $user = Auth::user();
+
+            // Jika peran pengguna adalah admin
+            if ($user->role === 'admin') {
+                return redirect()->route('admin.dashboard'); // Ganti dengan rute dashboard admin
+            }
+
+            // Jika peran pengguna adalah mahasiswa
+            if ($user->role === 'student') {
+                return redirect()->route('mahasiswa.dashboard'); // Ganti dengan rute dashboard mahasiswa
+            }
+
+            // Jika tidak ada peran yang cocok, arahkan ke dashboard default (misalnya)
+            return redirect()->route('default.dashboard');
         }
 
         // Jika login gagal
