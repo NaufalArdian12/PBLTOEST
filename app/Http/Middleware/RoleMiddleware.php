@@ -13,9 +13,9 @@ class RoleMiddleware
         if (!Auth::check()) {
             return redirect('/login');
         }
+        $userRole = Auth::user()->role_id; // Mengakses role_id
 
-        $userRole = Auth::user()->role; // atau sesuai field role di database
-
+        // Memeriksa apakah role yang dimiliki user termasuk dalam daftar yang diberikan
         if (!in_array($userRole, $roles)) {
             abort(403, 'Unauthorized');
         }
