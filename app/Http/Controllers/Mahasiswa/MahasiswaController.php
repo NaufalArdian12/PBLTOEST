@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 
 class MahasiswaController extends Controller
 {
-    public function dashboard()
+    public function index()
     {
         return view('mahasiswa.dashboard');
     }
