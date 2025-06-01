@@ -307,7 +307,7 @@
         </div>
 
         <!-- Pagination (jika diperlukan) -->
-        @if($registrations instanceof \Illuminate\Contracts\Pagination\Paginator)
+        @if($registrations instanceof \Illuminate\Pagination\Paginator || $registrations instanceof \Illuminate\Pagination\LengthAwarePaginator)
         <div class="px-6 py-4 border-t border-gray-200">
             {{ $registrations->links() }}
         </div>
