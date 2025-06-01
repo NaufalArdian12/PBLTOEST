@@ -11,6 +11,7 @@ use App\Http\Controllers\Mahasiswa\RegistrationController;
 use App\Http\Controllers\Mahasiswa\EnrollmentController;
 use App\Http\Controllers\Admin\StudyProgramController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\DashboardController;
 
 Route::get('/login', function () {
     return view('auth.login');
@@ -43,7 +44,7 @@ Route::get('/auth/redirect', [SocialiteController::class, 'redirect'])->name('au
 Route::get('/auth/google/callback', [SocialiteController::class, 'callback']);
 
 Route::post('/logout', [SocialiteController::class, 'logout'])->name('logout');
-Route::get('/dashboard', [MahasiswaController::class, 'dashboard'])->name('mahasiswa.dashboard');
+//Route::get('/dashboard', [MahasiswaController::class, 'dashboard'])->name('mahasiswa.dashboard');
 Route::get('/mahasiswa/dashboard', [MahasiswaController::class, 'dashboard'])->name('mahasiswa.dashboard');
 Route::get('/mahasiswa/profile', [MahasiswaController::class, 'profile'])->name('mahasiswa.profile');
 Route::get('/sertifikat', [MahasiswaController::class, 'sertifikat'])->name('mahasiswa.sertifikat');
@@ -59,8 +60,8 @@ Route::delete('mahasiswa/{id}/force-delete', [StudentController::class, 'forceDe
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/set-password', [VerificationController::class, 'showSetPasswordForm'])->name('password.set');
     Route::post('/set-password', [VerificationController::class, 'storePassword'])->name('password.store');
-    Route::get('/dashboard', function () {
-        return view('dashboard');
+ //   Route::get('/dashboard', function () {
+   //     return view('dashboard');
     });
 
     // Registrasi mahasiswa
@@ -113,5 +114,5 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::post('/pendaftaran', [EnrollmentController::class, 'store'])->name('pendaftaran.store');
     });
 
-    Route::resource('admins', AdminController::class);
-});
+
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
