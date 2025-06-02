@@ -13,11 +13,14 @@ use App\Http\Controllers\Mahasiswa\EnrollmentController;
 use App\Http\Controllers\Admin\StudyProgramController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\RegistrationApprovalController;
+
 
 // Route untuk halaman login dan register
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 // Removed GET logout route to avoid ambiguity
 Route::get('/register', [AuthController::class, 'registerForm']);
 Route::post('/register', [AuthController::class, 'register'])->name('register');
@@ -67,7 +70,10 @@ Route::middleware(['auth', 'verified', 'role:3'])->group(function () {
 Route::middleware(['auth', 'verified', 'role:1'])->prefix('admin')->name('admin.')->group(function () {
 
     // Dashboard Admin
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+    Route::patch('/admin/registration/{id}/reject', [RegistrationApprovalController::class, 'reject'])->name('registration.reject');
+    Route::patch('/admin/registration/{id}/approve', [RegistrationApprovalController::class, 'approve'])->name('registration.approve');
 
     // Admin CRUD Routes
     Route::get('/', [AdminController::class, 'index'])->name('admin.index');

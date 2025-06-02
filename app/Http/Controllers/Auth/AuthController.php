@@ -29,7 +29,7 @@ class AuthController extends Controller
         ]);
         event(new Registered($user));
         Auth::login($user);
-        return redirect('/dashboard')->with('success', 'Akun berhasil dibuat');
+        return redirect('/mahasiswa/dashboard')->with('success', 'Akun berhasil dibuat');
     }
 
     // Tampilkan form login
@@ -76,7 +76,7 @@ class AuthController extends Controller
     public function resend(Request $request)
     {
         if ($request->user()->hasVerifiedEmail()) {
-            return redirect('/dashboard');
+            return redirect('/mahasiswa/dashboard');
         }
 
         $request->user()->sendEmailVerificationNotification();
