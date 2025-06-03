@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Auth;
 
 use App\Models\UserModels;
 use Illuminate\Http\Request;
@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Auth\Events\Registered;
 use App\Http\Requests\SignUpRequest;
 use App\Http\Requests\SignInRequest;
+use App\Http\Controllers\Controller;
 
 class AuthController extends Controller
 {
@@ -28,7 +29,7 @@ class AuthController extends Controller
         ]);
         event(new Registered($user));
         Auth::login($user);
-        return redirect('/dashboard')->with('success', 'Akun berhasil dibuat');
+        return redirect('/mahasiswa/dashboard')->with('success', 'Akun berhasil dibuat');
     }
 
     // Tampilkan form login
@@ -50,8 +51,21 @@ class AuthController extends Controller
         $credentials = $request->only('email', 'password');
 
         if (Auth::attempt($credentials)) {
-            // Redirect ke halaman yang dimaksud setelah login
-            return redirect()->intended('/dashboard');
+            // Cek peran pengguna setelah login
+            $user = Auth::user();
+
+            // Jika peran pengguna adalah admin
+            if ($user->role === 'admin') {
+                return redirect()->route('admin.dashboard'); // Ganti dengan rute dashboard admin
+            }
+
+            // Jika peran pengguna adalah mahasiswa
+            if ($user->role === 'student') {
+                return redirect()->route('mahasiswa.dashboard'); // Ganti dengan rute dashboard mahasiswa
+            }
+
+            // Jika tidak ada peran yang cocok, arahkan ke dashboard default (misalnya)
+            return redirect()->route('default.dashboard');
         }
 
         // Jika login gagal
@@ -62,7 +76,7 @@ class AuthController extends Controller
     public function resend(Request $request)
     {
         if ($request->user()->hasVerifiedEmail()) {
-            return redirect('/dashboard');
+            return redirect('/mahasiswa/dashboard');
         }
 
         $request->user()->sendEmailVerificationNotification();

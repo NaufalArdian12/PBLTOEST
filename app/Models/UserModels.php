@@ -70,14 +70,4 @@ class UserModels extends Authenticatable implements MustVerifyEmail
         return $this->belongsTo(RoleModels::class, 'role_id'); // Memastikan relasi dengan role_id
     }
 
-    /**
-     * Check if the user has a specific role.
-     *
-     * @param string $role
-     * @return bool
-     */
-    public function role(string $role): bool
-    {
-        return $this->roleRelation ? $this->roleRelation->name === $role : false; // Menangani jika roleRelation tidak ada
-    }
 }

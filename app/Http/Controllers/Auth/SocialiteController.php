@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\UserModels;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 use Laravel\Socialite\Facades\Socialite;
 
 class SocialiteController extends Controller
@@ -21,17 +20,31 @@ class SocialiteController extends Controller
     public function callback()
     {
         $socialUser = Socialite::driver('google')->user();
+
+        // Cek apakah user dengan google_id sudah ada
         $registeredUser = UserModels::where("google_id", $socialUser->id)->first();
 
         if (!$registeredUser) {
-            $user = UserModels::updateOrCreate([
-                'google_id' => $socialUser->id,
-            ], [
-                'name' => $socialUser->name,
-                'email' => $socialUser->email,
-                'google_token' => $socialUser->token,
-                'google_refresh_token' => $socialUser->refreshToken,
-            ]);
+            // Jika belum ada, periksa apakah email sudah terdaftar di database
+            $existingUser = UserModels::where('email', $socialUser->email)->first();
+
+            if ($existingUser) {
+                // Jika ada, update data yang diperlukan
+                $user = $existingUser;
+                $user->google_id = $socialUser->id;
+                $user->google_token = $socialUser->token;
+                $user->google_refresh_token = $socialUser->refreshToken;
+                $user->save();
+            } else {
+                // Jika belum ada, buat user baru
+                $user = UserModels::create([
+                    'google_id' => $socialUser->id,
+                    'name' => $socialUser->name,
+                    'email' => $socialUser->email,
+                    'google_token' => $socialUser->token,
+                    'google_refresh_token' => $socialUser->refreshToken,
+                ]);
+            }
 
             // Cek apakah email sudah terverifikasi
             if (!$user->hasVerifiedEmail()) {
@@ -40,6 +53,7 @@ class SocialiteController extends Controller
 
             Auth::login($user);
         } else {
+            // Jika user sudah terdaftar, login user tersebut
             Auth::login($registeredUser);
 
             // Cek apakah email sudah terverifikasi
@@ -48,9 +62,15 @@ class SocialiteController extends Controller
             }
         }
 
-        return redirect('mahasiswa/dashboard');
+        // Cek peran pengguna dan arahkan ke dashboard yang sesuai
+        if (Auth::user()->role_id === 1) {
+            return redirect()->route('admin.dashboard');  // Redirect ke Admin Dashboard
+        } elseif (Auth::user()->role_id === 3) {
+            return redirect()->route('mahasiswa.dashboard');  // Redirect ke Mahasiswa Dashboard
+        } else {
+            return redirect()->route('login');  // Jika tidak cocok, redirect ke halaman login
+        }
     }
-
 
     /**
      * Handle an incoming logout request from the application.

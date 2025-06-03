@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Mahasiswa;
 
 use App\Http\Controllers\Controller;
 
 class MahasiswaController extends Controller
 {
-    public function dashboard()
+    public function index()
     {
         return view('mahasiswa.dashboard');
     }

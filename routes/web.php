@@ -1,8 +1,9 @@
 <?php
+
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\MahasiswaController;
+use App\Http\Controllers\Mahasiswa\MahasiswaController;
 use App\Http\Controllers\Admin\StudentController;
-use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Admin\MajorController;
 use App\Http\Controllers\Auth\SocialiteController;
 use App\Http\Controllers\Admin\ToeicTestController;
@@ -11,20 +12,18 @@ use App\Http\Controllers\Mahasiswa\RegistrationController;
 use App\Http\Controllers\Mahasiswa\EnrollmentController;
 use App\Http\Controllers\Admin\StudyProgramController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\RegistrationApprovalController;
 
-Route::get('/login', function () {
-    return view('auth.login');
-})->name('login');
 
-Route::get('/register', [AuthController::class, 'registerForm']);
-Route::post('/register', [AuthController::class, 'register'])->name('register');
-
-// Login
+// Route untuk halaman login dan register
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+// Removed GET logout route to avoid ambiguity
+Route::get('/register', [AuthController::class, 'registerForm']);
+Route::post('/register', [AuthController::class, 'register'])->name('register');
 
 // Verifikasi Email
 Route::get('/verify-email', [VerificationController::class, 'show'])->name('verification.notice');
@@ -32,8 +31,6 @@ Route::get('/email/verify/{id}/{hash}', [VerificationController::class, 'verify'
 Route::post('/email/resend', [VerificationController::class, 'resend'])->name('verification.resend');
 
 // Dashboard Mahasiswa
-Route::get('/mahasiswa/dashboard', [MahasiswaController::class, 'dashboard'])->name('mahasiswa.dashboard');
-
 Route::get('/', function () {
     return view('welcome');
 })->name('home');
@@ -42,32 +39,54 @@ Route::get('/', function () {
 Route::get('/auth/redirect', [SocialiteController::class, 'redirect'])->name('auth.redirect');
 Route::get('/auth/google/callback', [SocialiteController::class, 'callback']);
 
-Route::post('/logout', [SocialiteController::class, 'logout'])->name('logout');
-Route::get('/dashboard', [MahasiswaController::class, 'dashboard'])->name('mahasiswa.dashboard');
-Route::get('/mahasiswa/dashboard', [MahasiswaController::class, 'dashboard'])->name('mahasiswa.dashboard');
-Route::get('/mahasiswa/profile', [MahasiswaController::class, 'profile'])->name('mahasiswa.profile');
-Route::get('/sertifikat', [MahasiswaController::class, 'sertifikat'])->name('mahasiswa.sertifikat');
+// Dashboard Mahasiswa
+Route::middleware(['auth', 'verified', 'role:3'])->group(function () {
 
-Route::resource('mahasiswa', MahasiswaController::class);
+    // Dashboard Mahasiswa
+    Route::get('/mahasiswa/dashboard', [MahasiswaController::class, 'index'])->name('mahasiswa.dashboard');
+    Route::get('/mahasiswa/profile', [MahasiswaController::class, 'profile'])->name('mahasiswa.profile');
+    Route::get('/sertifikat', [MahasiswaController::class, 'sertifikat'])->name('mahasiswa.sertifikat');
+    Route::resource('mahasiswa', MahasiswaController::class);
 
-// Route untuk fitur soft delete
-Route::get('mahasiswa/trashed', [StudentController::class, 'trashed'])->name('mahasiswa.trashed');
-Route::patch('mahasiswa/{id}/restore', [StudentController::class, 'restore'])->name('mahasiswa.restore');
-Route::delete('mahasiswa/{id}/force-delete', [StudentController::class, 'forceDelete'])->name('mahasiswa.force-delete');
+    // Fitur Soft Delete
+    Route::get('mahasiswa/trashed', [StudentController::class, 'trashed'])->name('mahasiswa.trashed');
+    Route::patch('mahasiswa/{id}/restore', [StudentController::class, 'restore'])->name('mahasiswa.restore');
+    Route::delete('mahasiswa/{id}/force-delete', [StudentController::class, 'forceDelete'])->name('mahasiswa.force-delete');
 
-// Dashboard (protected by auth and verified middleware)
-Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/set-password', [VerificationController::class, 'showSetPasswordForm'])->name('password.set');
-    Route::post('/set-password', [VerificationController::class, 'storePassword'])->name('password.store');
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    });
-
-    // Registrasi mahasiswa
+    // Registrasi Mahasiswa
     Route::prefix('mahasiswa')->name('mahasiswa.')->group(function () {
         Route::get('/registrasi/create', [RegistrationController::class, 'create'])->name('registrasi.create');
         Route::post('/registrasi', [RegistrationController::class, 'store'])->name('registrasi.store');
     });
+
+    // Pendaftaran Mahasiswa
+    Route::prefix('mahasiswa')->group(function () {
+        Route::get('/pendaftaran', [EnrollmentController::class, 'create'])->name('pendaftaran.create');
+        Route::post('/pendaftaran', [EnrollmentController::class, 'store'])->name('pendaftaran.store');
+    });
+});
+
+// Grup Admin
+Route::middleware(['auth', 'verified', 'role:1'])->prefix('admin')->name('admin.')->group(function () {
+
+    // Dashboard Admin
+    Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+    Route::patch('/admin/registration/{id}/reject', [RegistrationApprovalController::class, 'reject'])->name('registration.reject');
+    Route::patch('/admin/registration/{id}/approve', [RegistrationApprovalController::class, 'approve'])->name('registration.approve');
+
+    // Admin CRUD Routes
+    Route::get('/', [AdminController::class, 'index'])->name('admin.index');
+    Route::get('/{id}', [AdminController::class, 'show_ajax'])->name('admin.show');
+    Route::get('/{id}/edit', [AdminController::class, 'edit_ajax'])->name('admin.edit');
+    Route::post('/', [AdminController::class, 'store_ajax'])->name('admin.store');
+    Route::put('/{id}', [AdminController::class, 'update_ajax'])->name('admin.update');
+    Route::delete('/{id}', [AdminController::class, 'delete_ajax'])->name('admin.delete');
+    Route::get('/trashed', [AdminController::class, 'trashed'])->name('admin.trashed');
+    Route::patch('/{id}/restore', [AdminController::class, 'restore'])->name('admin.restore');
+    Route::delete('/{id}/force-delete', [AdminController::class, 'forceDelete'])->name('admin.forceDelete');
+
+    // Admin CRUD Routes
     Route::prefix('major')->group(function () {
         Route::get('/', [MajorController::class, 'index']);
         Route::post('/list', [MajorController::class, 'list']);
@@ -103,15 +122,4 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/create_ajax', [ToeicTestController::class, 'create_ajax']);
         Route::get('/{id}/show_ajax', [ToeicTestController::class, 'show_ajax']);
     });
-
-
-    //Pendaftaran Mahasiswa
-    Route::middleware(['auth', 'verified'])->group(function () {
-        // Form pendaftaran (GET)
-        Route::get('/pendaftaran', [EnrollmentController::class, 'create'])->name('pendaftaran.create');
-        // Proses simpan data (POST)
-        Route::post('/pendaftaran', [EnrollmentController::class, 'store'])->name('pendaftaran.store');
-    });
-
-    Route::resource('admins', AdminController::class);
 });
