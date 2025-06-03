@@ -7,129 +7,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Reddit+Sans:wght@400;500;600;700&display=swap"
         rel="stylesheet">
 
-    {{-- untuk membuat animasi smooth scroll --}}
-    <style>
-        body {
-            font-family: 'Reddit Sans', sans-serif;
-            /* Smooth scrolling */
-            scroll-behavior: smooth;
-        }
-
-        /* Custom animation classes */
-        .animate-fade-in {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-        }
-
-        .animate-fade-in.animated {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .animate-scale-in {
-            opacity: 0;
-            transform: scale(0.95);
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-        }
-
-        .animate-scale-in.animated {
-            opacity: 1;
-            transform: scale(1);
-        }
-
-        .animate-slide-left {
-            opacity: 0;
-            transform: translateX(-30px);
-            transition: opacity 0.7s ease-out, transform 0.7s ease-out;
-        }
-
-        .animate-slide-left.animated {
-            opacity: 1;
-            transform: translateX(0);
-        }
-
-        .animate-slide-right {
-            opacity: 0;
-            transform: translateX(30px);
-            transition: opacity 0.7s ease-out, transform 0.7s ease-out;
-        }
-
-        .animate-slide-right.animated {
-            opacity: 1;
-            transform: translateX(0);
-        }
-
-        /* Responsive adjustments */
-        @media (max-width: 640px) {
-            .hero-section h1 {
-                font-size: 2rem;
-                line-height: 1.2;
-            }
-            .hero-section p {
-                font-size: 1rem;
-            }
-            .features-grid {
-                grid-template-columns: 1fr !important;
-            }
-            .testimonial-cards {
-                flex-direction: column;
-            }
-            .testimonial-card {
-                width: 100% !important;
-                margin-bottom: 1rem;
-            }
-            .faq-grid {
-                grid-template-columns: 1fr !important;
-            }
-            .footer-links {
-                grid-template-columns: 1fr !important;
-                gap: 1.5rem;
-            }
-            .timeline-img {
-                height: auto !important;
-                width: 100% !important;
-            }
-            .terms-section {
-                padding-left: 1rem !important;
-                padding-right: 1rem !important;
-            }
-        }
-
-        @media (min-width: 641px) and (max-width: 1024px) {
-            .hero-section h1 {
-                font-size: 2.5rem;
-            }
-            .features-grid {
-                grid-template-columns: repeat(2, 1fr) !important;
-            }
-            .testimonial-card {
-                width: 48% !important;
-            }
-            .faq-grid {
-                grid-template-columns: repeat(2, 1fr) !important;
-            }
-            .timeline-img {
-                height: 24rem !important;
-            }
-        }
-    </style>
-    @vite('resources/css/app.css')
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             // Intersection Observer for animations
             const animateOnScroll = function (entries, observer) {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-<<<<<<< HEAD
                         entry.target.classList.add('animate-fade-in', 'opacity-100', 'translate-y-0', 'scale-100', 'translate-x-0');
 
                         // For staggered animations
-=======
-                        entry.target.classList.add('animated');
-
-                        // For staggered animations in child elements
->>>>>>> f84dd199c3d090f3ca57558c73d5013e13683b9d
                         if (entry.target.dataset.stagger) {
                             const staggerDelay = parseInt(entry.target.dataset.staggerDelay) || 100;
                             const children = entry.target.querySelectorAll('[data-stagger-child]');
@@ -141,10 +27,6 @@
                             });
                         }
 
-<<<<<<< HEAD
-=======
-                        // Unobserve after animation
->>>>>>> f84dd199c3d090f3ca57558c73d5013e13683b9d
                         observer.unobserve(entry.target);
                     }
                 });
@@ -162,11 +44,7 @@
                 observer.observe(el);
             });
 
-<<<<<<< HEAD
             // Hero section animation
-=======
-            // Add slight delay to hero section for better perceived performance
->>>>>>> f84dd199c3d090f3ca57558c73d5013e13683b9d
             setTimeout(() => {
                 document.querySelector('.hero-section')?.classList.add('opacity-100', 'translate-y-0', 'translate-x-0');
             }, 300);
@@ -176,7 +54,6 @@
             el.classList.remove('opacity-0', 'translate-y-5');
             el.classList.add('opacity-100', 'translate-y-0');
         });
-
     </script>
     @vite('resources/css/app.css')
 </head>
@@ -184,25 +61,15 @@
 <body class="font-sans scroll-smooth">
     @include('components.navbar')
 
-<<<<<<< HEAD
     <main class="mx-auto bg-white">
         <!-- Hero Section -->
-        <div class="container px-24 px-md-5 mx-2 mx-md-auto">
-            <div class="flex flex-col-reverse lg:flex-row items-center gap-8 lg:gap-12">
+        <div class="container px-4 sm:px-6 md:px-8 lg:px-12 xl:px-24 mx-auto py-8 sm:py-12">
+            <div class="flex flex-col-reverse lg:flex-row items-center gap-4 lg:gap-12">
                 <!-- Left content -->
                 <div
-                    class="w-full lg:w-1/2 flex flex-col justify-center items-start gap-6 hero-section opacity-0 -translate-x-10 transition-all duration-700 ease-out">
+                    class="w-full lg:w-1/2 flex flex-col justify-center items-start gap-4 sm:gap-6 hero-section opacity-0 -translate-x-10 transition-all duration-700 ease-out px-4 lg:px-0">
                     <h1
-                        class="text-black text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold leading-[120%] capitalize">
-=======
-    <main class="w-full mx-auto bg-white px-4 sm:px-6 lg:px-8">
-        <!-- Hero Section with enhanced animation -->
-        <div class="w-full mx-auto py-8 md:py-12">
-            <div class="flex flex-col-reverse lg:flex-row items-center gap-8 lg:gap-12">
-                <!-- Left content with slide-in effect -->
-                <div class="w-full lg:w-1/2 flex flex-col justify-center items-start gap-4 sm:gap-6 animate-slide-left hero-section">
-                    <h1 class="text-black text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold leading-[120%] capitalize">
->>>>>>> f84dd199c3d090f3ca57558c73d5013e13683b9d
+                        class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-semibold leading-[120%] capitalize text-black">
                         English Test That Measures The Ability To Communicate In Everyday Life.
                     </h1>
 
@@ -212,56 +79,40 @@
                         expand their employment opportunities.
                     </p>
 
-                    <div class="flex flex-col-reverse sm:flex-row gap-3 w-full sm:w-auto" data-stagger-child>
+                    <div class="flex flex-col-reverse sm:flex-row gap-2 w-full sm:w-auto" data-stagger-child>
                         <a href="#"
-                            class="px-4 sm:px-6 py-2 sm:py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-center transform hover:scale-105 transition-transform text-sm sm:text-base">
+                            class="px-4 sm:px-6 py-2 sm:py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition text-center transform hover:scale-105 transition-transform text-sm sm:text-base">
                             Have Certificate?
                         </a>
                         <a href="#"
-                            class="px-4 sm:px-6 py-2 sm:py-3 border border-blue-600 text-blue-600 rounded-lg hover:bg-blue-50 text-center transform hover:scale-105 transition-transform text-sm sm:text-base">
+                            class="px-4 sm:px-6 py-2 sm:py-3 border border-blue-600 text-blue-600 rounded-lg hover:bg-blue-50 transition text-center transform hover:scale-105 transition-transform text-sm sm:text-base">
                             Need Certificate?
                         </a>
                     </div>
                 </div>
 
-<<<<<<< HEAD
                 <!-- Right image -->
-                <div class="lg:w-1/2 hero-section opacity-0 translate-y-5 transition-all duration-700 ease-out"
-                    onload="this.classList.remove('opacity-0', 'translate-y-5')" id="fade-in">
-=======
-                <!-- Right image with slide-in effect -->
-                <div class="w-full lg:w-1/2 animate-slide-right hero-section">
->>>>>>> f84dd199c3d090f3ca57558c73d5013e13683b9d
+                <div class="w-full lg:w-1/2 hero-section opacity-0 translate-y-5 transition-all duration-700 ease-out px-4 lg:px-0"
+                    id="fade-in">
                     <img src="{{ asset('images/auditorium-seats.png') }}" alt="Blue auditorium seats"
-                        class="w-full h-auto object-cover" loading="lazy">
+                        class="w-full h-auto max-w-md lg:max-w-none mx-auto" loading="lazy">
                 </div>
             </div>
         </div>
 
-<<<<<<< HEAD
         <!-- Blue Gradient Section -->
         <section
-            class="py-12 mx-24 rounded-xl bg-gradient-to-b from-blue-800 via-blue-700 to-blue-600 via-30% from-10% mt-16 animate-on-scroll opacity-0 scale-95 transition-all duration-600 ease-out">
-            <div class="container mx-auto text-center">
-=======
-        <!-- Blue Gradient Section with scale-in effect -->
-        <section class="w-full mx-auto bg-blue-600 py-8 sm:py-12 rounded-xl bg-gradient-to-b from-blue-800 via-blue-700 to-blue-600 via-30% from-10% mt-8 sm:mt-16 animate-scale-in">
+            class="py-8 sm:py-12 mx-4 sm:mx-8 md:mx-12 lg:mx-24 rounded-xl bg-gradient-to-b from-blue-800 via-blue-700 to-blue-600 via-30% from-10% mt-8 sm:mt-16 animate-on-scroll opacity-0 scale-95 transition-all duration-600 ease-out">
             <div class="container mx-auto text-center px-4">
->>>>>>> f84dd199c3d090f3ca57558c73d5013e13683b9d
                 <img src="/images/toest_logo.png" alt="TOEST Logo"
                     class="w-auto h-12 sm:h-16 md:h-20 lg:h-24 mx-auto transform hover:scale-105 transition-transform">
-                <p class="text-white text-lg sm:text-xl md:text-2xl lg:text-3xl mt-8 sm:mt-12">
+                <p class="text-lg sm:text-xl md:text-2xl lg:text-3xl text-white mt-6 sm:mt-12">
                     Test of English for International Communication
                 </p>
             </div>
 
-<<<<<<< HEAD
-            <div class="mt-8 px-4 sm:px-32">
-                <h3 class="text-white text-lg sm:text-xl md:text-xl">
-=======
             <div class="mt-6 sm:mt-8 px-4 sm:px-8 md:px-16 lg:px-32">
                 <h3 class="text-white text-base sm:text-lg md:text-xl">
->>>>>>> f84dd199c3d090f3ca57558c73d5013e13683b9d
                     <b>TOEIC® Exam at Malang State Polytechnic</b> entitled to one free TOEIC
                     exam during their studies. If you wish to take additional exams, they are available through a paid
                     route at a special
@@ -271,17 +122,10 @@
                 </h3>
             </div>
 
-<<<<<<< HEAD
-            <div class="text-white px-4 sm:px-32 mt-10">
-                <h3 class="text-3xl sm:text-2xl font-bold">Terms and Conditions</h3>
-                <ul class="list-disc list-inside space-y-3 text-lg sm:text-xl mt-6">
-                    <li class="hover:text-blue-200 transition-colors duration-300">
-=======
             <div class="text-white px-4 sm:px-8 md:px-16 lg:px-32 mt-6 sm:mt-10">
                 <h3 class="text-xl sm:text-2xl md:text-3xl font-bold">Terms and Conditions</h3>
                 <ul class="list-disc list-inside space-y-2 sm:space-y-3 text-sm sm:text-base md:text-lg mt-4 sm:mt-6">
-                    <li class="hover:text-blue-200 transition-colors">
->>>>>>> f84dd199c3d090f3ca57558c73d5013e13683b9d
+                    <li class="hover:text-blue-200 transition-colors duration-300">
                         <strong>One Free Exam Policy:</strong> Each student gets one free TOEIC exam during their
                         studies, non-transferable and must be taken within the institution's eligibility period.
                     </li>
@@ -302,170 +146,104 @@
 
             <div class="w-full h-[2px] bg-blue-500 mt-8 sm:mt-12 mx-auto max-w-4xl"></div>
 
-<<<<<<< HEAD
             <!-- Features Section -->
             <section
-                class="pt-16 sm:pt-20 md:pt-24 lg:pt-32 mx-4 sm:mx-24 animate-on-scroll opacity-0 transition-all duration-700 ease-out"
+                class="pt-8 sm:pt-12 md:pt-16 lg:pt-20 mx-2 sm:mx-4 md:mx-8 lg:mx-16 animate-on-scroll opacity-0 transition-all duration-700 ease-out"
                 data-stagger data-stagger-delay="150">
-=======
-            <!-- Features Section with staggered children -->
-            <section class="pt-8 sm:pt-12 md:pt-16 lg:pt-20 mx-4 sm:mx-8 md:mx-16 lg:mx-24 animate-fade-in" data-stagger data-stagger-delay="150">
->>>>>>> f84dd199c3d090f3ca57558c73d5013e13683b9d
                 <div class="container mx-auto">
                     <h2 class="text-xl sm:text-2xl md:text-3xl font-bold text-center mb-6 sm:mb-8 text-white">
                         Our Features
                     </h2>
 
-<<<<<<< HEAD
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                        <div class="p-6 bg-[#A0C4FF] rounded-lg shadow-md hover:shadow-lg transition-all duration-300 animate-on-scroll opacity-0 translate-y-5"
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 px-4">
+                        <div class="p-4 sm:p-6 bg-[#A0C4FF] rounded-lg shadow-md hover:shadow-lg transition-all duration-300 animate-on-scroll opacity-0 translate-y-5"
                             data-stagger-child>
-=======
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 features-grid">
-                        <div class="p-4 sm:p-6 bg-[#A0C4FF] rounded-lg shadow-md hover:shadow-lg transition-shadow animate-fade-in" data-stagger-child>
->>>>>>> f84dd199c3d090f3ca57558c73d5013e13683b9d
                             <img src="/images/Scadule.png" alt="Schedule"
                                 class="w-auto h-8 sm:h-10 md:h-12 lg:h-14 mx-auto pb-2 transform hover:scale-110 transition-transform">
-                            <h3 class="font-semibold text-base sm:text-lg text-center text-white">Exam Schedule and Information</h3>
+                            <h3 class="font-semibold text-sm sm:text-base md:text-lg text-center text-white">Exam Schedule and Information</h3>
                         </div>
-<<<<<<< HEAD
-                        <div class="p-6 bg-[#A0C4FF] rounded-lg shadow-md hover:shadow-lg transition-all duration-300 animate-on-scroll opacity-0 translate-y-5 delay-100"
+                        <div class="p-4 sm:p-6 bg-[#A0C4FF] rounded-lg shadow-md hover:shadow-lg transition-all duration-300 animate-on-scroll opacity-0 translate-y-5 delay-100"
                             data-stagger-child>
-=======
-                        <div class="p-4 sm:p-6 bg-[#A0C4FF] rounded-lg shadow-md hover:shadow-lg transition-shadow animate-fade-in" data-stagger-child>
->>>>>>> f84dd199c3d090f3ca57558c73d5013e13683b9d
                             <img src="/images/User.png" alt="Access"
                                 class="w-auto h-8 sm:h-10 md:h-12 lg:h-14 mx-auto pb-2 transform hover:scale-110 transition-transform">
-                            <h3 class="font-semibold text-base sm:text-lg text-center text-white">User Access and Rights</h3>
+                            <h3 class="font-semibold text-sm sm:text-base md:text-lg text-center text-white">User Access and Rights</h3>
                         </div>
-<<<<<<< HEAD
-                        <div class="p-6 bg-[#A0C4FF] rounded-lg shadow-md hover:shadow-lg transition-all duration-300 animate-on-scroll opacity-0 translate-y-5 delay-200"
+                        <div class="p-4 sm:p-6 bg-[#A0C4FF] rounded-lg shadow-md hover:shadow-lg transition-all duration-300 animate-on-scroll opacity-0 translate-y-5 delay-200"
                             data-stagger-child>
-=======
-                        <div class="p-4 sm:p-6 bg-[#A0C4FF] rounded-lg shadow-md hover:shadow-lg transition-shadow animate-fade-in" data-stagger-child>
->>>>>>> f84dd199c3d090f3ca57558c73d5013e13683b9d
                             <img src="/images/Search.png" alt="Filter"
                                 class="w-auto h-8 sm:h-10 md:h-12 lg:h-14 mx-auto pb-2 transform hover:scale-110 transition-transform">
-                            <h3 class="font-semibold text-base sm:text-lg text-center text-white">Search and Filter Data</h3>
+                            <h3 class="font-semibold text-sm sm:text-base md:text-lg text-center text-white">Search and Filter Data</h3>
                         </div>
-<<<<<<< HEAD
-                        <div class="p-6 bg-[#A0C4FF] rounded-lg shadow-md hover:shadow-lg transition-all duration-300 animate-on-scroll opacity-0 translate-y-5 delay-300"
+                        <div class="p-4 sm:p-6 bg-[#A0C4FF] rounded-lg shadow-md hover:shadow-lg transition-all duration-300 animate-on-scroll opacity-0 translate-y-5 delay-300"
                             data-stagger-child>
-=======
-                        <div class="p-4 sm:p-6 bg-[#A0C4FF] rounded-lg shadow-md hover:shadow-lg transition-shadow animate-fade-in" data-stagger-child>
->>>>>>> f84dd199c3d090f3ca57558c73d5013e13683b9d
                             <img src="/images/Exam.png" alt="Registration"
                                 class="w-auto h-8 sm:h-10 md:h-12 lg:h-14 mx-auto pb-2 transform hover:scale-110 transition-transform">
-                            <h3 class="font-semibold text-base sm:text-lg text-center text-white">TOEIC Exam Registration</h3>
+                            <h3 class="font-semibold text-sm sm:text-base md:text-lg text-center text-white">TOEIC Exam Registration</h3>
                         </div>
                     </div>
                 </div>
             </section>
         </section>
 
-<<<<<<< HEAD
         <!-- Timeline Section -->
         <section
-            class="py-12 px-6 mt-16 sm:mt-32 animate-on-scroll opacity-0 scale-95 transition-all duration-600 ease-out">
+            class="py-8 sm:py-12 px-4 sm:px-6 mt-8 sm:mt-16 animate-on-scroll opacity-0 scale-95 transition-all duration-600 ease-out">
             <div class="container mx-auto text-center">
-                <h2 class="text-2xl sm:text-3xl mb-4">Polinema <span class="text-blue-500 font-bold">TOEIC</span>
+                <h2 class="text-xl sm:text-2xl md:text-3xl mb-2 sm:mb-4">Polinema <span class="text-blue-500 font-bold">TOEIC</span>
                     Registration Timeline</h2>
-                <p class="text-lg text-gray-600">Follow the steps for a smooth registration process.</p>
-=======
-        <!-- Timeline Section with scale-in effect -->
-        <section class="py-8 sm:py-12 px-4 sm:px-6 mt-8 sm:mt-16 animate-scale-in">
-            <div class="container mx-auto text-center">
-                <h2 class="text-xl sm:text-2xl md:text-3xl mb-4">Polinema <span class="text-blue-500 font-bold">TOEIC</span> Registration Timeline</h2>
                 <p class="text-sm sm:text-base text-gray-600">Follow the steps for a smooth registration process.</p>
->>>>>>> f84dd199c3d090f3ca57558c73d5013e13683b9d
                 <img src="/images/Timeline.png" alt="TOEST Timeline"
-                    class="w-full max-w-4xl h-auto mx-auto my-8 sm:my-12 md:my-16 lg:my-20 transform hover:scale-105 transition-transform timeline-img">
+                    class="w-auto h-48 sm:h-64 md:h-80 lg:h-96 mx-auto my-6 sm:my-12 transform hover:scale-105 transition-transform">
             </div>
         </section>
 
-<<<<<<< HEAD
         <!-- Testimonials Section -->
         <section
-            class="bg-blue-600 py-12 mx-24 rounded-2xl bg-gradient-to-b from-blue-800 via-blue-700 to-blue-600 via-30% from-10% animate-on-scroll opacity-0 transition-all duration-700 ease-out">
-            <div class="container mx-auto">
-                <h2 class="text-2xl sm:text-3xl font-bold text-center text-white">Take a Look At Our Customer Interest
+            class="bg-blue-600 py-8 sm:py-12 mx-4 sm:mx-8 md:mx-12 lg:mx-24 rounded-2xl bg-gradient-to-b from-blue-800 via-blue-700 to-blue-600 via-30% from-10% animate-on-scroll opacity-0 transition-all duration-700 ease-out">
+            <div class="container mx-auto px-4">
+                <h2 class="text-xl sm:text-2xl md:text-3xl font-bold text-center text-white">Take a Look At Our Customer Interest
                     🤩</h2>
-                <p class="text-lg sm:text-lg text-center text-white mb-8 mt-2">Your comments help us provide even better
+                <p class="text-sm sm:text-base text-center text-white mb-6 sm:mb-8 mt-2">Your comments help us provide even better
                     service 🛠️</p>
 
-                <div class="flex flex-col md:flex-row justify-center items-center gap-6 mx-4 sm:mx-12" data-stagger
+                <div class="flex flex-col md:flex-row justify-center items-stretch gap-4 sm:gap-6 mx-2 sm:mx-4" data-stagger
                     data-stagger-delay="200">
-                    <div class="w-full md:w-1/3 bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-2 animate-on-scroll opacity-0 translate-y-5"
+                    <div class="w-full md:w-1/3 bg-white p-4 sm:p-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-2 animate-on-scroll opacity-0 translate-y-5"
                         data-stagger-child>
-=======
-        <!-- Testimonials Section with fade-in effect and staggered children -->
-        <section class="w-full mx-auto bg-blue-600 py-8 sm:py-12 rounded-2xl bg-gradient-to-b from-blue-800 via-blue-700 to-blue-600 via-30% from-10% animate-fade-in">
-            <div class="container mx-auto px-4 sm:px-6">
-                <h2 class="text-xl sm:text-2xl md:text-3xl font-bold text-center text-white">Take a Look At Our Customer Interest 🤩</h2>
-                <p class="text-sm sm:text-base text-center text-white mb-6 sm:mb-8 mt-2">Your comments help us provide even better service 🛠️</p>
-
-                <div class="flex flex-col md:flex-row justify-center items-center gap-4 sm:gap-6 mx-4 sm:mx-8 testimonial-cards" data-stagger data-stagger-delay="200">
-                    <div class="w-full md:w-1/3 bg-white p-4 sm:p-6 rounded-lg shadow-md hover:shadow-lg transition-transform transform hover:-translate-y-2 animate-fade-in testimonial-card" data-stagger-child>
->>>>>>> f84dd199c3d090f3ca57558c73d5013e13683b9d
                         <blockquote>
                             <p class="text-gray-600 text-sm sm:text-base">"This test is really helpful for testing English skills, especially
                                 in listening and reading. It's quite challenging, but the format is clear so it doesn't
                                 make you confused."</p>
-<<<<<<< HEAD
                             <div class="flex items-center gap-2 mt-4">
                                 <img src="/images/profile.png" alt="User"
                                     class="h-8 sm:h-10 md:h-12 lg:h-14 rounded-full">
-                                <span class="font-medium">Hach Van</span>
-                            </div>
-                        </blockquote>
-                    </div>
-                    <div class="w-full md:w-1/3 bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-2 animate-on-scroll opacity-0 translate-y-5 delay-100"
-                        data-stagger-child>
-=======
-                            <div class="flex items-center gap-2 mt-3 sm:mt-4">
-                                <img src="/images/profile.png" alt="User" class="h-8 sm:h-10 md:h-12 lg:h-14 rounded-full">
                                 <span class="font-medium text-sm sm:text-base">Hach Van</span>
                             </div>
                         </blockquote>
                     </div>
-                    <div class="w-full md:w-1/3 bg-white p-4 sm:p-6 rounded-lg shadow-md hover:shadow-lg transition-transform transform hover:-translate-y-2 animate-fade-in testimonial-card" data-stagger-child>
->>>>>>> f84dd199c3d090f3ca57558c73d5013e13683b9d
+                    <div class="w-full md:w-1/3 bg-white p-4 sm:p-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-2 animate-on-scroll opacity-0 translate-y-5 delay-100"
+                        data-stagger-child>
                         <blockquote>
                             <p class="text-gray-600 text-sm sm:text-base">"Listening to the various accents, it was a bit difficult at first,
                                 but the more you practice, the easier it is to grasp the conversation. Overall, this is
                                 a really useful exercise for preparation!"</p>
-<<<<<<< HEAD
                             <div class="flex items-center gap-2 mt-4">
                                 <img src="/images/profile.png" alt="User"
                                     class="h-8 sm:h-10 md:h-12 lg:h-14 rounded-full">
-                                <span class="font-medium">Hach Van</span>
+                                <span class="font-medium text-sm sm:text-base">Hach Van</span>
                             </div>
                         </blockquote>
                     </div>
-                    <div class="w-full md:w-1/3 bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-2 animate-on-scroll opacity-0 translate-y-5 delay-200"
+                    <div class="w-full md:w-1/3 bg-white p-4 sm:p-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-2 animate-on-scroll opacity-0 translate-y-5 delay-200"
                         data-stagger-child>
                         <blockquote>
-                            <p class="text-gray-600">"The test interface is very user-friendly and the results came much
+                            <p class="text-gray-600 text-sm sm:text-base">"The test interface is very user-friendly and the results came much
                                 faster than I expected. Definitely recommend for anyone looking to certify their English
                                 skills."</p>
                             <div class="flex items-center gap-2 mt-4">
                                 <img src="/images/profile.png" alt="User"
                                     class="h-8 sm:h-10 md:h-12 lg:h-14 rounded-full">
-                                <span class="font-medium">Hach Van</span>
-=======
-                            <div class="flex items-center gap-2 mt-3 sm:mt-4">
-                                <img src="/images/profile.png" alt="User" class="h-8 sm:h-10 md:h-12 lg:h-14 rounded-full">
                                 <span class="font-medium text-sm sm:text-base">Hach Van</span>
-                            </div>
-                        </blockquote>
-                    </div>
-                    <div class="w-full md:w-1/3 bg-white p-4 sm:p-6 rounded-lg shadow-md hover:shadow-lg transition-transform transform hover:-translate-y-2 animate-fade-in testimonial-card" data-stagger-child>
-                        <blockquote>
-                            <p class="text-gray-600 text-sm sm:text-base">"The test interface is very user-friendly and the results came much faster than I expected. Definitely recommend for anyone looking to certify their English skills."</p>
-                            <div class="flex items-center gap-2 mt-3 sm:mt-4">
-                                <img src="/images/profile.png" alt="User" class="h-8 sm:h-10 md:h-12 lg:h-14 rounded-full">
-                                <span class="font-medium text-sm sm:text-base">Hach Van</span>
->>>>>>> f84dd199c3d090f3ca57558c73d5013e13683b9d
                             </div>
                         </blockquote>
                     </div>
@@ -473,147 +251,87 @@
             </div>
         </section>
 
-<<<<<<< HEAD
         <!-- FAQ Section -->
-        <section class="py-12 mx-24 animate-on-scroll opacity-0 transition-all duration-700 ease-out" data-stagger
+        <section class="py-8 sm:py-12 mx-4 sm:mx-8 md:mx-12 lg:mx-24 animate-on-scroll opacity-0 transition-all duration-700 ease-out" data-stagger
             data-stagger-delay="100">
-=======
-        <!-- FAQ Section with fade-in effect and staggered grid -->
-        <section class="py-8 sm:py-12 animate-fade-in" data-stagger data-stagger-delay="100">
->>>>>>> f84dd199c3d090f3ca57558c73d5013e13683b9d
-            <div class="container mx-auto px-4 sm:px-6">
+            <div class="container mx-auto px-2 sm:px-4">
                 <h2 class="text-xl sm:text-2xl md:text-3xl font-bold text-center mb-4">
                     Frequently Asked Questions 🤷🏻‍♂️
                 </h2>
-                <p class="text-center text-xs sm:text-sm pb-6 sm:pb-8 md:pb-12 text-gray-500">
+                <p class="text-center text-xs sm:text-sm pb-6 sm:pb-8 text-gray-500">
                     Got questions? Check out the FAQs below for quick answers<br class="hidden sm:block">
                     about the TOEIC exam registration, eligibility, fees, and more! 😊
                 </p>
 
-<<<<<<< HEAD
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <div class="p-6 bg-white rounded-lg shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 animate-on-scroll opacity-0 translate-y-5"
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+                    <div class="p-4 sm:p-6 bg-white rounded-lg shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 animate-on-scroll opacity-0 translate-y-5"
                         data-stagger-child>
                         <div class="flex items-start gap-3">
                             <img src="/images/WhatIs.png" alt="Icon" class="h-6 sm:h-8 md:h-10 lg:h-12 flex-shrink-0">
                             <div>
-                                <h3 class="font-semibold text-lg">What is The TOEIC Exam?</h3>
-                                <p class="text-gray-600 mt-2">Measures English proficiency for the workplace with a
+                                <h3 class="font-semibold text-sm sm:text-base md:text-lg">What is The TOEIC Exam?</h3>
+                                <p class="text-gray-600 mt-2 text-xs sm:text-sm">Measures English proficiency for the workplace with a
                                     focus on international communication in professional environments.</p>
-=======
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 faq-grid">
-                    <div class="p-4 sm:p-6 bg-white rounded-lg shadow-md hover:shadow-lg transition-transform transform hover:-translate-y-1 animate-fade-in" data-stagger-child>
-                        <div class="flex items-start gap-2 sm:gap-3">
-                            <img src="/images/WhatIs.png" alt="Icon" class="h-6 sm:h-8 md:h-10 lg:h-12 flex-shrink-0">
-                            <div>
-                                <h3 class="font-semibold text-base sm:text-lg">What is The TOEIC Exam?</h3>
-                                <p class="text-gray-600 mt-1 sm:mt-2 text-sm sm:text-base">Measures English proficiency for the workplace with a focus on international communication in professional environments.</p>
->>>>>>> f84dd199c3d090f3ca57558c73d5013e13683b9d
                             </div>
                         </div>
                     </div>
 
-<<<<<<< HEAD
-                    <div class="p-6 bg-white rounded-lg shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 animate-on-scroll opacity-0 translate-y-5 delay-100"
+                    <div class="p-4 sm:p-6 bg-white rounded-lg shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 animate-on-scroll opacity-0 translate-y-5 delay-100"
                         data-stagger-child>
                         <div class="flex items-start gap-3">
                             <img src="/images/WhatIs.png" alt="Icon" class="h-6 sm:h-8 md:h-10 lg:h-12 flex-shrink-0">
                             <div>
-                                <h3 class="font-semibold text-lg">How do I pay for the TOEIC exam?</h3>
-                                <p class="text-gray-600 mt-2">Payment can be made via bank transfer, credit card, or
+                                <h3 class="font-semibold text-sm sm:text-base md:text-lg">How do I pay for the TOEIC exam?</h3>
+                                <p class="text-gray-600 mt-2 text-xs sm:text-sm">Payment can be made via bank transfer, credit card, or
                                     other available methods listed on our portal.</p>
-=======
-                    <div class="p-4 sm:p-6 bg-white rounded-lg shadow-md hover:shadow-lg transition-transform transform hover:-translate-y-1 animate-fade-in" data-stagger-child>
-                        <div class="flex items-start gap-2 sm:gap-3">
-                            <img src="/images/WhatIs.png" alt="Icon" class="h-6 sm:h-8 md:h-10 lg:h-12 flex-shrink-0">
-                            <div>
-                                <h3 class="font-semibold text-base sm:text-lg">How do I pay for the TOEIC exam?</h3>
-                                <p class="text-gray-600 mt-1 sm:mt-2 text-sm sm:text-base">Payment can be made via bank transfer, credit card, or other available methods listed on our portal.</p>
->>>>>>> f84dd199c3d090f3ca57558c73d5013e13683b9d
                             </div>
                         </div>
                     </div>
 
-<<<<<<< HEAD
-                    <div class="p-6 bg-white rounded-lg shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 animate-on-scroll opacity-0 translate-y-5 delay-200"
+                    <div class="p-4 sm:p-6 bg-white rounded-lg shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 animate-on-scroll opacity-0 translate-y-5 delay-200"
                         data-stagger-child>
                         <div class="flex items-start gap-3">
                             <img src="/images/WhatIs.png" alt="Icon" class="h-6 sm:h-8 md:h-10 lg:h-12 flex-shrink-0">
                             <div>
-                                <h3 class="font-semibold text-lg">Who can take the TOEIC exam?</h3>
-                                <p class="text-gray-600 mt-2">The exam is open to all students and professionals who
+                                <h3 class="font-semibold text-sm sm:text-base md:text-lg">Who can take the TOEIC exam?</h3>
+                                <p class="text-gray-600 mt-2 text-xs sm:text-sm">The exam is open to all students and professionals who
                                     need to certify their English proficiency for academic or career purposes.</p>
-=======
-                    <div class="p-4 sm:p-6 bg-white rounded-lg shadow-md hover:shadow-lg transition-transform transform hover:-translate-y-1 animate-fade-in" data-stagger-child>
-                        <div class="flex items-start gap-2 sm:gap-3">
-                            <img src="/images/WhatIs.png" alt="Icon" class="h-6 sm:h-8 md:h-10 lg:h-12 flex-shrink-0">
-                            <div>
-                                <h3 class="font-semibold text-base sm:text-lg">Who can take the TOEIC exam?</h3>
-                                <p class="text-gray-600 mt-1 sm:mt-2 text-sm sm:text-base">The exam is open to all students and professionals who need to certify their English proficiency for academic or career purposes.</p>
->>>>>>> f84dd199c3d090f3ca57558c73d5013e13683b9d
                             </div>
                         </div>
                     </div>
 
-<<<<<<< HEAD
-                    <div class="p-6 bg-white rounded-lg shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 animate-on-scroll opacity-0 translate-y-5 delay-300"
+                    <div class="p-4 sm:p-6 bg-white rounded-lg shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 animate-on-scroll opacity-0 translate-y-5 delay-300"
                         data-stagger-child>
                         <div class="flex items-start gap-3">
                             <img src="/images/WhatIs.png" alt="Icon" class="h-6 sm:h-8 md:h-10 lg:h-12 flex-shrink-0">
                             <div>
-                                <h3 class="font-semibold text-lg">When will I get my results?</h3>
-                                <p class="text-gray-600 mt-2">Results are typically available within 5-7 business days
+                                <h3 class="font-semibold text-sm sm:text-base md:text-lg">When will I get my results?</h3>
+                                <p class="text-gray-600 mt-2 text-xs sm:text-sm">Results are typically available within 5-7 business days
                                     after taking the exam.</p>
-=======
-                    <div class="p-4 sm:p-6 bg-white rounded-lg shadow-md hover:shadow-lg transition-transform transform hover:-translate-y-1 animate-fade-in" data-stagger-child>
-                        <div class="flex items-start gap-2 sm:gap-3">
-                            <img src="/images/WhatIs.png" alt="Icon" class="h-6 sm:h-8 md:h-10 lg:h-12 flex-shrink-0">
-                            <div>
-                                <h3 class="font-semibold text-base sm:text-lg">When will I get my results?</h3>
-                                <p class="text-gray-600 mt-1 sm:mt-2 text-sm sm:text-base">Results are typically available within 5-7 business days after taking the exam.</p>
->>>>>>> f84dd199c3d090f3ca57558c73d5013e13683b9d
                             </div>
                         </div>
                     </div>
 
-<<<<<<< HEAD
-                    <div class="p-6 bg-white rounded-lg shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 animate-on-scroll opacity-0 translate-y-5 delay-400"
+                    <div class="p-4 sm:p-6 bg-white rounded-lg shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 animate-on-scroll opacity-0 translate-y-5 delay-400"
                         data-stagger-child>
                         <div class="flex items-start gap-3">
                             <img src="/images/WhatIs.png" alt="Icon" class="h-6 sm:h-8 md:h-10 lg:h-12 flex-shrink-0">
                             <div>
-                                <h3 class="font-semibold text-lg">How long is the certificate valid?</h3>
-                                <p class="text-gray-600 mt-2">TOEIC certificates are valid for two years from the date
+                                <h3 class="font-semibold text-sm sm:text-base md:text-lg">How long is the certificate valid?</h3>
+                                <p class="text-gray-600 mt-2 text-xs sm:text-sm">TOEIC certificates are valid for two years from the date
                                     of issue.</p>
-=======
-                    <div class="p-4 sm:p-6 bg-white rounded-lg shadow-md hover:shadow-lg transition-transform transform hover:-translate-y-1 animate-fade-in" data-stagger-child>
-                        <div class="flex items-start gap-2 sm:gap-3">
-                            <img src="/images/WhatIs.png" alt="Icon" class="h-6 sm:h-8 md:h-10 lg:h-12 flex-shrink-0">
-                            <div>
-                                <h3 class="font-semibold text-base sm:text-lg">How long is the certificate valid?</h3>
-                                <p class="text-gray-600 mt-1 sm:mt-2 text-sm sm:text-base">TOEIC certificates are valid for two years from the date of issue.</p>
->>>>>>> f84dd199c3d090f3ca57558c73d5013e13683b9d
                             </div>
                         </div>
                     </div>
 
-<<<<<<< HEAD
-                    <div class="p-6 bg-white rounded-lg shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 animate-on-scroll opacity-0 translate-y-5 delay-500"
+                    <div class="p-4 sm:p-6 bg-white rounded-lg shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 animate-on-scroll opacity-0 translate-y-5 delay-500"
                         data-stagger-child>
                         <div class="flex items-start gap-3">
                             <img src="/images/WhatIs.png" alt="Icon" class="h-6 sm:h-8 md:h-10 lg:h-12 flex-shrink-0">
                             <div>
-                                <h3 class="font-semibold text-lg">Can I retake the exam?</h3>
-                                <p class="text-gray-600 mt-2">Yes, you can retake the exam as many times as you need.
+                                <h3 class="font-semibold text-sm sm:text-base md:text-lg">Can I retake the exam?</h3>
+                                <p class="text-gray-600 mt-2 text-xs sm:text-sm">Yes, you can retake the exam as many times as you need.
                                     There's no limit on attempts.</p>
-=======
-                    <div class="p-4 sm:p-6 bg-white rounded-lg shadow-md hover:shadow-lg transition-transform transform hover:-translate-y-1 animate-fade-in" data-stagger-child>
-                        <div class="flex items-start gap-2 sm:gap-3">
-                            <img src="/images/WhatIs.png" alt="Icon" class="h-6 sm:h-8 md:h-10 lg:h-12 flex-shrink-0">
-                            <div>
-                                <h3 class="font-semibold text-base sm:text-lg">Can I retake the exam?</h3>
-                                <p class="text-gray-600 mt-1 sm:mt-2 text-sm sm:text-base">Yes, you can retake the exam as many times as you need. There's no limit on attempts.</p>
->>>>>>> f84dd199c3d090f3ca57558c73d5013e13683b9d
                             </div>
                         </div>
                     </div>
@@ -621,77 +339,70 @@
             </div>
         </section>
 
-<<<<<<< HEAD
         <!-- Footer -->
         <footer
-            class="px-8 bg-blue-100 text-blue-600 text-sm animate-on-scroll opacity-0 transition-all duration-700 ease-out">
-            <div class="mx-auto px-6">
-                <div class="flex flex-col md:flex-row justify-between py-8">
-=======
-        <!-- Footer with slide-up animation -->
-        <footer class="bg-blue-100 text-blue-600 text-xs sm:text-sm animate-fade-in">
-            <div class="w-full mx-auto px-4 sm:px-6">
+            class="px-4 sm:px-6 md:px-8 bg-blue-100 text-blue-600 text-xs sm:text-sm animate-on-scroll opacity-0 transition-all duration-700 ease-out">
+            <div class="container mx-auto">
                 <div class="flex flex-col md:flex-row justify-between py-6 sm:py-8">
->>>>>>> f84dd199c3d090f3ca57558c73d5013e13683b9d
                     <!-- Logo & Contact -->
-                    <div class="mb-6 md:mb-0">
-                        <div class="flex items-start justify-center transform hover:scale-105 transition-transform">
-                            <img src="/images/Logo.png" alt="Logo" class="w-16 sm:w-20 h-16 sm:h-20 object-contain">
+                    <div class="mb-6 sm:mb-0 text-center md:text-left">
+                        <div class="flex items-start justify-center md:justify-start transform hover:scale-105 transition-transform">
+                            <img src="/images/Logo.png" alt="Logo" class="w-20 sm:w-24 h-20 sm:h-24 object-contain">
                         </div>
                         <p class="mb-1 hover:text-blue-800 transition-colors duration-300">Toeic@course.com</p>
                         <p class="hover:text-blue-800 transition-colors duration-300">+1 (201) 897-12413</p>
                     </div>
 
                     <!-- Links -->
-                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8 footer-links">
+                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-6 sm:gap-8 mt-6 sm:mt-0">
                         <div>
-                            <h3 class="font-semibold mb-2">Company</h3>
+                            <h3 class="font-semibold mb-2 text-sm sm:text-base">Company</h3>
                             <ul class="space-y-1">
-                                <li><a href="#" class="hover:text-blue-800 transition-colors duration-300">Blog</a></li>
-                                <li><a href="#" class="hover:text-blue-800 transition-colors duration-300">Careers</a>
+                                <li><a href="#" class="hover:text-blue-800 transition-colors duration-300 text-xs sm:text-sm">Blog</a></li>
+                                <li><a href="#" class="hover:text-blue-800 transition-colors duration-300 text-xs sm:text-sm">Careers</a>
                                 </li>
-                                <li><a href="#" class="hover:text-blue-800 transition-colors duration-300">Pricing</a>
+                                <li><a href="#" class="hover:text-blue-800 transition-colors duration-300 text-xs sm:text-sm">Pricing</a>
                                 </li>
                             </ul>
                         </div>
                         <div>
-                            <h3 class="font-semibold mb-2">Resources</h3>
+                            <h3 class="font-semibold mb-2 text-sm sm:text-base">Resources</h3>
                             <ul class="space-y-1">
                                 <li><a href="#"
-                                        class="hover:text-blue-800 transition-colors duration-300">Documentation</a>
+                                        class="hover:text-blue-800 transition-colors duration-300 text-xs sm:text-sm">Documentation</a>
                                 </li>
-                                <li><a href="#" class="hover:text-blue-800 transition-colors duration-300">Papers</a>
+                                <li><a href="#" class="hover:text-blue-800 transition-colors duration-300 text-xs sm:text-sm">Papers</a>
                                 </li>
-                                <li><a href="#" class="hover:text-blue-800 transition-colors duration-300">Press
+                                <li><a href="#" class="hover:text-blue-800 transition-colors duration-300 text-xs sm:text-sm">Press
                                         Conferences</a></li>
                             </ul>
                         </div>
                         <div>
-                            <h3 class="font-semibold mb-2">Legal</h3>
+                            <h3 class="font-semibold mb-2 text-sm sm:text-base">Legal</h3>
                             <ul class="space-y-1">
-                                <li><a href="#" class="hover:text-blue-800 transition-colors duration-300">Terms of
+                                <li><a href="#" class="hover:text-blue-800 transition-colors duration-300 text-xs sm:text-sm">Terms of
                                         Service</a></li>
-                                <li><a href="#" class="hover:text-blue-800 transition-colors duration-300">Privacy
+                                <li><a href="#" class="hover:text-blue-800 transition-colors duration-300 text-xs sm:text-sm">Privacy
                                         Policy</a></li>
-                                <li><a href="#" class="hover:text-blue-800 transition-colors duration-300">Cookies
+                                <li><a href="#" class="hover:text-blue-800 transition-colors duration-300 text-xs sm:text-sm">Cookies
                                         Policy</a></li>
                             </ul>
                         </div>
                     </div>
                 </div>
 
-                <hr class="border-blue-300 my-3 sm:my-4">
+                <hr class="border-blue-300 my-4">
 
                 <!-- Bottom Section -->
                 <div class="flex flex-col md:flex-row justify-between items-center pb-4 sm:pb-6">
                     <!-- Copyright -->
-                    <p class="font-bold mb-3 sm:mb-0 text-xs sm:text-sm">© 2025 PBL TOEST. All rights reserved.</p>
+                    <p class="font-bold mb-4 md:mb-0 text-xs sm:text-sm">© 2025 PBL TOEST. All rights reserved.</p>
 
                     <!-- Contact Info & Social Media -->
-                    <div class="flex flex-col sm:flex-row items-center space-y-3 sm:space-y-0 sm:space-x-8">
+                    <div class="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-8">
                         <!-- Phone -->
                         <div class="flex items-center space-x-2">
-                            <img src="/images/Phone.png" alt="Phone" class="w-4 h-4 sm:w-5 sm:h-5">
+                            <img src="/images/Phone.png" alt="Phone" class="w-4 sm:w-5 h-4 sm:h-5">
                             <div>
                                 <h3 class="text-xs font-semibold">Phone</h3>
                                 <p class="text-xs hover:text-blue-800 transition-colors duration-300">0813-xxx-xxx-xxx
@@ -701,7 +412,7 @@
 
                         <!-- Email -->
                         <div class="flex items-center space-x-2">
-                            <img src="/images/Email.png" alt="Email" class="w-5 h-4 sm:w-6 sm:h-5">
+                            <img src="/images/Email.png" alt="Email" class="w-5 sm:w-6 h-4 sm:h-5">
                             <div>
                                 <h3 class="text-xs font-semibold">Email</h3>
                                 <p class="text-xs hover:text-blue-800 transition-colors duration-300">Toest@gmail.com
@@ -710,23 +421,14 @@
                         </div>
 
                         <!-- Social Media -->
-<<<<<<< HEAD
-                        <div class="flex space-x-3">
+                        <div class="flex space-x-2 sm:space-x-3">
                             <a href="#" aria-label="Instagram"
                                 class="transform hover:scale-110 transition-transform duration-300">
-                                <img src="/images/instagram.png" alt="Instagram" class="w-6 h-6">
+                                <img src="/images/instagram.png" alt="Instagram" class="w-5 sm:w-6 h-5 sm:h-6">
                             </a>
                             <a href="#" aria-label="Facebook"
                                 class="transform hover:scale-110 transition-transform duration-300">
-                                <img src="/images/facebook.png" alt="Facebook" class="w-7 h-7">
-=======
-                        <div class="flex space-x-2 sm:space-x-3">
-                            <a href="#" aria-label="Instagram" class="transform hover:scale-110 transition-transform">
-                                <img src="/images/instagram.png" alt="Instagram" class="w-5 h-5 sm:w-6 sm:h-6">
-                            </a>
-                            <a href="#" aria-label="Facebook" class="transform hover:scale-110 transition-transform">
-                                <img src="/images/facebook.png" alt="Facebook" class="w-5 h-5 sm:w-6 sm:h-6">
->>>>>>> f84dd199c3d090f3ca57558c73d5013e13683b9d
+                                <img src="/images/facebook.png" alt="Facebook" class="w-6 sm:w-7 h-6 sm:h-7">
                             </a>
                         </div>
                     </div>
@@ -735,5 +437,4 @@
         </footer>
     </main>
 </body>
-
 </html>
