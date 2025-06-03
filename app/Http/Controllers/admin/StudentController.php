@@ -19,8 +19,8 @@ class StudentController extends Controller
      */
     public function index()
     {
-        $students = StudentModels::with(['user', 'studyProgram', 'major'])->get();
-        return view('mahasiswa.index', compact('students'));
+        $students = StudentModels::with(['user', 'studyProgram'])->get();
+        return view('admin.mahasiswa.index', compact('students'));
     }
 
     /**
@@ -31,7 +31,7 @@ class StudentController extends Controller
         //menambahkan data program studi dan jurusan dari model terkait
         $studyPrograms = StudyProgramModels::all();
         $majors = MajorModels::all();
-        return view('mahasiswa.create', compact('studyPrograms', 'majors'));
+        return view('admin.mahasiswa.create', compact('studyPrograms', 'majors'));
     }
 
     /**
@@ -40,7 +40,7 @@ class StudentController extends Controller
     public function show(string $id)
     {
         $student = StudentModels::with(['user', 'studyProgram', 'major'])->findOrFail($id);
-        return view('mahasiswa.show', compact('student'));
+        return view('admin.mahasiswa.show', compact('student'));
     }
 
 
@@ -62,7 +62,7 @@ class StudentController extends Controller
     public function trashed()
     {
         $students = StudentModels::onlyTrashed()->with(['user', 'studyProgram', 'major'])->get();
-        return view('mahasiswa.trashed', compact('students'));
+        return view('admin.mahasiswa.trashed', compact('students'));
     }
 
     /**
@@ -73,7 +73,7 @@ class StudentController extends Controller
         $student = StudentModels::onlyTrashed()->findOrFail($id);
         $student->restore();
 
-        return redirect()->route('mahasiswa.trashed')
+        return redirect()->route('admin.mahasiswa.trashed')
             ->with('success', 'Data mahasiswa berhasil dipulihkan');
     }
 
@@ -89,7 +89,7 @@ class StudentController extends Controller
 
         $student->forceDelete();
 
-        return redirect()->route('mahasiswa.trashed')
+        return redirect()->route('admin.mahasiswa.trashed')
             ->with('success', 'Data mahasiswa berhasil dihapus permanen');
     }
 
