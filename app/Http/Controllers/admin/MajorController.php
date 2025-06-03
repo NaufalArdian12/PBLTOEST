@@ -16,17 +16,8 @@ class MajorController extends Controller
      */
     public function index()
     {
-        $breadcrumb = (object) [
-            'title' => 'Major List',
-            'list' => ['Home', 'Major']
-        ];
-        $page = (object) [
-            'title' => 'Major list integrated in system'
-        ];
-        $activeMenu = 'major';
-        $study_program = StudyProgramModels::all();
-
-        return view('barang.index', compact('breadcrumb', 'page', 'study_program', 'activeMenu'));
+        $majors = MajorModels::all();
+        return view('admin.major.index', compact('majors'));
     }
 
     /**
