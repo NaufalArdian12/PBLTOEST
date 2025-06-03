@@ -39,6 +39,15 @@ Route::get('/', function () {
 Route::get('/auth/redirect', [SocialiteController::class, 'redirect'])->name('auth.redirect');
 Route::get('/auth/google/callback', [SocialiteController::class, 'callback']);
 
+// Dashboard (protected by auth and verified middleware)
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/set-password', [VerificationController::class, 'showSetPasswordForm'])->name('password.set');
+    Route::post('/set-password', [VerificationController::class, 'storePassword'])->name('password.store');
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    });
+});
+
 // Dashboard Mahasiswa
 Route::middleware(['auth', 'verified', 'role:3'])->group(function () {
 
@@ -72,21 +81,14 @@ Route::middleware(['auth', 'verified', 'role:1'])->prefix('admin')->name('admin.
     // Dashboard Admin
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-    Route::patch('/admin/registration/{id}/reject', [RegistrationApprovalController::class, 'reject'])->name('registration.reject');
-    Route::patch('/admin/registration/{id}/approve', [RegistrationApprovalController::class, 'approve'])->name('registration.approve');
+    // Registration Approval
+    Route::patch('/registration/{id}/reject', [RegistrationApprovalController::class, 'reject'])->name('registration.reject');
+    Route::patch('/registration/{id}/approve', [RegistrationApprovalController::class, 'approve'])->name('registration.approve');
 
     // Admin CRUD Routes
-    Route::get('/', [AdminController::class, 'index'])->name('admin.index');
-    Route::get('/{id}', [AdminController::class, 'show_ajax'])->name('admin.show');
-    Route::get('/{id}/edit', [AdminController::class, 'edit_ajax'])->name('admin.edit');
-    Route::post('/', [AdminController::class, 'store_ajax'])->name('admin.store');
-    Route::put('/{id}', [AdminController::class, 'update_ajax'])->name('admin.update');
-    Route::delete('/{id}', [AdminController::class, 'delete_ajax'])->name('admin.delete');
-    Route::get('/trashed', [AdminController::class, 'trashed'])->name('admin.trashed');
-    Route::patch('/{id}/restore', [AdminController::class, 'restore'])->name('admin.restore');
-    Route::delete('/{id}/force-delete', [AdminController::class, 'forceDelete'])->name('admin.forceDelete');
+    Route::resource('admin', AdminController::class);
 
-    // Admin CRUD Routes
+    // Major Routes
     Route::prefix('major')->group(function () {
         Route::get('/', [MajorController::class, 'index']);
         Route::post('/list', [MajorController::class, 'list']);
@@ -99,6 +101,7 @@ Route::middleware(['auth', 'verified', 'role:1'])->prefix('admin')->name('admin.
         Route::get('/{id}/show_ajax', [MajorController::class, 'show_ajax']);
     });
 
+    // Study Program Routes
     Route::prefix('studyProgram')->group(function () {
         Route::get('/', [StudyProgramController::class, 'index']);
         Route::post('/list', [StudyProgramController::class, 'list']);
@@ -111,6 +114,7 @@ Route::middleware(['auth', 'verified', 'role:1'])->prefix('admin')->name('admin.
         Route::get('/{id}/show_ajax', [StudyProgramController::class, 'show_ajax']);
     });
 
+    // Toeic Test Routes
     Route::prefix('toeicTest')->group(function () {
         Route::get('/', [ToeicTestController::class, 'index']);
         Route::post('/list', [ToeicTestController::class, 'list']);
@@ -122,4 +126,10 @@ Route::middleware(['auth', 'verified', 'role:1'])->prefix('admin')->name('admin.
         Route::get('/create_ajax', [ToeicTestController::class, 'create_ajax']);
         Route::get('/{id}/show_ajax', [ToeicTestController::class, 'show_ajax']);
     });
+});
+
+// Grup Student
+Route::middleware(['auth', 'verified', 'role:1'])->prefix('student')->name('student')->group(function () {
+    // Mahasiswa Routes
+    Route::resource('mahasiswa', StudentController::class);
 });
