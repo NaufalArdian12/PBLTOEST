@@ -65,7 +65,7 @@ class UserModels extends Authenticatable implements MustVerifyEmail
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function roleRelation()
+    public function role()
     {
         return $this->belongsTo(RoleModels::class, 'role_id'); // Memastikan relasi dengan role_id
     }
