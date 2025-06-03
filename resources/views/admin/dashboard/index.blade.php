@@ -19,11 +19,11 @@
             <div class="p-4 border-b">
                 <div class="flex items-center space-x-3">
                     <div class="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center">
-                        <span class="text-sm font-medium text-gray-600">N</span>
+                        <span class="text-sm font-medium text-gray-600">{{ Auth::user()->name[0] }}</span>
                     </div>
                     <div>
-                        <p class="text-sm font-medium text-gray-900">Nopal</p>
-                        <p class="text-xs text-gray-500">Admin</p>
+                        <p class="text-sm font-medium text-gray-900">{{ Auth::user()->name }}</p>
+                        <p class="text-xs text-gray-500">{{ Auth::user()->role->name }}</p>
                     </div>
                     <button class="ml-auto text-gray-400 hover:text-gray-600">
                         <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
@@ -56,7 +56,7 @@
                     </li>
 
                     <li>
-                        <a href=""
+                        <a href="{{route('studentmahasiswa.index')}}"
                             class="flex items-center space-x-3 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -86,7 +86,7 @@
                                     d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01">
                                 </path>
                             </svg>
-                            <span>Topic Test</span>
+                            <span>Toeic Test</span>
                         </a>
                     </li>
 
@@ -252,6 +252,9 @@
                                         No</th>
                                     <th
                                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Test ID</th>
+                                    <th
+                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                         Name</th>
                                     <th
                                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -272,6 +275,9 @@
                                     <tr class="hover:bg-gray-50">
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                                             {{ $index + 1 }}
+                                        </td>
+                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                            {{ $registration->toeic_test_id ?? 'N/A' }}
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                                             {{ $registration->student->user->name ?? 'N/A' }}
