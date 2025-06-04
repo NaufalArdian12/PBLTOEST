@@ -24,7 +24,7 @@ class StudyProgramModels extends Model
     ];
 
     // Relationships
-    public function majors()
+    public function major()
     {
         return $this->belongsTo(MajorModels::class, 'major_id');
     }
