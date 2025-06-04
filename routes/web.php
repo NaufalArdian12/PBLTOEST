@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\StudyProgramController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\RegistrationApprovalController;
+use App\Http\Controllers\Admin\CampusController;
 
 
 // Route untuk halaman login dan register
@@ -89,9 +90,8 @@ Route::middleware(['auth', 'verified', 'role:1'])->prefix('admin')->name('admin.
     Route::resource('admin', AdminController::class);
 
     // Major Routes
-    Route::prefix('major')->group(function () {
-        Route::get('/', [MajorController::class, 'index']);
-        Route::post('/list', [MajorController::class, 'list']);
+    Route::prefix('major')->name('major.')->group(function () {
+        Route::get('/', [MajorController::class, 'index'])->name('index');
         Route::post('/ajax', [MajorController::class, 'store_ajax']);
         Route::get('/{id}/delete_ajax', [MajorController::class, 'confirm_ajax']);
         Route::get('/{id}/edit_ajax', [MajorController::class, 'edit_ajax']);
@@ -101,9 +101,33 @@ Route::middleware(['auth', 'verified', 'role:1'])->prefix('admin')->name('admin.
         Route::get('/{id}/show_ajax', [MajorController::class, 'show_ajax']);
     });
 
+    // Campus Routes
+    Route::prefix('campus')->name('campus.')->group(function () {
+        Route::get('/', [CampusController::class, 'index'])->name('index');
+        Route::post('/ajax', [CampusController::class, 'store_ajax']);
+        Route::get('/{id}/delete_ajax', [CampusController::class, 'confirm_ajax']);
+        Route::get('/{id}/edit_ajax', [CampusController::class, 'edit_ajax']);
+        Route::put('/{id}/update_ajax', [CampusController::class, 'update_ajax']);
+        Route::delete('/{id}/delete_ajax', [CampusController::class, 'delete_ajax']);
+        Route::get('/create_ajax', [CampusController::class, 'create_ajax']);
+        Route::get('/{id}/show_ajax', [CampusController::class, 'show_ajax']);
+    });
+    // mahasiswa Routes
+    Route::prefix('student')->name('student.')->group(function () {
+        Route::get('/', [StudentController::class, 'index'])->name('index');
+        Route::post('/list', [StudentController::class, 'list']);
+        Route::post('/ajax', [StudentController::class, 'store_ajax']);
+        Route::get('/{id}/delete_ajax', [StudentController::class, 'confirm_ajax']);
+        Route::get('/{id}/edit_ajax', [StudentController::class, 'edit_ajax']);
+        Route::put('/{id}/update_ajax', [StudentController::class, 'update_ajax']);
+        Route::delete('/{id}/delete_ajax', [StudentController::class, 'delete_ajax']);
+        Route::get('/create_ajax', [StudentController::class, 'create_ajax']);
+        Route::get('/{id}/show_ajax', [StudentController::class, 'show_ajax']);
+    });
+
     // Study Program Routes
-    Route::prefix('studyProgram')->group(function () {
-        Route::get('/', [StudyProgramController::class, 'index']);
+    Route::prefix('studyprogram')->name('studyprogram.')->group(function () {
+        Route::get('/', [StudyProgramController::class, 'index'])->name('index');
         Route::post('/list', [StudyProgramController::class, 'list']);
         Route::post('/ajax', [StudyProgramController::class, 'store_ajax']);
         Route::get('/{id}/delete_ajax', [StudyProgramController::class, 'confirm_ajax']);
@@ -126,10 +150,4 @@ Route::middleware(['auth', 'verified', 'role:1'])->prefix('admin')->name('admin.
         Route::get('/create_ajax', [ToeicTestController::class, 'create_ajax']);
         Route::get('/{id}/show_ajax', [ToeicTestController::class, 'show_ajax']);
     });
-});
-
-// Grup Student
-Route::middleware(['auth', 'verified', 'role:1'])->prefix('student')->name('student')->group(function () {
-    // Mahasiswa Routes
-    Route::resource('mahasiswa', StudentController::class);
 });
