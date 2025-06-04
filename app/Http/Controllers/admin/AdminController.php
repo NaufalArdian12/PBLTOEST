@@ -16,10 +16,7 @@ class AdminController extends Controller
     {
         $admins = AdminModels::with('user')->get();
 
-        return response()->json([
-            'status' => true,
-            'data' => $admins
-        ]);
+        return view('admin.admin.index', ['admins' => $admins]);
     }
 
     // Detail satu admin
