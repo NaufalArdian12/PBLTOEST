@@ -62,14 +62,15 @@ class SocialiteController extends Controller
             }
         }
 
-        // Cek peran pengguna dan arahkan ke dashboard yang sesuai
-        if (Auth::user()->role_id === 1) {
-            return redirect()->route('admin.dashboard');  // Redirect ke Admin Dashboard
-        } elseif (Auth::user()->role_id === 3) {
-            return redirect()->route('mahasiswa.dashboard');  // Redirect ke Mahasiswa Dashboard
+        // Redirect ke dashboard berdasarkan role
+        if (Auth::user()->role->name === 'Admin') {
+            return redirect()->route('dashboard'); // admin dapat dashboard
+        } elseif (Auth::user()->role->name === 'Student') {
+            return redirect()->route('dashboard'); // mahasiswa juga dapat dashboard
         } else {
-            return redirect()->route('login');  // Jika tidak cocok, redirect ke halaman login
+            abort(403, 'Unauthorized role.');
         }
+
     }
 
     /**
