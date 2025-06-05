@@ -14,17 +14,8 @@ class StudyProgramController extends Controller
 {
     public function index()
     {
-        $breadcrumb = (object) [
-            'title' => 'Study Program List',
-            'list' => ['Home', 'Study Program']
-        ];
-        $page = (object) [
-            'title' => 'Study program list integreted in system'
-        ];
-        $activeMenu = 'study_program';
-        $study_program = StudyProgramModels::all();
-
-        return view('study_program.index', compact('breadcrumb', 'page', 'activeMenu'));
+        $studyprograms = StudyProgramModels::with('major')->get();
+        return view('admin.studyprogram.index', compact('studyprograms'));
     }
 
     public function create_ajax()

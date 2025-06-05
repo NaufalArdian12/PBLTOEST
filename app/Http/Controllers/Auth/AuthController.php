@@ -35,11 +35,6 @@ class AuthController extends Controller
     // Tampilkan form login
     public function showLoginForm()
     {
-        // Jika pengguna sudah login, arahkan mereka ke dashboard atau halaman lain
-        if (Auth::check()) {
-            return redirect('dashboard');
-        }
-
         return view('auth.login');
     }
 

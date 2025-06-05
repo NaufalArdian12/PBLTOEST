@@ -13,37 +13,33 @@ class EduStaffController extends Controller
 {
     public function index()
     {
-        $staffs = EducationalStaffModels::with('user')->get();
-
-        return response()->json([
-            'status' => true,
-            'data'   => $staffs
-        ]);
+        $educationalstaffs = EducationalStaffModels::all();
+        return view('admin.educationalstaff.index', compact('educationalstaffs'));
     }
 
-   // Store new Educational Staff with AJAX
+    // Store new Educational Staff with AJAX
     public function store_ajax(StoreEduStaffRequest $request)
     {
         if ($request->ajax() || $request->wantsJson()) {
             // Create the user first
             $user = UserModels::create([
-                'name'     => $request->name,
-                'email'    => $request->email,
+                'name' => $request->name,
+                'email' => $request->email,
                 'password' => bcrypt($request->password),
-                'role'     => 'educational_staff',
+                'role' => 'educational_staff',
             ]);
 
             // Create the educational staff related to the user
             $staff = EducationalStaffModels::create([
                 'user_id' => $user->id,
-                'NIP'     => $request->NIP,
-                'name'    => $request->name,
+                'NIP' => $request->NIP,
+                'name' => $request->name,
             ]);
 
             return response()->json([
-                'status'  => true,
+                'status' => true,
                 'message' => 'Data berhasil ditambahkan',
-                'data'    => $staff,
+                'data' => $staff,
             ]);
         }
 
@@ -59,7 +55,7 @@ class EduStaffController extends Controller
         $staff = EducationalStaffModels::with('user')->findOrFail($id);
         return response()->json([
             'status' => true,
-            'data'   => $staff
+            'data' => $staff
         ]);
     }
 
@@ -86,18 +82,18 @@ class EduStaffController extends Controller
         if ($request->ajax() || $request->wantsJson()) {
             $staff = EducationalStaffModels::findOrFail($id);
             $staff->user->update([
-                'name'  => $request->name,
+                'name' => $request->name,
                 'email' => $request->email,
             ]);
             $staff->update([
-                'NIP'   => $request->NIP,
-                'name'  => $request->name,
+                'NIP' => $request->NIP,
+                'name' => $request->name,
             ]);
 
             return response()->json([
-                'status'  => true,
+                'status' => true,
                 'message' => 'Data berhasil diperbarui',
-                'data'    => $staff,
+                'data' => $staff,
             ]);
         }
 
@@ -115,12 +111,12 @@ class EduStaffController extends Controller
             if ($staff) {
                 $staff->delete(); // Soft delete
                 return response()->json([
-                    'status'  => true,
+                    'status' => true,
                     'message' => 'Data berhasil dihapus (soft delete)'
                 ]);
             } else {
                 return response()->json([
-                    'status'  => false,
+                    'status' => false,
                     'message' => 'Data tidak ditemukan'
                 ]);
             }
@@ -137,7 +133,7 @@ class EduStaffController extends Controller
         $staffs = EducationalStaffModels::onlyTrashed()->with('user')->get();
         return response()->json([
             'status' => true,
-            'data'   => $staffs
+            'data' => $staffs
         ]);
     }
 
@@ -148,7 +144,7 @@ class EduStaffController extends Controller
         $staff->restore();
 
         return response()->json([
-            'status'  => true,
+            'status' => true,
             'message' => 'Data berhasil dipulihkan',
         ]);
     }
@@ -160,7 +156,7 @@ class EduStaffController extends Controller
         $staff->forceDelete();
 
         return response()->json([
-            'status'  => true,
+            'status' => true,
             'message' => 'Data berhasil dihapus permanen',
         ]);
     }

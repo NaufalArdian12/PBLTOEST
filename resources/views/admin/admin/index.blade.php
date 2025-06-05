@@ -1,6 +1,6 @@
 @extends('layouts.admin.admin')
 
-@section('title', 'Major Management')
+@section('title', 'Student Management')
 
 @section('content')
     <div class="flex h-screen bg-gray-100">
@@ -51,27 +51,25 @@
                                     <th
                                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                         Name</th>
-
                                     <th
                                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Campus</th>
+                                        Actions</th>
                                 </tr>
                             </thead>
                             <tbody class="bg-white divide-y divide-gray-200">
-                                @foreach($majors as $index => $major)
+                                @foreach($admins as $index => $admin)
                                     <tr class="hover:bg-gray-50">
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $index + 1 }}</td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                            {{ $major->major_name }}
+                                            {{ $admin->user->name }}
                                         </td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $major->campus->campus_name }}</td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                             <div class="flex items-center space-x-2">
-                                                <a href="{{ route('mahasiswa.show', $major->id) }}"
+                                                <a href="{{ route('mahasiswa.show', $admin->id) }}"
                                                     class="text-blue-600 hover:text-blue-900">View</a>
-                                                <a href="{{ route('mahasiswa.edit', $major->id) }}"
+                                                <a href="{{ route('mahasiswa.edit', $admin->id) }}"
                                                     class="text-yellow-600 hover:text-yellow-900">Edit</a>
-                                                <form action="{{ route('mahasiswa.destroy', $major->id) }}" method="POST"
+                                                <form action="{{ route('mahasiswa.destroy', $admin->id) }}" method="POST"
                                                     class="inline">
                                                     @csrf
                                                     @method('DELETE')
@@ -87,9 +85,9 @@
                     </div>
 
                     <!-- Pagination -->
-                    @if($majors instanceof \Illuminate\Pagination\Paginator || $majors instanceof \Illuminate\Pagination\LengthAwarePaginator)
+                    @if($admins instanceof \Illuminate\Pagination\Paginator || $admins instanceof \Illuminate\Pagination\LengthAwarePaginator)
                         <div class="px-6 py-4 border-t border-gray-200">
-                            {{ $majors->links() }}
+                            {{ $admins->links() }}
                         </div>
                     @endif
                 </div>

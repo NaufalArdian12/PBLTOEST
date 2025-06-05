@@ -22,8 +22,6 @@ class ToeicTestModels extends Model
     protected $fillable = [
         'admin_id',
         'registration_id',
-        'NIM',
-        'NIP',
         'date',
         'zoom_link',
         'max_participants',
@@ -42,7 +40,7 @@ class ToeicTestModels extends Model
 
     public function student()
     {
-        return $this->belongsTo(StudentModels::class, 'NIM');
+        return $this->hasMany(StudentModels::class, 'NIM');
     }
 
     public function educationalStaff()
