@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\CampusModels;
 use Illuminate\Http\Request;
 use App\Models\StudyProgramModels;
 use App\Http\Controllers\Controller;
@@ -14,8 +15,9 @@ class StudyProgramController extends Controller
 {
     public function index()
     {
-        $studyprograms = StudyProgramModels::with('major')->get();
-        return view('admin.studyprogram.index', compact('studyprograms'));
+        $studyprograms = StudyProgramModels::with('major', 'campus')->get();
+        $campuses = CampusModels::all();
+        return view('admin.studyprogram.index', compact('studyprograms', 'campuses'));
     }
 
     public function create_ajax()
