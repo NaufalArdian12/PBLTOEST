@@ -7,6 +7,7 @@ use App\Http\Requests\StoreMajorRequest;
 use App\Http\Requests\UpdateMajorRequest;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\campusModels;
 use Yajra\DataTables\Facades\DataTables;
 
 class MajorController extends Controller
@@ -17,7 +18,8 @@ class MajorController extends Controller
     public function index()
     {
         $majors = MajorModels::all();
-        return view('admin.major.index', compact('majors'));
+        $campuses = campusModels::all();
+        return view('admin.major.index', compact('majors', 'campuses'));
     }
 
     /**
