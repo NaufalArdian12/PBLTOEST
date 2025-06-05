@@ -8,6 +8,15 @@ use App\Http\Controllers\Controller;
 
 class RegistrationApprovalController extends Controller
 {
+
+    public function index ()
+    {
+        // Mengambil semua data pendaftaran
+        $registrations = RegistrationModels::all();
+
+        // Mengirim data ke view
+        return view('admin.registration.index', compact('registrations'));
+    }
     // Method untuk Approve
     public function approve($id)
     {
@@ -15,7 +24,7 @@ class RegistrationApprovalController extends Controller
         $registration->status = 'active';
         $registration->save();
 
-        return redirect()->route('admin.dashboard')->with('success', 'Registration approved successfully.');
+        return redirect()->route('dashboard')->with('success', 'Registration approved successfully.');
     }
 
     // Method untuk Reject
@@ -25,6 +34,6 @@ class RegistrationApprovalController extends Controller
         $registration->status = 'inactive';  // Mengubah status menjadi rejected
         $registration->save();
 
-        return redirect()->route('admin.dashboard')->with('success', 'Registration rejected successfully.');
+        return redirect()->route('dashboard')->with('success', 'Registration rejected successfully.');
     }
 }
