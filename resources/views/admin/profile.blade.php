@@ -26,7 +26,7 @@
                         class="absolute right-0 top-full mt-2 w-48 bg-white rounded-xl shadow-lg border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
                         <div class="py-2">
                             <!-- Profile Option -->
-                            <a href="/profile"
+                            <a href="{{ route('profile') }}"
                                 class="flex items-center gap-3 px-4 py-3 text-blue-600 bg-blue-50 transition-colors duration-150">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -79,7 +79,7 @@
 
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <!-- Full Name -->
-                            <div>
+                            <div class="">
                                 <label for="name" class="block text-sm font-medium text-gray-700 mb-2">Full Name</label>
                                 <input type="text" id="name" name="name" value="{{ auth()->user()->name }}"
                                     class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200">
@@ -99,101 +99,56 @@
                                 @enderror
                             </div>
 
-                            <!-- Profile Picture -->
-                            <div>
-                                <label for="profile_picture" class="block text-sm font-medium text-gray-700 mb-2">Passportle
-                                    Photo</label>
-                                <div class="flex items-center space-x-4">
-                                    <input type="file" id="profile_picture" name="pas_photo" accept="image/*"
-                                        class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 transition-colors duration-200">
+                            <!-- Password Section -->
+                            <div class="border-t border-gray-200 mt-2 pt-8 col-span-2">
+                                <h3 class="text-lg font-semibold text-gray-800 mb-4">Change Password</h3>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div>
+                                        <label for="current_password"
+                                            class="block text-sm font-medium text-gray-700 mb-2">Current Password</label>
+                                        <input type="password" id="current_password" name="current_password"
+                                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200">
+                                        @error('current_password')
+                                            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                                        @enderror
+                                    </div>
+                                    <div></div>
+                                    <div>
+                                        <label for="password" class="block text-sm font-medium text-gray-700 mb-2">New
+                                            Password</label>
+                                        <input type="password" id="password" name="password"
+                                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200">
+                                        @error('password')
+                                            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                                        @enderror
+                                    </div>
+                                    <div>
+                                        <label for="password_confirmation"
+                                            class="block text-sm font-medium text-gray-700 mb-2">Confirm New
+                                            Password</label>
+                                        <input type="password" id="password_confirmation" name="password_confirmation"
+                                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200">
+                                    </div>
                                 </div>
-                                <p class="text-xs text-gray-500 mt-1">Maximum file size: 2MB. Supported formats: JPG, PNG,
-                                    GIF</p>
-                                @error('profile_picture')
-                                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                                @enderror
                             </div>
 
-                            <!-- Profile Picture -->
-                            <div>
-                                <label for="profile_picture" class="block text-sm font-medium text-gray-700 mb-2">Scan
-                                    KTP</label>
-                                <div class="flex items-center space-x-4">
-                                    <input type="file" id="profile_picture" name="scan_ktp" accept="image/*"
-                                        class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 transition-colors duration-200">
-                                </div>
-                                <p class="text-xs text-gray-500 mt-1">Maximum file size: 2MB. Supported formats: JPG, PNG,
-                                    GIF</p>
-                                @error('profile_picture')
-                                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                                @enderror
-                            </div>
-
-                            <!-- Profile Picture -->
-                            <div class="md:col-span-2">
-                                <label for="profile_picture" class="block text-sm font-medium text-gray-700 mb-2">Scan
-                                    KTM</label>
-                                <div class="flex items-center space-x-4">
-                                    <input type="file" id="profile_picture" name="scan_ktm" accept="image/*"
-                                        class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 transition-colors duration-200">
-                                </div>
-                                <p class="text-xs text-gray-500 mt-1">Maximum file size: 2MB. Supported formats: JPG, PNG,
-                                    GIF</p>
-                                @error('profile_picture')
-                                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <!-- Password Section -->
-                        <div class="border-t border-gray-200 mt-8 pt-8">
-                            <h3 class="text-lg font-semibold text-gray-800 mb-4">Change Password</h3>
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                <div>
-                                    <label for="current_password"
-                                        class="block text-sm font-medium text-gray-700 mb-2">Current Password</label>
-                                    <input type="password" id="current_password" name="current_password"
-                                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200">
-                                    @error('current_password')
-                                        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                                    @enderror
-                                </div>
-                                <div></div>
-                                <div>
-                                    <label for="password" class="block text-sm font-medium text-gray-700 mb-2">New
-                                        Password</label>
-                                    <input type="password" id="password" name="password"
-                                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200">
-                                    @error('password')
-                                        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                                    @enderror
-                                </div>
-                                <div>
-                                    <label for="password_confirmation"
-                                        class="block text-sm font-medium text-gray-700 mb-2">Confirm New Password</label>
-                                    <input type="password" id="password_confirmation" name="password_confirmation"
-                                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200">
+                            <!-- Action Buttons -->
+                            <div class="flex justify-between items-center mt-8 pt-6 border-t border-gray-200 col-span-2">
+                                <a href="{{ route('dashboard') }}"
+                                    class="px-6 py-3 text-gray-600 hover:text-gray-800 font-medium transition-colors duration-200">
+                                    Cancel
+                                </a>
+                                <div class="space-x-3">
+                                    <button type="reset"
+                                        class="px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 font-medium transition-colors duration-200">
+                                        Reset
+                                    </button>
+                                    <button type="submit"
+                                        class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-colors duration-200">
+                                        Save Changes
+                                    </button>
                                 </div>
                             </div>
-                        </div>
-
-                        <!-- Action Buttons -->
-                        <div class="flex justify-between items-center mt-8 pt-6 border-t border-gray-200">
-                            <a href="{{ route('dashboard') }}"
-                                class="px-6 py-3 text-gray-600 hover:text-gray-800 font-medium transition-colors duration-200">
-                                Cancel
-                            </a>
-                            <div class="space-x-3">
-                                <button type="reset"
-                                    class="px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 font-medium transition-colors duration-200">
-                                    Reset
-                                </button>
-                                <button type="submit"
-                                    class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-colors duration-200">
-                                    Save Changes
-                                </button>
-                            </div>
-                        </div>
                     </form>
                 </div>
             </div>
