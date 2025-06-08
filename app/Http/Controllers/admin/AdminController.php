@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreAdminRequest;
 use App\Http\Requests\UpdateAdminRequest;
+use Illuminate\Support\Facades\Hash;
+use Exception;
 
 class AdminController extends Controller
 {
@@ -19,89 +21,107 @@ class AdminController extends Controller
         return view('admin.admin.index', ['admins' => $admins]);
     }
 
+    //profile admin
+    public function profile()
+    {
+        $admin = AdminModels::with('user')->where('user_id', auth()->id())->firstOrFail();
+        return view('admin.profile', ['admin' => $admin]);
+    }
+
     // Detail satu admin
-    public function show_ajax(string $id)
+    public function show(string $id)
     {
-        $admin = AdminModels::with('user')->findOrFail($id);
-        return response()->json([
-            'status' => true,
-            'data' => $admin
-        ]);
-    }
-
-    public function edit_ajax(string $id)
-    {
-        $admin = AdminModels::find($id);
-        if ($admin) {
-            return response()->json([
-                'status' => true,
-                'data' => $admin
-            ]);
-        } else {
-            return response()->json([
+        try {
+            $admin = AdminModels::with('user')->findOrFail($id);
+            return view('admin.admin.show', compact('admin'));
+        } catch (Exception $e) {
+            return redirect()->back()->with([
                 'status' => false,
-                'message' => 'Data tidak ditemukan'
+                'message' => 'Data admin tidak ditemukan'
             ]);
         }
     }
 
-    // Create admin baru (buat record user + admin)
-    public function store_ajax(StoreAdminRequest $request)
+    public function edit(string $id)
     {
-        if ($request->ajax() || $request->wantsJson()) {
-            // Create the user first
-            $user = UserModels::create([
-                'name' => $request->admin_name,
-                'email' => $request->email,
-                'password' => bcrypt($request->password),
-                'role' => 'admin',
+        try {
+            $admin = AdminModels::with('user')->findOrFail($id);
+            return view('admin.admin.edit', compact('admin'));
+        } catch (Exception $e) {
+            return redirect()->back()->with([
+                'status' => false,
+                'message' => 'Data admin tidak ditemukan'
             ]);
-
-            // Create the admin record
-            $admin = AdminModels::create([
-                'user_id' => $user->id,
-                'admin_name' => $request->admin_name,
-            ]);
-
-            return response()->json([
-                'status' => true,
-                'message' => 'Admin berhasil ditambahkan',
-                'data' => $admin->load('user'),
-            ], 201);
         }
-
-        return response()->json([
-            'status' => false,
-            'message' => 'Request tidak valid'
-        ]);
     }
+
+    // view create admin
+    public function create()
+    {
+        return view('admin.admin.create');
+    }
+    // Store a new admin into the database
+    public function store(StoreAdminRequest $request)
+    {
+        // Validasi permintaan
+        $validatedData = $request->validated();
+
+        // Set role_id secara manual
+        $validatedData['role_id'] = 1;
+
+        // Log data yang akan dimasukkan
+        \Log::info('Data yang dikirim untuk user:', $validatedData);
+
+        // Membuat user baru (admin)
+        $user = UserModels::create([
+            'name' => $validatedData['name'],
+            'email' => $validatedData['email'],
+            'password' => Hash::make($validatedData['password']),
+            'role_id' => 1,  // Role admin
+        ]);
+
+        // Log setelah user dibuat
+        \Log::info('User yang dibuat:', $user->toArray());
+
+        // Membuat entri admin
+        $admin = AdminModels::create([
+            'user_id' => $user->id,
+        ]);
+
+        // Log admin yang baru dibuat
+        \Log::info('Admin yang dibuat:', $admin->toArray());
+
+        // Redirect ke halaman index admin
+        return redirect()->route('admin.index')->with('success', 'Admin berhasil dibuat!');
+    }
+
 
 
     // Update data admin
-    public function update_ajax(UpdateAdminRequest $request, string $id)
+    public function update(UpdateAdminRequest $request, string $id)
     {
-        if ($request->ajax() || $request->wantsJson()) {
-            $admin = AdminModels::findOrFail($id);
-            $admin->user->update([
-                'name' => $request->admin_name,
-                'email' => $request->email,
-            ]);
-            $admin->update([
-                'admin_name' => $request->admin_name,
-            ]);
+        // Find the admin by ID or fail with a 404 error
+        $admin = AdminModels::findOrFail($id);
 
-            return response()->json([
-                'status' => true,
-                'message' => 'Admin berhasil diperbarui',
-                'data' => $admin->load('user'),
-            ]);
-        }
-
-        return response()->json([
-            'status' => false,
-            'message' => 'Request tidak valid'
+        // Update user data (name, email)
+        $admin->user->update([
+            'name' => $request->name,
+            'email' => $request->email,
         ]);
+
+        // Update admin data and handle password update if provided
+        $admin->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => $request->filled('password')
+                ? Hash::make($request->password)
+                : $admin->user->password, // Retain the existing password if not updated
+        ]);
+
+        // Redirect with success message
+        return redirect()->route('admin.index')->with('success', 'Admin berhasil diperbarui!');
     }
+
 
 
     // Soft delete
