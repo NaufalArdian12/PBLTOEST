@@ -22,7 +22,7 @@ class DashboardController extends Controller
 
             $admin = auth()->user();
             return view('admin.dashboard.index' , compact('totalMahasiswa', 'mahasiswaMendaftar', 'mahasiswaBelumAcc', 'registrations', 'admin'));
-        } else {
+        } else {    
             return view('mahasiswa.dashboard');
         }
     }
