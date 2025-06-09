@@ -127,26 +127,15 @@ class AdminController extends Controller
     // Soft delete
     public function delete_ajax(Request $request, string $id)
     {
-        if ($request->ajax() || $request->wantsJson()) {
+        try {
             $admin = AdminModels::findOrFail($id);
-            if ($admin) {
-                // Soft delete
-                $admin->delete();
-                return response()->json([
-                    'status' => true,
-                    'message' => 'Admin berhasil dihapus (soft delete)'
-                ]);
-            } else {
-                return response()->json([
-                    'status' => false,
-                    'message' => 'Data tidak ditemukan'
-                ]);
-            }
+            $admin->delete();
+            return redirect()->route('admin.index')->with('success', 'Admin berhasil dihapus!');
+
+        } catch (Exception $e) {
+            return redirect()->route('admin.index')->with('error', 'Terjadi kesalahan saat menghapus admin: ' . $e->getMessage());
         }
-        return response()->json([
-            'status' => false,
-            'message' => 'Request tidak valid'
-        ]);
+
     }
 
 
