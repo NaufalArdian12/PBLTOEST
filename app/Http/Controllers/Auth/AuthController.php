@@ -71,7 +71,11 @@ class AuthController extends Controller
     public function resend(Request $request)
     {
         if ($request->user()->hasVerifiedEmail()) {
-            return redirect('/mahasiswa/dashboard');
+            if (Auth::user()->role === 'Admin') {
+                return view('admin.dashboard.index');
+            }elseif (Auth::user()->role === 'Student') {
+                return view('mahasiswa.dashboard');
+            }
         }
 
         $request->user()->sendEmailVerificationNotification();
