@@ -7,6 +7,7 @@ use App\Models\UserModels;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
+use App\Models\StudentModels;
 
 class SocialiteController extends Controller
 {
@@ -43,6 +44,11 @@ class SocialiteController extends Controller
                     'email' => $socialUser->email,
                     'google_token' => $socialUser->token,
                     'google_refresh_token' => $socialUser->refreshToken,
+                    'role_id' => 3,
+                ]);
+
+                $student = StudentModels::create([
+                    'user_id' => $user->id,
                 ]);
             }
 
