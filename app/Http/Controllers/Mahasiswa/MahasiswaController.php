@@ -2,6 +2,7 @@
 namespace App\Http\Controllers\Mahasiswa;
 
 use App\Http\Controllers\Controller;
+use App\Models\StudentModels;
 use App\Models\User;  // Import model User
 use Illuminate\Http\Request;
 
@@ -10,8 +11,8 @@ class MahasiswaController extends Controller
 
     public function profile()
     {
-        // Logika untuk menampilkan profil mahasiswa
-        return view('mahasiswa.profile');
+        $student = StudentModels::where('user_id', auth()->id())->firstOrFail();
+        return view('mahasiswa.profile', compact('student'));
     }
 
     public function sertifikat()
