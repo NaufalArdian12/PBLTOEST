@@ -69,5 +69,22 @@ class UserModels extends Authenticatable implements MustVerifyEmail
     {
         return $this->belongsTo(RoleModels::class, 'role_id'); // Memastikan relasi dengan role_id
     }
+    public function studyorograms()
+    {
+        return $this->hasOne(StudyProgramModels::class, 'user_id'); // Relasi ke model StudyProgram
+    }
+
+    public function students()
+    {
+        return $this->hasOne(StudentModels::class, 'user_id'); // Relasi ke model Student
+    }
+    public function educationalStaffs()
+    {
+        return $this->hasOne(EducationalStaffModels::class, 'user_id'); // Relasi ke model EducationalStaff
+    }
+    public function admins()
+    {
+        return $this->hasOne(AdminModels::class, 'user_id'); // Relasi ke model Admin
+    }
 
 }

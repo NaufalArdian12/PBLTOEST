@@ -10,6 +10,9 @@ use Illuminate\Http\Request;
 use App\Http\Requests\UpdateStudentRequest;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreStudentRequest;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 
 class StudentController extends Controller
@@ -30,8 +33,7 @@ class StudentController extends Controller
     {
         //menambahkan data program studi dan jurusan dari model terkait
         $studyPrograms = StudyProgramModels::all();
-        $majors = MajorModels::all();
-        return view('admin.mahasiswa.create', compact('studyPrograms', 'majors'));
+        return view('admin.mahasiswa.create', compact('studyPrograms'));
     }
 
     /**
@@ -39,10 +41,52 @@ class StudentController extends Controller
      */
     public function show(string $id)
     {
-        $student = StudentModels::with(['user', 'studyProgram', 'major'])->findOrFail($id);
-        return view('admin.mahasiswa.show', compact('student'));
+        $student = StudentModels::with(['user', 'studyProgram'])->findOrFail($id);
+        $scanKtpPath = Storage::url('app/' . $student->scan_ktp);
+        $scanKtmPath = Storage::url('app/' . $student->scan_ktm);
+        $pasPhotoPath = Storage::url('app/' . $student->pas_photo);
+        return view('admin.mahasiswa.show', compact('student', 'scanKtpPath', 'scanKtmPath', 'pasPhotoPath'));
     }
 
+    public function showKtp($id)
+    {
+        $student = StudentModels::findOrFail($id);
+
+        // Gunakan sistem storage Laravel
+        $filePath = $student->scan_ktp;
+
+        if (Storage::exists($filePath)) {
+            return response()->file(storage_path('app/' . $filePath));
+        }
+
+        return redirect()->back()->with('error', 'File KTP tidak ditemukan.');
+    }
+    public function showKtm($id)
+    {
+        $student = StudentModels::findOrFail($id);
+
+        // Gunakan sistem storage Laravel
+        $filePath = $student->scan_ktm;
+
+        if (Storage::exists($filePath)) {
+            return response()->file(storage_path('app/' . $filePath));
+        }
+
+        return redirect()->back()->with('error', 'File KTM tidak ditemukan.');
+    }
+    public function showPasPhoto($id)
+    {
+        $student = StudentModels::findOrFail($id);
+
+        // Gunakan sistem storage Laravel
+        $filePath = $student->pas_photo;
+
+        if (Storage::exists($filePath)) {
+            return response()->file(storage_path('app/' . $filePath));
+        }
+
+        return redirect()->back()->with('error', 'Foto tidak ditemukan.');
+    }
 
     /**
      * Remove the specified resource from storage (soft delete).
@@ -52,7 +96,7 @@ class StudentController extends Controller
         $student = StudentModels::findOrFail($id);
         $student->delete();
 
-        return redirect()->route('mahasiswa.index')
+        return redirect()->route('student.index')
             ->with('success', 'Data mahasiswa berhasil dihapus (soft delete)');
     }
 
@@ -96,112 +140,112 @@ class StudentController extends Controller
     /**
      * AJAX version of store
      */
-    public function store_ajax(StoreStudentRequest $request)
+    public function store(StoreStudentRequest $request)
     {
-        if ($request->ajax() || $request->wantsJson()) {
-            // Validasi berhasil pada StoreStudentRequest
+        try {
+
+            $request->validated();
+            // Simpan file dan ambil path-nya
+            $scan_ktp_path = $request->file('scan_ktp')->store('private/scans');
+            $scan_ktm_path = $request->file('scan_ktm')->store('private/scans');
+            $pas_photo_path = $request->file('pas_photo')->store('private/photos');
+
             // Buat user terlebih dahulu
             $user = UserModels::create([
                 'name' => $request->name,
                 'email' => $request->email,
                 'password' => bcrypt($request->password),
-                'role' => 'mahasiswa',
+                'role' => 'Student',
             ]);
 
-            // Buat data mahasiswa terkait
+            // Buat data mahasiswa terkait dan simpan path file
             $student = StudentModels::create([
                 'user_id' => $user->id,
                 'NIM' => $request->NIM,
                 'NIK' => $request->NIK,
                 'study_program_id' => $request->study_program_id,
-                'major_id' => $request->major_id,
+                'scan_ktp' => $scan_ktp_path,
+                'scan_ktm' => $scan_ktm_path,
+                'pas_photo' => $pas_photo_path,
+                'current_address' => $request->current_address,
+                'origin_address' => $request->origin_address,
+                'telephone_number' => $request->telephone_number,
             ]);
 
-            return response()->json([
-                'status' => true,
-                'message' => 'Data mahasiswa berhasil ditambahkan',
-                'data' => $student
-            ]);
+            // Redirect setelah data berhasil disimpan
+            return redirect()->route('student.index')->with('success', 'Data mahasiswa berhasil ditambahkan');
+        } catch (\Exception $e) {
+            // Tangani error jika ada masalah dengan penyimpanan
+            return redirect()->back()->with('error', 'Terjadi kesalahan saat menyimpan data: ' . $e->getMessage());
         }
-
-        return response()->json([
-            'status' => false,
-            'message' => 'Request tidak valid'
-        ]);
     }
 
-
-    public function show_ajax($id)
+    public function edit($id)
     {
-        $student = StudentModels::with(['user', 'studyProgram', 'major'])->find($id);
+        $student = StudentModels::with(['user', 'studyProgram'])->findOrFail($id);
+        $studyPrograms = StudyProgramModels::all();
+        $majors = MajorModels::all();
+
+        return view('admin.mahasiswa.edit', compact('student', 'studyPrograms', 'majors'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        // Find the student by ID
+        $student = StudentModels::find($id);
+
         if ($student) {
-            return response()->json([
-                'status' => true,
-                'data' => $student
+            // Update user details (name, email)
+            $student->user->update([
+                'name' => $request->name,
+                'email' => $request->email,
             ]);
-        } else {
-            return response()->json([
-                'status' => false,
-                'message' => 'Data mahasiswa tidak ditemukan'
-            ]);
-        }
-    }
 
-    public function edit_ajax($id)
-    {
-        $student = StudentModels::with('user')->find($id);
-        if ($student) {
-            $studyPrograms = StudyProgramModels::all();
-            $majors = MajorModels::all();
-            return response()->json([
-                'status' => true,
-                'data' => [
-                    'student' => $student,
-                    'studyPrograms' => $studyPrograms,
-                    'majors' => $majors
-                ]
-            ]);
-        } else {
-            return response()->json([
-                'status' => false,
-                'message' => 'Data mahasiswa tidak ditemukan'
-            ]);
-        }
-    }
-
-    public function update_ajax(UpdateStudentRequest $request, $id)
-    {
-        if ($request->ajax() || $request->wantsJson()) {
-            $student = StudentModels::find($id);
-            if ($student) {
+            // Handle password update (only if provided)
+            if ($request->filled('password')) {
                 $student->user->update([
-                    'name' => $request->name,
-                    'email' => $request->email,
-                ]);
-
-                $student->update([
-                    'NIM' => $request->NIM,
-                    'NIK' => $request->NIK,
-                    'study_program_id' => $request->study_program_id,
-                    'major_id' => $request->major_id,
-                ]);
-
-                return response()->json([
-                    'status' => true,
-                    'message' => 'Data mahasiswa berhasil diperbarui'
-                ]);
-            } else {
-                return response()->json([
-                    'status' => false,
-                    'message' => 'Data mahasiswa tidak ditemukan'
                 ]);
             }
+            // Update student-related fields
+            $student->update([
+                'NIM' => $request->NIM,
+                'NIK' => $request->NIK,
+                'study_program_id' => $request->study_program_id,
+                'current_address' => $request->current_address,
+                'origin_address' => $request->origin_address,
+                'telephone_number' => $request->telephone_number,
+            ]);
+
+            // Handle file uploads (KTP, KTM, Passport Photo)
+            if ($request->hasFile('scan_ktp')) {
+                $student->update([
+                    'scan_ktp' => $request->file('scan_ktp')->store('private/scans')
+                ]);
+            }
+
+            if ($request->hasFile('scan_ktm')) {
+                $student->update([
+                    'scan_ktm' => $request->file('scan_ktm')->store('private/scans')
+                ]);
+            }
+
+            if ($request->hasFile('pas_photo')) {
+                $student->update([
+                    'pas_photo' => $request->file('pas_photo')->store('private/photos')
+                ]);
+            }
+            // Return a success response
+            return redirect()->route('student.index')->with('success', 'Data mahasiswa berhasil diperbarui');
+        } else {
+            // Return a failure response if student not found
+            return redirect()->back()->with([
+                'status' => false,
+                'message' => 'Data mahasiswa tidak ditemukan'
+            ])->withInput();
         }
-        return response()->json([
-            'status' => false,
-            'message' => 'Request tidak valid'
-        ]);
     }
+
+
 
     public function delete_ajax(Request $request, $id)
     {
@@ -227,5 +271,17 @@ class StudentController extends Controller
             'message' => 'Request tidak valid'
         ]);
     }
+
+    public function downloadKtp($filename)
+    {
+        $path = storage_path('app/private/scans/' . $filename);
+
+        if (File::exists($path)) {
+            return response()->download($path);
+        }
+
+        abort(404);
+    }
+
 
 }

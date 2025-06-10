@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\CampusModels;
 use Illuminate\Http\Request;
 use App\Models\StudyProgramModels;
+use App\Models\MajorModels;
 use App\Http\Controllers\Controller;
 use Yajra\DataTables\Facades\DataTables;
 use App\Http\Requests\StoreStudyProgramRequest;
@@ -14,28 +16,28 @@ class StudyProgramController extends Controller
 {
     public function index()
     {
-        $studyprograms = StudyProgramModels::with('major')->get();
-        return view('admin.studyprogram.index', compact('studyprograms'));
+        $studyprograms = StudyProgramModels::with('major', 'campus')->get();
+        $campuses = CampusModels::all();
+        return view('admin.studyprogram.index', compact('studyprograms', 'campuses'));
     }
 
-    public function create_ajax()
+    public function create()
     {
-        return view('study_program.create_ajax');
+        // Mendapatkan daftar kampus untuk dropdown
+        $campuses = CampusModels::all();
+        // Mengirimkan data kampus ke view
+        $majors = MajorModels::all(); // Jika perlu, bisa juga mengambil daftar jurusan
+        return view('admin.studyProgram.create', compact('campuses', 'majors'));
     }
 
     // Menyimpan data study_program baru
-    public function store_ajax(StoreStudyProgramRequest $request)
+    public function store(StoreStudyProgramRequest $request)
     {
         // Data sudah tervalidasi pada saat request diterima
-        if ($request->ajax() || $request->wantsJson()) {
-            StudyProgramModels::create($request->validated());
-            return response()->json([
-                'status' => true,
-                'message' => 'Data successfully saved'
-            ]);
-        }
-        return redirect('/');
+        StudyProgramModels::create($request->validated());
+        return redirect()->route('studyprogram.index')->with('success', 'Data successfully created');
     }
+
 
     public function list(Request $request)
     {
@@ -45,13 +47,13 @@ class StudyProgramController extends Controller
             // menambahkan kolom index / no urut (default nama kolom: DT_RowIndex)
             ->addIndexColumn()
             ->addColumn('action', function ($study_program) {  // menambahkan kolom action
-                $btn = '<button onclick="modalAction(\'' . url('/study_program/' . $study_program->id . '/show_ajax') . '\')"
+                $btn = '<button onclick="modalAction(\'' . url('/study_program/' . $study_program->id . '/show') . '\')"
     class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded text-sm mr-1">Detail</button>';
 
-                $btn .= '<button onclick="modalAction(\'' . url('/study_program/' . $study_program->id . '/edit_ajax') . '\')"
+                $btn .= '<button onclick="modalAction(\'' . url('/study_program/' . $study_program->id . '/edit') . '\')"
     class="bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-1 rounded text-sm mr-1">Edit</button>';
 
-                $btn .= '<button onclick="modalAction(\'' . url('/study_program/' . $study_program->id . '/delete_ajax') . '\')"
+                $btn .= '<button onclick="modalAction(\'' . url('/study_program/' . $study_program->id . '/delete') . '\')"
     class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded text-sm">Delete</button>';
 
                 return $btn;
@@ -61,72 +63,54 @@ class StudyProgramController extends Controller
     }
 
     // Menampilkan detail study_program
-    public function show_ajax(string $id)
+    public function show(string $id)
     {
-        $study_program = StudyProgramModels::find($id);
-        return view('study_program.show_ajax', compact('study_program'));
+        $studyProgram = StudyProgramModels::find($id);
+        return view('admin.studyprogram.show', compact('studyProgram'));
     }
 
 
     // Menampilkan halaman form edit study_program
-    public function edit_ajax(string $id)
+    public function edit(string $id)
     {
-        $study_program = StudyProgramModels::find($id);
-        return view('study_program.edit_ajax', compact('study_program'));
+        $studyProgram = StudyProgramModels::find($id);
+        $campuses = CampusModels::all(); // Mendapatkan daftar kampus untuk dropdown
+        $majors = MajorModels::all(); // Mendapatkan daftar jurusan untuk dropdown
+        return view('admin.studyprogram.edit', compact('studyProgram', 'campuses', 'majors'));
     }
 
-    public function update_ajax(UpdateStudyProgramRequest $request, $id)
+    public function update(UpdateStudyProgramRequest $request, $id)
     {
         // Data sudah tervalidasi pada saat request diterima
-        if ($request->ajax() || $request->wantsJson()) {
             $check = StudyProgramModels::find($id);
             if ($check) {
                 $check->update($request->validated());
-                return response()->json([
-                    'status' => true,
-                    'message' => 'Data successfully updated'
-                ]);
+                return redirect()->route('studyprogram.index')->with('success', 'Data successfully updated');
             } else {
-                return response()->json([
-                    'status' => false,
-                    'message' => 'Data not found'
-                ]);
+                return redirect()->route('studyprogram.index')->with('error', 'Data not found');
             }
         }
-        return redirect('/');
+
+    // Menghapus data study_program
+    public function confirm(string $id)
+    {
+        $study_program = StudyProgramModels::find($id);
+        return view('study_program.confirm', ['study_program' => $study_program]);
     }
 
     // Menghapus data study_program
-    public function confirm_ajax(string $id)
+    public function destroy(Request $request, $id)
     {
         $study_program = StudyProgramModels::find($id);
-        return view('study_program.confirm_ajax', ['study_program' => $study_program]);
-    }
-
-    public function delete_ajax(Request $request, $id)
-    {
-        if ($request->ajax() || $request->wantsJson()) {
-            $study_program = StudyProgramModels::find($id);
-            if ($study_program) {
-                try {
-                    StudyProgramModels::destroy($id);
-                    return response()->json([
-                        'status' => true,
-                        'message' => 'Data successful deleted'
-                    ]);
-                } catch (\Illuminate\Database\QueryException $e) {
-                    return response()->json([
-                        'status' => false,
-                        'message' => 'study_program data cannot deleted because it is linked to another table.'
-                    ]);
-                }
-            } else {
-                return response()->json([
-                    'status' => false,
-                    'message' => 'Data is not found'
-                ]);
+        if ($study_program) {
+            try {
+                StudyProgramModels::destroy($id);
+                return redirect()->route('studyprogram.index')->with('success', 'Data successfully deleted');
+            } catch (\Illuminate\Database\QueryException $e) {
+                return redirect()->route('studyprogram.index')->with('error', 'Data cannot be deleted because it is still in use');
             }
+        } else {
+            return redirect()->route('studyprogram.index')->with('error', 'Data not found');
         }
-        redirect('/');
     }
 }

@@ -9,16 +9,22 @@ use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
+
     public function index()
     {
-        $totalMahasiswa = StudentModels::count();
-        $mahasiswaMendaftar = RegistrationModels::whereNotNull('student_id')->count();
-        $mahasiswaBelumAcc = RegistrationModels::where('status', 'pending')->count();
+        if (auth()->user()->role->name === 'Admin') {
+            $totalMahasiswa = StudentModels::count();
+            $mahasiswaMendaftar = RegistrationModels::whereNotNull('student_id')->count();
+            $mahasiswaBelumAcc = RegistrationModels::whereIn('status', ['pending', 'inactive'])->count();
 
-        // Ambil data pendaftaran mahasiswa
-        $registrations = RegistrationModels::all();
+            // Ambil data pendaftaran mahasiswa
+            $registrations = RegistrationModels::all();
 
-        return view('admin.dashboard.index', compact('totalMahasiswa', 'mahasiswaMendaftar', 'mahasiswaBelumAcc', 'registrations'));
+            $admin = auth()->user();
+            return view('admin.dashboard.index' , compact('totalMahasiswa', 'mahasiswaMendaftar', 'mahasiswaBelumAcc', 'registrations', 'admin'));
+        } else {    
+            return view('mahasiswa.dashboard');
+        }
     }
 
 }

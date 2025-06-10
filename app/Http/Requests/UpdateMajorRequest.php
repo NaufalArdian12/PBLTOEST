@@ -14,7 +14,7 @@ class UpdateMajorRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'study_program_id' => ['required', 'integer', 'exists:study_programs,id'],
+            'campus_id' => ['required', 'integer', 'exists:campuses,id'],
             'major_name' => 'required|string|max:100'
         ];
     }
@@ -22,8 +22,8 @@ class UpdateMajorRequest extends FormRequest
     public function messages()
     {
         return [
-            'study_program_id.required' => 'Program studi harus dipilih.',
-            'study_program_id.exists' => 'Program studi yang dipilih tidak valid.',
+            'campus_id.required' => 'Kampus id harus dipilih.',
+            'campus_id.exists' => 'Kampus yang dipilih tidak valid.',
             'major_name.required' => 'Nama jurusan harus diisi.',
             'major_name.string' => 'Nama jurusan harus berupa teks.',
             'major_name.max' => 'Nama jurusan tidak boleh lebih dari 100 karakter.'

@@ -51,16 +51,16 @@ class AuthController extends Controller
 
             // Jika peran pengguna adalah admin
             if ($user->role === 'admin') {
-                return redirect()->route('admin.dashboard'); // Ganti dengan rute dashboard admin
+                return redirect()->route('dashboard'); // Ganti dengan rute dashboard admin
             }
 
             // Jika peran pengguna adalah mahasiswa
             if ($user->role === 'student') {
-                return redirect()->route('mahasiswa.dashboard'); // Ganti dengan rute dashboard mahasiswa
+                return redirect()->route('dashboard'); // Ganti dengan rute dashboard mahasiswa
             }
 
             // Jika tidak ada peran yang cocok, arahkan ke dashboard default (misalnya)
-            return redirect()->route('default.dashboard');
+            return redirect()->route('dashboard');
         }
 
         // Jika login gagal
@@ -71,7 +71,11 @@ class AuthController extends Controller
     public function resend(Request $request)
     {
         if ($request->user()->hasVerifiedEmail()) {
-            return redirect('/mahasiswa/dashboard');
+            if (Auth::user()->role === 'Admin') {
+                return view('admin.dashboard.index');
+            }elseif (Auth::user()->role === 'Student') {
+                return view('mahasiswa.dashboard');
+            }
         }
 
         $request->user()->sendEmailVerificationNotification();

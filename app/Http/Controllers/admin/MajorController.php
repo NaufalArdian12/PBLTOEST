@@ -7,7 +7,10 @@ use App\Http\Requests\StoreMajorRequest;
 use App\Http\Requests\UpdateMajorRequest;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\campusModels;
 use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Support\Facades\DB;
+use Exception;
 
 class MajorController extends Controller
 {
@@ -17,16 +20,17 @@ class MajorController extends Controller
     public function index()
     {
         $majors = MajorModels::all();
-        return view('admin.major.index', compact('majors'));
+        $campuses = campusModels::all();
+        return view('admin.major.index', compact('majors', 'campuses'));
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create_ajax()
+    public function create()
     {
-        $study_program = StudyProgramModels::all();
-        return view('major.create_ajax')->with('study_program', $study_program);
+        $campuses = campusModels::all();
+        return view('admin.major.create', compact('campuses'));
     }
 
     /**
@@ -34,33 +38,33 @@ class MajorController extends Controller
      */
     public function store_ajax(StoreMajorRequest $request)
     {
-        if ($request->ajax() || $request->wantsJson()) {
-            // Buat data major
+        try {
+            // Create the major record with validated data from the request
             MajorModels::create($request->validated());
-            return response()->json([
-                'status' => true,
-                'message' => 'Data berhasil disimpan'
-            ]);
+
+            // Redirect to the major index with success message
+            return redirect()->route('major.index')->with('success', 'Data berhasil disimpan');
+        } catch (Exception $e) {
+            // Catch general exception and redirect back with error message
+            return redirect()->back()->with([
+                'status' => false,
+                'message' => 'Terjadi kesalahan saat menyimpan data: ' . $e->getMessage()
+            ])->withInput();
         }
-        return response()->json([
-            'status' => false,
-            'message' => 'Request tidak valid'
-        ]);
     }
 
     /**
      * Display the specified resource (AJAX).
      */
-    public function show_ajax(string $id)
+    public function show(string $id)
     {
-        $major = MajorModels::with('study_program')->find($id);
-        if ($major) {
-            return response()->json([
-                'status' => true,
-                'data' => $major
-            ]);
-        } else {
-            return response()->json([
+        try {
+            $major = MajorModels::findOrFail($id);
+            $campus = campusModels::findOrFail($major->campus_id);  
+
+            return view('admin.major.show', compact('major', 'campus'));
+        } catch (Exception $e) {
+            return redirect()->back()->with([
                 'status' => false,
                 'message' => 'Data major tidak ditemukan'
             ]);
@@ -70,22 +74,17 @@ class MajorController extends Controller
     /**
      * Show the form for editing the specified resource (AJAX).
      */
-    public function edit_ajax(string $id)
+    public function edit(string $id)
     {
-        $major = MajorModels::find($id);
-        $study_program = StudyProgramModels::all();
-        if ($major) {
-            return response()->json([
-                'status' => true,
-                'data' => [
-                    'major' => $major,
-                    'study_program' => $study_program
-                ]
-            ]);
-        } else {
-            return response()->json([
-                'status' => false,
-                'message' => 'Data major tidak ditemukan'
+        try {
+            $major = MajorModels::findOrFail($id);
+            $campuses = campusModels::all();
+
+            return view('admin.major.edit', compact('major', 'campuses'));
+        } catch (Exception $e) {
+            return redirect()->back()->with([
+                'false',
+                'Data major tidak ditemukan'
             ]);
         }
     }
@@ -95,53 +94,45 @@ class MajorController extends Controller
      */
     public function update_ajax(UpdateMajorRequest $request, $id)
     {
-        if ($request->ajax() || $request->wantsJson()) {
-            $major = MajorModels::find($id);
-            if ($major) {
-                $major->update($request->validated());
-                return response()->json([
-                    'status' => true,
-                    'message' => 'Data berhasil diperbarui'
-                ]);
+        try {
+            $majors = MajorModels::find($id);
+            if ($majors) {
+                $majors->update($request->validated());
+                return redirect()->route('major.index')->with('success', 'Data major berhasil diperbarui');
             } else {
-                return response()->json([
+                return redirect()->back()->with([
                     'status' => false,
                     'message' => 'Data major tidak ditemukan'
-                ]);
+                ])->withInput();
             }
+        } catch (Exception $e) {
+            return redirect()->back()->with([
+                'status' => false,
+                'message' => 'Terjadi kesalahan saat memperbarui data: ' . $e->getMessage()
+            ])->withInput();
         }
-        return response()->json([
-            'status' => false,
-            'message' => 'Request tidak valid'
-        ]);
     }
 
     /**
      * Soft delete the specified resource (AJAX).
      */
-    public function delete_ajax(Request $request, $id)
+    public function destroy_ajax($id)
     {
-        if ($request->ajax() || $request->wantsJson()) {
-            $major = MajorModels::find($id);
-            if ($major) {
-                // Soft delete
-                $major->delete();
-                return response()->json([
-                    'status' => true,
-                    'message' => 'Data berhasil dihapus (soft delete)'
-                ]);
-            } else {
-                return response()->json([
-                    'status' => false,
-                    'message' => 'Data major tidak ditemukan'
-                ]);
-            }
+        try {
+            // Delete major record
+            $major = MajorModels::findOrFail($id);
+            $major->delete();
+
+            // Redirect to index method (assuming it handles majors and campuses)
+            return redirect()->route('major.index')->with('success', 'Data berhasil dihapus');
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Gagal menghapus data: ' . $e->getMessage()
+            ], 500);
         }
-        return response()->json([
-            'status' => false,
-            'message' => 'Request tidak valid'
-        ]);
     }
+
 
     /**
      * Display a listing of trashed resources.
@@ -149,7 +140,7 @@ class MajorController extends Controller
     public function trashed()
     {
         $majors = MajorModels::onlyTrashed()->with('study_program')->get();
-        return view('major.trashed', compact('majors'));
+        return view('admin.major.trashed', compact('majors'));
     }
 
     /**
@@ -157,8 +148,8 @@ class MajorController extends Controller
      */
     public function restore(string $id)
     {
-        $major = MajorModels::onlyTrashed()->findOrFail($id);
-        $major->restore();
+        $majors = MajorModels::onlyTrashed()->findOrFail($id);
+        $majors->restore();
 
         return redirect()->route('major.trashed')
             ->with('success', 'Data berhasil dipulihkan');
@@ -169,8 +160,8 @@ class MajorController extends Controller
      */
     public function forceDelete(string $id)
     {
-        $major = MajorModels::onlyTrashed()->findOrFail($id);
-        $major->forceDelete();
+        $majors = MajorModels::onlyTrashed()->findOrFail($id);
+        $majors->forceDelete();
 
         return redirect()->route('major.trashed')
             ->with('success', 'Data berhasil dihapus permanen');

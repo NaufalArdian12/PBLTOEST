@@ -15,7 +15,7 @@ class UpdateAdminRequest extends FormRequest
     {
         $adminId = $this->route('id');  // Mengambil ID dari URL route
         return [
-            'admin_name' => 'required|string|max:255',
+            'name' => 'required|string|max:255' . $adminId,
             'email' => 'required|email|unique:users,email,' . $adminId,
             'password' => 'nullable|string|min:8',
         ];
@@ -24,7 +24,7 @@ class UpdateAdminRequest extends FormRequest
     public function messages()
     {
         return [
-            'admin_name.required' => 'Nama admin harus diisi.',
+            'name.required' => 'Nama admin harus diisi.',
             'email.required' => 'Email harus diisi.',
         ];
     }

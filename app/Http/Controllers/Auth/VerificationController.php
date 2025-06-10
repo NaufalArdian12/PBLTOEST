@@ -17,7 +17,7 @@ class VerificationController extends Controller
     public function show(Request $request)
     {
         if ($request->user() && $request->user()->hasVerifiedEmail()) {
-            return redirect('/mahasiswa/dashboard');
+            return redirect('/dashboard');
         }
         return view('auth.verify-email');
     }
@@ -29,7 +29,7 @@ class VerificationController extends Controller
         }
 
         if ($request->user()->hasVerifiedEmail()) {
-            return redirect('/mahasiswa/dashboard');
+            return redirect('/dashboard');
         }
 
         if ($request->user()->markEmailAsVerified()) {
@@ -57,7 +57,7 @@ class VerificationController extends Controller
         $user->password = Hash::make($request->password); // Hash password sebelum disimpan
         $user->save();
 
-        return redirect('/mahasiswa/dashboard')->with('status', 'Password has been set successfully!');
+        return redirect('/dashboard')->with('status', 'Password has been set successfully!');
     }
 
     public function resend(Request $request)
@@ -68,7 +68,7 @@ class VerificationController extends Controller
         }
 
         if ($request->user()->hasVerifiedEmail()) {
-            return redirect('/mahasiswadashboard')->with('message', 'Your Email is already verified!');
+            return redirect('dashboard')->with('message', 'Your Email is already verified!');
         }
 
         $request->user()->sendEmailVerificationNotification();

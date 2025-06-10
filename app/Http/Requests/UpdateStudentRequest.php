@@ -20,7 +20,14 @@ class UpdateStudentRequest extends FormRequest
             'NIM' => 'required|string|unique:students,NIM,' . $studentId,
             'NIK' => 'required|string|unique:students,NIK,' . $studentId,
             'study_program_id' => 'required|exists:study_programs,id',
-            'major_id' => 'required|exists:majors,id',
+            'scan_ktp' => 'required|file|mimes:jpg,jpeg,png,pdf|max:2048',
+            'scan_ktm' => 'required|file|mimes:jpg,jpeg,png,pdf|max:2048',
+            'pas_photo' => 'required|file|mimes:jpg,jpeg,png,pdf|max:2048',
+            'current_address' => 'nullable|string|max:255',
+            'origin_address' => 'nullable|string|max:255',
+            'telephone_number' => 'nullable|string|max:15',
+            'password' => 'nullable|min:8', // Optional password field
+            'password_confirmation' => 'nullable|same:password', // Optional password confirmation
         ];
     }
 
@@ -33,7 +40,18 @@ class UpdateStudentRequest extends FormRequest
             'NIM.required' => 'NIM harus diisi.',
             'NIK.required' => 'NIK harus diisi.',
             'study_program_id.required' => 'Program studi harus dipilih.',
-            'major_id.required' => 'Jurusan harus dipilih.',
+            'scan_ktp.required' => 'Scan KTP harus diunggah.',
+            'scan_ktm.required' => 'Scan KTM harus diunggah.',
+            'pas_photo.required' => 'Foto harus diunggah.',
+            'current_address.string' => 'Alamat saat ini harus berupa teks.',
+            'current_address.max' => 'Alamat saat ini tidak boleh lebih dari 255 karakter.',
+            'origin_address.string' => 'Alamat asal harus berupa teks.',
+            'origin_address.max' => 'Alamat asal tidak boleh lebih dari 255 karakter.',
+            'telephone_number.string' => 'Nomor telepon harus berupa teks.',
+            'telephone_number.max' => 'Nomor telepon tidak boleh lebih dari 15 karakter.',
+            'password.min' => 'Password harus minimal 8 karakter.',
+            'password_confirmation.same' => 'Konfirmasi password harus sama dengan password.',
+
         ];
     }
 }

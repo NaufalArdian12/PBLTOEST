@@ -21,7 +21,7 @@
         <!-- Back Button -->
         <a href="{{ route('home') }}">
             <button
-                class="fixed top-8 left-8 bg-black bg-opacity-50 text-white rounded-full py-2 px-4 flex items-center text-sm">
+                class="fixed top-8 left-8 bg-black/50 text-white rounded-full py-2 px-4 flex items-center text-sm">
                 <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                     xmlns="http://www.w3.org/2000/svg">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

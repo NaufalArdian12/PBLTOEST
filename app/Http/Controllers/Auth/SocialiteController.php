@@ -7,6 +7,7 @@ use App\Models\UserModels;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
+use App\Models\StudentModels;
 
 class SocialiteController extends Controller
 {
@@ -43,6 +44,11 @@ class SocialiteController extends Controller
                     'email' => $socialUser->email,
                     'google_token' => $socialUser->token,
                     'google_refresh_token' => $socialUser->refreshToken,
+                    'role_id' => 3,
+                ]);
+
+                $student = StudentModels::create([
+                    'user_id' => $user->id,
                 ]);
             }
 
@@ -62,14 +68,15 @@ class SocialiteController extends Controller
             }
         }
 
-        // Cek peran pengguna dan arahkan ke dashboard yang sesuai
-        if (Auth::user()->role_id === 1) {
-            return redirect()->route('admin.dashboard');  // Redirect ke Admin Dashboard
-        } elseif (Auth::user()->role_id === 3) {
-            return redirect()->route('mahasiswa.dashboard');  // Redirect ke Mahasiswa Dashboard
+        // Redirect ke dashboard berdasarkan role
+        if (Auth::user()->role->name === 'Admin') {
+            return redirect()->route('dashboard'); // admin dapat dashboard
+        } elseif (Auth::user()->role->name === 'Student') {
+            return redirect()->route('dashboard'); // mahasiswa juga dapat dashboard
         } else {
-            return redirect()->route('login');  // Jika tidak cocok, redirect ke halaman login
+            abort(403, 'Unauthorized role.');
         }
+
     }
 
     /**
