@@ -47,13 +47,13 @@
                     <!-- Welcome Message -->
                     <div class="space-y-4">
                         <h2 class="text-2xl font-semibold text-gray-800">
-                            Selamat Datang! 🎉
+                            Welcome! 🎉
                         </h2>
                         <p class="text-lg text-gray-600">
-                            Anda berhasil login ke sistem
+                            You have successfully logged in to the system
                         </p>
                         <p class="text-gray-500">
-                            Gunakan dashboard ini untuk mengakses semua fitur yang tersedia
+                            Use this dashboard to access all available features.
                         </p>
                     </div>
 
@@ -67,7 +67,7 @@
                             </div>
                             <div class="text-left">
                                 <p class="text-blue-800 font-semibold">Status Login</p>
-                                <p class="text-blue-600 text-sm">Aktif - {{ now()->format('d M Y, H:i') }}</p>
+                                <p class="text-blue-600 text-sm">Active - {{ now()->format('d M Y, H:i') }}</p>
                             </div>
                         </div>
                     </div>

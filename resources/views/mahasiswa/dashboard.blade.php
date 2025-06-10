@@ -113,7 +113,7 @@
                     </p>
                     <a href="{{ route('mahasiswa.sertifikat') }}"
                         class="inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-lg transition-colors duration-200">
-                        <img src="{{ asset('images/Subtract.png') }}" alt="Download" class="w-4 h-5">
+                        <img src="{{ asset('images/Subtract.png') }}" alt="Download" class="w-5 h-5">
                         <span>Get your certificate</span>
                     </a>
                 </div>
