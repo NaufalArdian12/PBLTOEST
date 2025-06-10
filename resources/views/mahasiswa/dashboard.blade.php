@@ -24,7 +24,7 @@
                     <div class="absolute right-0 top-full mt-2 w-48 bg-white rounded-xl shadow-lg border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
                         <div class="py-2">
                             <!-- Profile Option -->
-                            <a href="{{ route('mahasiswa.profile') }}" class="flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-gray-50 transition-colors duration-150">
+                            <a href="/profile" class="flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-gray-50 transition-colors duration-150">
                                 <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
                                 </svg>
@@ -111,7 +111,7 @@
                     <p class="text-gray-500 text-sm mb-4">
                         You have done your Toest test. You can download your certificate below.
                     </p>
-                    <a href="{{ route('mahasiswa.sertifikat') }}"
+                    <a href="{{ route('sertifikat') }}"
                         class="inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-lg transition-colors duration-200">
                         <img src="{{ asset('images/Subtract.png') }}" alt="Download" class="w-5 h-5">
                         <span>Get your certificate</span>
