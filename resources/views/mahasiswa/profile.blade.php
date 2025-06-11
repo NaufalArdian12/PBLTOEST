@@ -62,9 +62,28 @@
             </div>
         </div>
 
+        <!-- message -->
+        @if (session('success'))
+            <div class="mb-6 bg-green-50 border border-green-200 rounded-md p-4">
+                <div class="flex">
+                    <div class="flex-shrink-0">
+                        <svg class="h-5 w-5 text-green-400" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd"
+                                d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                    <div class="ml-3">
+                        <p class="text-sm leading-5 text-green-700">
+                            {{ session('success') }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        @endif
+
         <!-- Profile Content -->
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-
             <!-- Profile Form -->
             <div class="lg:col-span-4">
                 <div class="bg-white shadow-sm rounded-xl p-6">
@@ -73,7 +92,7 @@
                         <p class="text-gray-500">Update your personal information and account settings.</p>
                     </div>
 
-                    <form method="POST" action="" enctype="multipart/form-data">
+                    <form method="POST" action="{{ route('profile.update') }}" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
 
@@ -88,11 +107,88 @@
                                 @enderror
                             </div>
 
+                            <!-- NIM -->
+                            <div>
+                                <label for="NIM" class="block text-sm font-medium text-gray-700 mb-2">NIM</label>
+                                <input type="text" id="NIM" name="NIM" value="{{ auth()->user()->students->NIM }}"
+                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200">
+                                @error('NIM')
+                                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                                @enderror
+                            </div>
+
+                            <!-- NIK -->
+                            <div>
+                                <label for="NIK" class="block text-sm font-medium text-gray-700 mb-2">NIK</label>
+                                <input type="text" id="NIK" name="NIK" value="{{ auth()->user()->students->NIK }}"
+                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200">
+                                @error('NIK')
+                                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                                @enderror
+                            </div>
+
+                            <!-- telephone Number -->
+                            <div>
+                                <label for="telephone_number" class="block text-sm font-medium text-gray-700 mb-2">Phone
+                                    Number</label>
+                                <input type="text" id="telephone_number" name="telephone_number"
+                                    value="{{ auth()->user()->students->telephone_number }}"
+                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200">
+                                @error('phone')
+                                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                                @enderror
+                            </div>
+
+                            <!-- origin address -->
+                            <div>
+                                <label for="origin_address" class="block text-sm font-medium text-gray-700 mb-2">Origin
+                                    Address</label>
+                                <input type="text" id="origin_address" name="origin_address"
+                                    value="{{ auth()->user()->students->origin_address }}"
+                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200">
+                                @error('origin_address')
+                                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                                @enderror
+                            </div>
+
+                            <!-- curent address -->
+                            <div>
+                                <label for="current_address" class="block text-sm font-medium text-gray-700 mb-2">Current
+                                    Address</label>
+                                <input type="text" id="current_address" name="current_address"
+                                    value="{{ auth()->user()->students->current_address }}"
+                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200">
+                                @error('current_address')
+                                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                                @enderror
+                            </div>
+
+                            <!-- Program Study -->
+                            <div>
+                                <label for="study_program_id" class="block text-sm font-medium text-gray-700 mb-2">Program
+                                    Study</label>
+                                <select id="study_program_id" name="study_program_id"
+                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200">
+                                    <option value="study_program_id" disabled selected>
+                                        {{ auth()->user()->students->studyprogram->study_program_name ?? 'Select Study Program' }}
+                                    </option>
+                                    @foreach ($studyPrograms as $program)
+                                        <option value="{{ $program->id }}" {{ auth()->user()->students && auth()->user()->students->study_program_id == $program->id ? 'selected' : '' }}>
+                                            {{ $program->study_program_name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                @error('study_program')
+                                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                                @enderror
+                            </div>
+
+
                             <!-- Email -->
                             <div>
                                 <label for="email" class="block text-sm font-medium text-gray-700 mb-2">Email
                                     Address</label>
-                                <input type="email" id="email" name="email" value="{{ auth()->user()->email }}"
+                                <input type="email" id="email" name="email" value="{{ auth()->user()->email }}" readonly
                                     class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200">
                                 @error('email')
                                     <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
@@ -101,45 +197,71 @@
 
                             <!-- Profile Picture -->
                             <div>
-                                <label for="profile_picture" class="block text-sm font-medium text-gray-700 mb-2">Passportle
+                                <label for="pas_photo" class="block text-sm font-medium text-gray-700 mb-2">Pas
                                     Photo</label>
                                 <div class="flex items-center space-x-4">
-                                    <input type="file" id="profile_picture" name="pas_photo" accept="image/*"
+                                    <input type="file" id="pas_photo" name="pas_photo" accept="image/*"
                                         class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 transition-colors duration-200">
                                 </div>
                                 <p class="text-xs text-gray-500 mt-1">Maximum file size: 2MB. Supported formats: JPG, PNG,
                                     GIF</p>
-                                @error('profile_picture')
+                                @if(auth()->user()->students && auth()->user()->students->pas_photo)
+                                    <p class="text-sm text-gray-600 mt-1">
+                                        File saat ini: <span class="font-medium">Sudah diunggah</span>
+                                    </p>
+                                    <a href="{{ route('student.showPasPhoto', auth()->user()->students->id) }}" target="_blank"
+                                        class="text-blue-500 underline text-sm">
+                                        Lihat file
+                                    </a>
+                                @endif
+                                @error('pas_photo')
                                     <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                                 @enderror
                             </div>
 
-                            <!-- Profile Picture -->
+                            <!-- Scan KTP -->
                             <div>
-                                <label for="profile_picture" class="block text-sm font-medium text-gray-700 mb-2">Scan
-                                    KTP</label>
+                                <label for="scan_ktp" class="block text-sm font-medium text-gray-700 mb-2">Scan KTP</label>
                                 <div class="flex items-center space-x-4">
-                                    <input type="file" id="profile_picture" name="scan_ktp" accept="image/*"
+                                    <input type="file" id="scan_ktp" name="scan_ktp" accept="image/*"
                                         class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 transition-colors duration-200">
                                 </div>
                                 <p class="text-xs text-gray-500 mt-1">Maximum file size: 2MB. Supported formats: JPG, PNG,
                                     GIF</p>
-                                @error('profile_picture')
+                                @if(auth()->user()->students && auth()->user()->students->scan_ktp)
+                                    <p class="text-sm text-gray-600 mt-1">
+                                        File saat ini: <span class="font-medium">Sudah diunggah</span>
+                                    </p>
+                                    <a href="{{ route('student.showKtp', auth()->user()->students->id) }}" target="_blank"
+                                        class="text-blue-500 underline text-sm">
+                                        Lihat file
+                                    </a>
+                                @endif
+                                @error('scan_ktp')
                                     <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                                 @enderror
                             </div>
 
-                            <!-- Profile Picture -->
+                            <!-- Scan KTM -->
                             <div class="md:col-span-2">
-                                <label for="profile_picture" class="block text-sm font-medium text-gray-700 mb-2">Scan
-                                    KTM</label>
+                                <label for="scan_ktm" class="block text-sm font-medium text-gray-700 mb-2">Scan KTM</label>
                                 <div class="flex items-center space-x-4">
-                                    <input type="file" id="profile_picture" name="scan_ktm" accept="image/*"
+                                    <input type="file" id="scan_ktm" name="scan_ktm" accept="image/*"
                                         class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 transition-colors duration-200">
                                 </div>
                                 <p class="text-xs text-gray-500 mt-1">Maximum file size: 2MB. Supported formats: JPG, PNG,
                                     GIF</p>
-                                @error('profile_picture')
+                                @if(auth()->user()->students && auth()->user()->students->scan_ktm)
+                                    <p class="text-sm text-gray-600 mt-1">
+                                        File saat ini: <span class="font-medium">Sudah diunggah</span>
+                                    </p>
+                                    <a href="{{ route('student.showKtm', auth()->user()->students->id) }}" target="_blank"
+                                        class="text-blue-500 underline text-sm">
+                                        Lihat file
+                                    </a>
+                                @endif
+
+                                @error('scan_ktm')
                                     <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                                 @enderror
                             </div>
@@ -173,25 +295,25 @@
                                         class="block text-sm font-medium text-gray-700 mb-2">Confirm New Password</label>
                                     <input type="password" id="password_confirmation" name="password_confirmation"
                                         class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200">
+                                    @error('password_confirmation')
+                                        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
-
-                        <!-- Action Buttons -->
-                        <div class="flex justify-between items-center mt-8 pt-6 border-t border-gray-200">
-                            <a href="{{ route('dashboard') }}"
-                                class="px-6 py-3 text-gray-600 hover:text-gray-800 font-medium transition-colors duration-200">
-                                Cancel
-                            </a>
-                            <div class="space-x-3">
-                                <button type="reset"
-                                    class="px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 font-medium transition-colors duration-200">
-                                    Reset
-                                </button>
+                        <div class="border-t border-gray-200 mt-8 pt-8 flex justify-end">
+                            <!-- back Button -->
+                            <div class="mt-8 flex justify-end">
+                                <a href="{{ route('dashboard') }}"
+                                    class="px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 mr-2">
+                                    Back to Dashboard
+                                </a>
+                            </div>
+                            <!-- Submit Button -->
+                            <div class="mt-8 flex justify-end">
                                 <button type="submit"
-                                    class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-colors duration-200">
-                                    Save Changes
-                                </button>
+                                    class="bg-blue-600 text-white py-2 px-6 rounded-lg hover:bg-blue-700 transition-colors duration-200">Save
+                                    Changes</button>
                             </div>
                         </div>
                     </form>
@@ -199,57 +321,4 @@
             </div>
         </div>
     </div>
-
-    <!-- Success/Error Messages -->
-    @if(session('success'))
-        <div id="successMessage" class="fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50">
-            <div class="flex items-center gap-2">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                </svg>
-                {{ session('success') }}
-            </div>
-        </div>
-    @endif
-
-    @if(session('error'))
-        <div id="errorMessage" class="fixed top-4 right-4 bg-red-500 text-white px-6 py-3 rounded-lg shadow-lg z-50">
-            <div class="flex items-center gap-2">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                </svg>
-                {{ session('error') }}
-            </div>
-        </div>
-    @endif
-
-    <script>
-        // Auto hide success/error messages
-        setTimeout(function () {
-            const successMsg = document.getElementById('successMessage');
-            const errorMsg = document.getElementById('errorMessage');
-
-            if (successMsg) {
-                successMsg.style.opacity = '0';
-                setTimeout(() => successMsg.remove(), 300);
-            }
-            if (errorMsg) {
-                errorMsg.style.opacity = '0';
-                setTimeout(() => errorMsg.remove(), 300);
-            }
-        }, 4000);
-
-        // Profile picture preview
-        document.getElementById('profile_picture').addEventListener('change', function (e) {
-            const file = e.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function (e) {
-                    // You can add preview functionality here
-                    console.log('File selected:', file.name);
-                };
-                reader.readAsDataURL(file);
-            }
-        });
-    </script>
 @endsection
