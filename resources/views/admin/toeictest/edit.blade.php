@@ -1,7 +1,7 @@
 @extends('layouts.admin.admin')
 
-@section('title', 'Create TOEIC Test')
-@section('header', 'Create TOEIC Test')
+@section('title', 'Edit TOEIC Test')
+@section('header', 'Edit TOEIC Test')
 
 @section('content')
     <div class="container mx-auto px-4 py-6">
@@ -36,14 +36,15 @@
                     </div>
                 @endif
 
-                <form method="POST" action="{{ route('toeic.store') }}" class="mt-6 space-y-8">
+                <form method="POST" action="{{ route('toeic.update', $toeicTest->id) }}" class="mt-6 space-y-8">
                     @csrf
+                    @method('PUT')
 
                     <div class="space-y-8">
                         <div>
                             <label for="date" class="block text-sm font-medium text-gray-700">Date</label>
                             <div class="mt-1">
-                                <input type="date" name="date" id="date" value="{{ old('date') }}"
+                                <input type="date" name="date" id="date" value="{{ old('date', $toeicTest->date) }}"
                                     class="block w-full px-5 py-3 text-base text-gray-700 transition duration-150 ease-in-out bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 @error('date') border-red-500 @enderror" />
                                 @error('date')
                                     <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
@@ -54,7 +55,7 @@
                         <div>
                             <label for="zoom_link" class="block text-sm font-medium text-gray-700">Zoom Link</label>
                             <div class="mt-1">
-                                <input type="text" name="zoom_link" id="zoom_link" value="{{ old('zoom_link') }}"
+                                <input type="text" name="zoom_link" id="zoom_link" value="{{ old('zoom_link', $toeicTest->zoom_link) }}"
                                     class="block w-full px-5 py-3 text-base text-gray-700 transition duration-150 ease-in-out bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 @error('zoom_link') border-red-500 @enderror" />
                                 @error('zoom_link')
                                     <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
@@ -67,7 +68,7 @@
                                 Participants</label>
                             <div class="mt-1">
                                 <input type="number" name="max_participants" id="max_participants"
-                                    value="{{ old('max_participants') }}"
+                                    value="{{ old('max_participants', $toeicTest->max_participants) }}"
                                     class="block w-full px-5 py-3 text-base text-gray-700 transition duration-150 ease-in-out bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 @error('max_participants') border-red-500 @enderror" />
                                 @error('max_participants')
                                     <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
@@ -84,7 +85,7 @@
 
                         <button type="submit"
                             class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                            Save
+                            Update
                         </button>
                     </div>
                 </form>
