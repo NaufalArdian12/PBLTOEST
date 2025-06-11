@@ -87,11 +87,11 @@ Route::middleware(['auth', 'verified', 'role:Admin'])->group(function () {
 
     Route::get('/toeic-test', [ToeicTestController::class, 'index'])->name('toeic.index');
     Route::post('/toeic-test/', [ToeicTestController::class, 'store'])->name('toeic.store');
-    Route::get('/toeic-test/{id}/edit_ajax', [ToeicTestController::class, 'edit_ajax'])->name('toeic.edit');
-    Route::put('/toeic-test/{id}/update_ajax', [ToeicTestController::class, 'update_ajax']);
-    Route::delete('/toeic-test/{id}/delete_ajax', [ToeicTestController::class, 'delete_ajax'])->name('toeic.destroy');
+    Route::get('/toeic-test/{id}/edit', [ToeicTestController::class, 'edit'])->name('toeic.edit');
+    Route::put('/toeic-test/{id}/', [ToeicTestController::class, 'update'])->name('toeic.update');
+    Route::delete('/toeic-test/{id}/delete', [ToeicTestController::class, 'delete'])->name('toeic.destroy');
     Route::get('/toeic-test/create', [ToeicTestController::class, 'create'])->name('toeic.create');
-    Route::get('/toeic-test/{id}/show_ajax', [ToeicTestController::class, 'show_ajax']);
+    Route::get('/toeic-test/{id}/show', [ToeicTestController::class, 'show'])->name('toeic.show');
 
     Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
     Route::get('/admin/create', [AdminController::class, 'create'])->name('admin.create');
@@ -125,6 +125,10 @@ Route::middleware(['auth', 'verified', 'role:Student'])->group(function () {
 
 // Universal Authenticated Routes
 Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/student/{id}/scan-ktp', [StudentController::class, 'showKtp'])->name('student.showKtp');
+    Route::get('/student/{id}/scan-ktm', [StudentController::class, 'showKtm'])->name('student.showKtm');
+    Route::get('/student/{id}/pas-photo', [StudentController::class, 'showPasPhoto'])->name('student.showPasPhoto');
+
     Route::get('/set-profile', [VerificationController::class, 'showSetPasswordForm'])->name('password.set');
     Route::post('/set-profile', [VerificationController::class, 'storePassword'])->name('password.store');
 
@@ -137,6 +141,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     //gunakan controller profile
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile')->middleware(['auth', 'verified']);
+    Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update')->middleware(['auth', 'verified']);
 
     // Di DashboardController:
 

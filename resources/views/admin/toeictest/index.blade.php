@@ -17,7 +17,7 @@
                 <div class="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-3 sm:space-y-0">
                     <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-3">
                         <!-- Add New Button -->
-                        <a href="{{ route('studyprogram.create') }}"
+                        <a href="{{ route('toeic.create') }}"
                             class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200">
                             <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
@@ -40,17 +40,17 @@
 
                     <!-- Filter and Search -->
                     <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-3">
-                        <!-- Campus Filter -->
-                        <select id="campusFilter" class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-sm">
-                            <option value="">All Campuses</option>
+                        <!-- toeic Filter -->
+                        <select id="toeicFilter" class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-sm">
+                            <option value="">All Test</option>
                             @foreach($toeicTests as $test)
-                                <option value="{{ $test->test_id }}">{{ $test->test_id }}</option>
+                                <option value="{{ $test->id }}">{{ $test->id }}</option>
                             @endforeach
                         </select>
 
                         <!-- Search Input -->
                         <div class="relative">
-                            <input type="text" placeholder="Search study programs..." id="searchstudyprogram"
+                            <input type="text" placeholder="Search Test..." id="searchtest"
                                 class="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-sm min-w-64">
                             <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                 <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -100,7 +100,7 @@
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                             <div class="flex items-center space-x-3">
                                                 <!-- View Button -->
-                                                <a href="{{ route('major.show', $toeicTest->id) }}"
+                                                <a href="{{ route('toeic.show', $toeicTest->id) }}"
                                                     class="text-indigo-600 hover:text-indigo-900 transition-colors duration-150"
                                                     title="View Details">
                                                     <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -175,39 +175,305 @@
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const deleteButtons = document.querySelectorAll('.delete-btn');
-            const deleteModal = document.getElementById('deleteModal');
-            const deleteForm = document.getElementById('deleteForm');
-            const deleteItemName = document.getElementById('deleteItemName');
-            const cancelDelete = document.getElementById('cancelDelete');
-            let deleteUrl = '';
+     document.addEventListener('DOMContentLoaded', function() {
+    // DOM Elements
+    const searchInput = document.getElementById('searchstudyprogram');
+    const clearSearchBtn = document.getElementById('clearSearch');
+    const campusFilter = document.getElementById('campusFilter');
+    const tableBody = document.getElementById('studyProgramTableBody');
+    const noResultsMessage = document.getElementById('noResultsMessage');
+    const visibleCountSpan = document.getElementById('visibleCount');
+    const selectAllCheckbox = document.getElementById('selectAll');
+    const selectAllHeaderCheckbox = document.getElementById('selectAllHeader');
+    const bulkActionBtn = document.getElementById('bulkActionBtn');
+    const selectedCountSpan = document.getElementById('selectedCount');
+    const deleteModal = document.getElementById('deleteModal');
+    const deleteForm = document.getElementById('deleteForm');
+    const deleteItemName = document.getElementById('deleteItemName');
+    const cancelDeleteBtn = document.getElementById('cancelDelete');
 
-            deleteButtons.forEach(function (button) {
-                button.addEventListener('click', function () {
-                    const id = this.getAttribute('data-id');
-                    const name = this.getAttribute('data-name');
-                    deleteUrl = "{{ route('toeic.destroy', ':id') }}".replace(':id', id);
-                    deleteItemName.textContent = name;
-                    deleteModal.classList.remove('hidden');
-                });
-            });
+    let currentDeleteId = null;
 
-            cancelDelete.addEventListener('click', function () {
-                deleteModal.classList.add('hidden');
-            });
+    // Search functionality
+    function performSearch() {
+        const searchTerm = searchInput.value.toLowerCase().trim();
+        const selectedCampus = campusFilter.value.toLowerCase();
+        const rows = tableBody.querySelectorAll('tr');
+        let visibleCount = 0;
 
-            deleteModal.addEventListener('click', function (e) {
-                if (e.target === deleteModal) {
-                    cancelDelete.click();
-                }
-            });
+        rows.forEach(row => {
+            if (row.children.length === 1) return; // Skip empty state row
 
-            deleteForm.addEventListener('submit', function (e) {
-                e.preventDefault();
-                deleteForm.action = deleteUrl;
-                deleteForm.submit();
-            });
+            const text = row.textContent.toLowerCase();
+            const campus = row.dataset.campus?.toLowerCase() || '';
+
+            const matchesSearch = searchTerm === '' || text.includes(searchTerm);
+            const matchesCampus = selectedCampus === '' || campus.includes(selectedCampus);
+
+            if (matchesSearch && matchesCampus) {
+                row.style.display = '';
+                visibleCount++;
+            } else {
+                row.style.display = 'none';
+            }
         });
+
+        // Update visible count
+        visibleCountSpan.textContent = visibleCount;
+
+        // Show/hide no results message
+        const hasVisibleRows = visibleCount > 0;
+        noResultsMessage.classList.toggle('hidden', hasVisibleRows);
+
+        // Show/hide clear search button
+        clearSearchBtn.classList.toggle('hidden', searchTerm === '');
+        clearSearchBtn.classList.toggle('flex', searchTerm !== '');
+    }
+
+    // Event listeners for search and filter
+    searchInput.addEventListener('input', performSearch);
+    campusFilter.addEventListener('change', performSearch);
+
+    clearSearchBtn.addEventListener('click', function() {
+        searchInput.value = '';
+        performSearch();
+        searchInput.focus();
+    });
+
+    // Checkbox functionality
+    function updateBulkActions() {
+        const checkboxes = document.querySelectorAll('.row-checkbox');
+        const checkedBoxes = document.querySelectorAll('.row-checkbox:checked');
+
+        selectedCountSpan.textContent = checkedBoxes.length;
+        bulkActionBtn.disabled = checkedBoxes.length === 0;
+
+        // Update select all checkboxes
+        const allChecked = checkboxes.length > 0 && checkedBoxes.length === checkboxes.length;
+        const someChecked = checkedBoxes.length > 0;
+
+        selectAllCheckbox.checked = allChecked;
+        selectAllHeaderCheckbox.checked = allChecked;
+        selectAllCheckbox.indeterminate = someChecked && !allChecked;
+        selectAllHeaderCheckbox.indeterminate = someChecked && !allChecked;
+    }
+
+    // Select all functionality
+    function toggleAllCheckboxes(checked) {
+        const visibleCheckboxes = Array.from(document.querySelectorAll('.row-checkbox'))
+            .filter(cb => cb.closest('tr').style.display !== 'none');
+
+        visibleCheckboxes.forEach(cb => cb.checked = checked);
+        updateBulkActions();
+    }
+
+    selectAllCheckbox.addEventListener('change', (e) => toggleAllCheckboxes(e.target.checked));
+    selectAllHeaderCheckbox.addEventListener('change', (e) => toggleAllCheckboxes(e.target.checked));
+
+    // Individual checkbox change
+    document.addEventListener('change', function(e) {
+        if (e.target.classList.contains('row-checkbox')) {
+            updateBulkActions();
+        }
+    });
+
+    // Delete functionality
+    document.addEventListener('click', function(e) {
+        if (e.target.closest('.delete-btn')) {
+            const btn = e.target.closest('.delete-btn');
+            const id = btn.dataset.id;
+            const name = btn.dataset.name;
+
+            currentDeleteId = id;
+            deleteItemName.textContent = name;
+            deleteForm.action = `/studyprogram/${id}`;
+            deleteModal.classList.remove('hidden');
+            deleteModal.classList.add('flex');
+        }
+    });
+
+    // Cancel delete
+    cancelDeleteBtn.addEventListener('click', function() {
+        deleteModal.classList.add('hidden');
+        deleteModal.classList.remove('flex');
+        currentDeleteId = null;
+    });
+
+    // Close modal on outside click
+    deleteModal.addEventListener('click', function(e) {
+        if (e.target === deleteModal) {
+            cancelDeleteBtn.click();
+        }
+    });
+
+    // Bulk delete functionality
+    bulkActionBtn.addEventListener('click', function() {
+        const checkedBoxes = document.querySelectorAll('.row-checkbox:checked');
+        const names = Array.from(checkedBoxes).map(cb => cb.dataset.name);
+
+        if (confirm(`Are you sure you want to delete ${checkedBoxes.length} study program(s)?\n\n${names.join('\n')}\n\nThis action cannot be undone.`)) {
+            const ids = Array.from(checkedBoxes).map(cb => cb.value);
+
+            // Create and submit bulk delete form
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = '';
+
+            const csrfToken = document.createElement('input');
+            csrfToken.type = 'hidden';
+            csrfToken.name = '_token';
+            csrfToken.value = '{{ csrf_token() }}';
+            form.appendChild(csrfToken);
+
+            const methodField = document.createElement('input');
+            methodField.type = 'hidden';
+            methodField.name = '_method';
+            methodField.value = 'DELETE';
+            form.appendChild(methodField);
+
+            ids.forEach(id => {
+                const idField = document.createElement('input');
+                idField.type = 'hidden';
+                idField.name = 'ids[]';
+                idField.value = id;
+                form.appendChild(idField);
+            });
+
+            document.body.appendChild(form);
+            form.submit();
+        }
+    });
+
+    // Sort functionality
+    let sortDirection = 'asc';
+    let currentSortField = null;
+
+    function sortTable(field, columnIndex) {
+        const rows = Array.from(tableBody.querySelectorAll('tr')).filter(row => row.children.length > 1);
+
+        // Toggle sort direction
+        if (currentSortField === field) {
+            sortDirection = sortDirection === 'asc' ? 'desc' : 'asc';
+        } else {
+            sortDirection = 'asc';
+            currentSortField = field;
+        }
+
+        rows.sort((a, b) => {
+            let aVal = a.children[columnIndex].textContent.trim().toLowerCase();
+            let bVal = b.children[columnIndex].textContent.trim().toLowerCase();
+
+            if (sortDirection === 'asc') {
+                return aVal.localeCompare(bVal);
+            } else {
+                return bVal.localeCompare(aVal);
+            }
+        });
+
+        // Clear table body and append sorted rows
+        tableBody.innerHTML = '';
+        rows.forEach(row => tableBody.appendChild(row));
+
+        // Update sort indicators
+        document.querySelectorAll('[id^="sortBy"]').forEach(btn => {
+            const svg = btn.querySelector('svg');
+            svg.classList.remove('text-blue-500');
+            svg.classList.add('text-gray-400');
+        });
+
+        const currentSortBtn = document.getElementById(`sortBy${field}`);
+        if (currentSortBtn) {
+            const svg = currentSortBtn.querySelector('svg');
+            svg.classList.remove('text-gray-400');
+            svg.classList.add('text-blue-500');
+
+            // Rotate arrow based on direction
+            if (sortDirection === 'desc') {
+                svg.style.transform = 'rotate(180deg)';
+            } else {
+                svg.style.transform = 'rotate(0deg)';
+            }
+        }
+    }
+
+    // Sort event listeners
+    document.getElementById('sortByName')?.addEventListener('click', () => sortTable('Name', 2));
+    document.getElementById('sortByCampus')?.addEventListener('click', () => sortTable('Campus', 4));
+
+    // Initialize
+    updateBulkActions();
+    performSearch();
+
+    // Auto-dismiss alerts after 5 seconds
+    const alerts = document.querySelectorAll('[class*="bg-green-50"], [class*="bg-red-50"]');
+    alerts.forEach(alert => {
+        setTimeout(() => {
+            alert.style.transition = 'opacity 0.5s ease-out';
+            alert.style.opacity = '0';
+            setTimeout(() => alert.remove(), 500);
+        }, 5000);
+    });
+
+    // Keyboard shortcuts
+    document.addEventListener('keydown', function(e) {
+        // Ctrl/Cmd + K to focus search
+        if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+            e.preventDefault();
+            searchInput.focus();
+            searchInput.select();
+        }
+
+        // Escape to clear search or close modal
+        if (e.key === 'Escape') {
+            if (!deleteModal.classList.contains('hidden')) {
+                cancelDeleteBtn.click();
+            } else if (searchInput.value) {
+                clearSearchBtn.click();
+            }
+        }
+
+        // Ctrl/Cmd + A to select all visible
+        if ((e.ctrlKey || e.metaKey) && e.key === 'a' && e.target === document.body) {
+            e.preventDefault();
+            toggleAllCheckboxes(true);
+        }
+    });
+
+    // Tooltip functionality for truncated text
+    document.querySelectorAll('[title]').forEach(element => {
+        element.addEventListener('mouseenter', function() {
+            const tooltip = document.createElement('div');
+            tooltip.className = 'absolute z-50 px-2 py-1 text-xs text-white bg-gray-900 rounded shadow-lg';
+            tooltip.textContent = this.getAttribute('title');
+            tooltip.style.top = this.getBoundingClientRect().bottom + 5 + 'px';
+            tooltip.style.left = this.getBoundingClientRect().left + 'px';
+            document.body.appendChild(tooltip);
+
+            this.addEventListener('mouseleave', function() {
+                tooltip.remove();
+            }, { once: true });
+        });
+    });
+
+    // Loading states for buttons
+    document.querySelectorAll('form').forEach(form => {
+        form.addEventListener('submit', function() {
+            const submitBtn = form.querySelector('button[type="submit"]');
+            if (submitBtn) {
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = `
+                    <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    Processing...
+                `;
+            }
+        });
+    });
+
+});
+
+
     </script>
 @endsection
