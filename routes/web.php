@@ -18,6 +18,15 @@ use App\Http\Controllers\Admin\ToeicTestController;
 use App\Http\Controllers\Mahasiswa\RegistrationController;
 use App\Http\Controllers\Mahasiswa\EnrollmentController;
 
+
+Route::get('/', function () {
+    return view('welcome');
+})->name('welcome');
+
+Route::get('/404', function () {
+    return view('404');
+})->name('error.404');
+
 // Public Routes
 Route::get('/', fn() => view('welcome'))->name('home');
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
