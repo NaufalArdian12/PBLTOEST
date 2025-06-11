@@ -24,7 +24,7 @@
                     <div class="absolute right-0 top-full mt-2 w-48 bg-white rounded-xl shadow-lg border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
                         <div class="py-2">
                             <!-- Profile Option -->
-                            <a href="{{ route('mahasiswa.profile') }}" class="flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-gray-50 transition-colors duration-150">
+                            <a href="/profile" class="flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-gray-50 transition-colors duration-150">
                                 <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
                                 </svg>
@@ -75,25 +75,25 @@
                             <tbody class="text-gray-700">
                                 <tr class="border-b border-gray-100">
                                     <td class="py-3 px-4">1.</td>
-                                    <td class="py-3 px-4">S1B 1A, 1B</td>
+                                    <td class="py-3 px-4">SIB 1A, 1B</td>
                                     <td class="py-3 px-4">Saturday 12 January (07:00-09:00)</td>
                                     <td class="py-3 px-4">RT 1, 2, 3</td>
                                 </tr>
                                 <tr class="border-b border-gray-100">
                                     <td class="py-3 px-4">2.</td>
-                                    <td class="py-3 px-4">S1B 1C, 1D</td>
+                                    <td class="py-3 px-4">SIB 1C, 1D</td>
                                     <td class="py-3 px-4">Saturday 12 January (07:00-09:00)</td>
                                     <td class="py-3 px-4">RT 1, 2, 3</td>
                                 </tr>
                                 <tr class="border-b border-gray-100">
                                     <td class="py-3 px-4">3.</td>
-                                    <td class="py-3 px-4">S1B 1E, 1F</td>
+                                    <td class="py-3 px-4">SIB 1E, 1F</td>
                                     <td class="py-3 px-4">Saturday 12 January (07:00-09:00)</td>
                                     <td class="py-3 px-4">RT 1, 2, 3</td>
                                 </tr>
                                 <tr>
                                     <td class="py-3 px-4">4.</td>
-                                    <td class="py-3 px-4">S1B 1G</td>
+                                    <td class="py-3 px-4">SIB 1G</td>
                                     <td class="py-3 px-4">Saturday 12 January (07:00-09:00)</td>
                                     <td class="py-3 px-4">RT 1, 2, 3</td>
                                 </tr>
@@ -103,7 +103,7 @@
                 </div>
 
                 <!-- Congratulation Section -->
-                <div class="bg-white text-center p-8 shadow-sm border border-blue-200 rounded-2xl">
+                <div class="bg-white text-center p-8 shadow-sm  rounded-2xl">
                     <div class="mb-4">
                         <img src="{{ asset('images/congrat.png') }}" alt="celebration" class="w-36 mx-auto">
                     </div>
@@ -111,9 +111,8 @@
                     <p class="text-gray-500 text-sm mb-4">
                         You have done your Toest test. You can download your certificate below.
                     </p>
-                    <a href="{{ route('mahasiswa.sertifikat') }}"
-                        class="inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-lg transition-colors duration-200">
-                        <img src="{{ asset('images/Subtract.png') }}" alt="Download" class="w-5 h-5">
+                    <a class="inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-lg transition-colors duration-200">
+                        <img src="{{ asset('images/Subtract.png') }}" alt="Download" class="w-4 h-5">
                         <span>Get your certificate</span>
                     </a>
                 </div>
@@ -180,7 +179,7 @@
                 <div class="bg-white shadow-sm rounded-xl p-4">
                     <p class="font-semibold text-gray-800 mb-2">Want to do another test?</p>
                     <p class="text-gray-500 text-sm mb-3">You can click link below for other test</p>
-                    <a href="#" class="text-blue-600 hover:text-blue-700 text-sm italic transition-colors duration-200">Get in touch</a>
+                    <a href="https://smartcart.id/sertifikat" class="text-blue-600 hover:text-blue-700 text-sm italic hover:font-bold transition-colors duration-200">Get in touch</a>
                 </div>
             </div>
         </div>

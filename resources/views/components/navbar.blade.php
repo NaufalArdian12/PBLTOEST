@@ -18,12 +18,12 @@
             <!-- Desktop Menu -->
             <div class="hidden md:flex items-center justify-center flex-1">
                 <div class="ml-10 flex items-baseline space-x-8">
-                    <a href=""
-                        class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">Home</a>
-                    <a href="" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">About
-                        Us</a>
-                    <a href=""
-                        class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">Service</a>
+                    <a href="{{ route('error.404') }}"
+                        class="text-gray-700 hover:text-blue-600 hover:underline px-3 py-2 rounded-md text-sm font-medium ">Home</a>
+                    <a href="#about_us" 
+                        class="text-gray-700 hover:text-blue-600 hover:underline px-3 py-2 rounded-md text-sm font-medium ">About Us</a>
+                    <a href="#contact_info"
+                        class="text-gray-700 hover:text-blue-600 hover:underline px-3 py-2 rounded-md text-sm font-medium ">Service</a>
                 </div>
             </div>
 
@@ -32,8 +32,7 @@
                 <a href="{{ route('login') }}"
                     class="text-blue-600 border border-blue-600 hover:bg-blue-600 hover:text-white px-4 py-2 rounded-md text-sm font-medium">Login</a>
                 <a href="{{ route('register') }}"
-                    class="ml-4 bg-blue-600 text-white hover:bg-blue-700 px-4 py-2 rounded-md text-sm font-medium">Sign
-                    Up</a>
+                    class="ml-2 bg-blue-600 text-white hover:bg-white hover:text-blue-600 px-4 py-2 border border-transparent hover:border-blue-600 rounded-md text-sm font-medium">Sign Up</a>
             </div>
 
             <!-- Mobile menu button -->
@@ -60,23 +59,26 @@
     </div>
 
     <!-- Mobile menu, show/hide based on menu state. -->
-    <div id="mobile-menu" class="hidden md:hidden transform transition-all duration-300 ease-in-out -translate-y-full">
-        <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-            <a href=""
-                class="text-gray-700 hover:text-blue-600 block px-3 py-2 rounded-md text-base font-medium">Home</a>
-            <a href="" class="text-gray-700 hover:text-blue-600 block px-3 py-2 rounded-md text-base font-medium">About
-                Us</a>
-            <a href=""
-                class="text-gray-700 hover:text-blue-600 block px-3 py-2 rounded-md text-base font-medium">Service</a>
+    <div id="mobile-menu" class="hidden md:hidden bg-blue-600 transform transition-all duration-300 ease-in-out -translate-y-full">
+        <!-- Navigation Links -->
+        <div class="px-4 pt-4 pb-3 space-y-2 text-center">
+            <a href="{{ route('error.404') }}"
+                class="text-white hover:text-blue-200 hover:bg-blue-700 block px-4 py-3 rounded-md text-base font-medium transition-colors duration-200">Home</a>
+            <a href="#about_us" 
+                class="text-white hover:text-blue-200 hover:bg-blue-700 block px-4 py-3 rounded-md text-base font-medium transition-colors duration-200">About Us</a>
+            <a href="#contact_info"
+                class="text-white hover:text-blue-200 hover:bg-blue-700 block px-4 py-3 rounded-md text-base font-medium transition-colors duration-200">Service</a>
         </div>
-        <div class="pt-4 pb-3 border-t border-gray-200">
-            <div class="items-center justify-center space-x-4 px-4">
-                <a href="{{route('login')}}"
-                    class="mb-2 text-blue-600 border border-white hover:bg-blue-600 hover:text-white block w-full text-center px-4 py-2 rounded-md text-sm font-medium">Login</a>
-                <a href="{{route('register')}}"
-                    class="bg-white text-blue-600 border border-blue-600 hover:bg-blue-700 hover:text-white block w-full text-center px-4 py-2 rounded-md text-sm font-medium">Sign
-                    Up</a>
-            </div>
+        
+        <!-- Separator Line -->
+        <div class="border-t border-blue-500 mx-4"></div>
+        
+        <!-- Auth Buttons -->
+        <div class="px-4 pt-4 pb-6 space-y-3 text-center">
+            <a href="{{ route('login') }}"
+                class="text-blue-600 bg-white border border-white hover:bg-blue-50 hover:border-blue-100 block w-full text-center px-4 py-3 rounded-md text-base font-medium transition-all duration-200 shadow-sm">Login</a>
+            <a href="{{ route('register') }}"
+                class="text-white bg-transparent border-2 border-white hover:bg-white hover:text-blue-600 block w-full text-center px-4 py-3 rounded-md text-base font-medium transition-all duration-200">Sign Up</a>
         </div>
     </div>
 </nav>
@@ -89,36 +91,64 @@
         const closeIcon = document.getElementById('close-icon');
 
         mobileMenuButton.addEventListener('click', function () {
+            // Toggle menu visibility
             mobileMenu.classList.toggle('hidden');
-            mobileMenu.classList.toggle('translate-y-0');
-            mobileMenu.classList.toggle('-translate-y-full');
+            
+            // Toggle slide animation
+            setTimeout(() => {
+                mobileMenu.classList.toggle('translate-y-0');
+                mobileMenu.classList.toggle('-translate-y-full');
+            }, 10);
+            
+            // Toggle icons
             hamburgerIcon.classList.toggle('hidden');
             closeIcon.classList.toggle('hidden');
+            
+            // Change hamburger icon color when menu is open
+            if (!mobileMenu.classList.contains('hidden')) {
+                mobileMenuButton.classList.add('text-white');
+                mobileMenuButton.classList.remove('text-blue-600');
+            } else {
+                mobileMenuButton.classList.add('text-blue-600');
+                mobileMenuButton.classList.remove('text-white');
+            }
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!mobileMenuButton.contains(event.target) && !mobileMenu.contains(event.target)) {
+                if (!mobileMenu.classList.contains('hidden')) {
+                    mobileMenu.classList.add('hidden');
+                    mobileMenu.classList.add('-translate-y-full');
+                    mobileMenu.classList.remove('translate-y-0');
+                    hamburgerIcon.classList.remove('hidden');
+                    closeIcon.classList.add('hidden');
+                    mobileMenuButton.classList.add('text-blue-600');
+                    mobileMenuButton.classList.remove('text-white');
+                }
+            }
+        });
+
+        // Handle window resize
+        window.addEventListener('resize', function() {
+            if (window.innerWidth >= 768) { // md breakpoint
+                mobileMenu.classList.add('hidden');
+                mobileMenu.classList.add('-translate-y-full');
+                mobileMenu.classList.remove('translate-y-0');
+                hamburgerIcon.classList.remove('hidden');
+                closeIcon.classList.add('hidden');
+                mobileMenuButton.classList.add('text-blue-600');
+                mobileMenuButton.classList.remove('text-white');
+            }
         });
     });
 </script>
 
 <style>
-    .mobile-menu-open {
-        background-color: #2D68F6;
-        /* Warna biru */
-    }
-
-    .mobile-menu-open a {
-        color: white;
-        /* Warna teks putih */
-    }
-
-    .mobile-menu-open .bg-white {
-        background-color: white !important;
-        /* Pastikan background tombol tetap putih */
-        color: #2D68F6 !important;
-        /* Pastikan teks tombol tetap biru */
-    }
-
-    /* Efek Slide Down */
+    /* Enhanced Mobile Menu Styles */
     #mobile-menu {
         transition: transform 0.3s ease-in-out;
+        box-shadow: 0 10px 25px rgba(45, 104, 246, 0.15);
     }
 
     #mobile-menu.-translate-y-full {
@@ -127,5 +157,20 @@
 
     #mobile-menu.translate-y-0 {
         transform: translateY(0);
+    }
+
+    /* Smooth transitions for all interactive elements */
+    #mobile-menu a {
+        transition: all 0.2s ease-in-out;
+    }
+
+    /* Enhanced hover effects */
+    #mobile-menu a:hover {
+        transform: translateY(-1px);
+    }
+
+    /* Mobile menu button transition */
+    #mobile-menu-button {
+        transition: color 0.2s ease-in-out;
     }
 </style>
