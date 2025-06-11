@@ -16,6 +16,7 @@ class RegistrationModels extends Model
     public $timestamps = true;
 
     protected $fillable = [
+        'student_id',
         'toeic_test_id',
         'registration_date',
         'status',
