@@ -362,13 +362,19 @@
             // Initialize the delete button functionality
             const deleteButtons = document.querySelectorAll('.delete-btn');
 
-            deleteButtons.forEach(button => {
-                button.addEventListener('click', function () {
-                    const registrationId = this.getAttribute('data-id');
-                    const registrationName = this.getAttribute('data-name');
-                    showDeleteModal(registrationId, registrationName);
+            document.addEventListener('click', function(e) {
+                    if (e.target.closest('.delete-btn')) {
+                        const btn = e.target.closest('.delete-btn');
+                        const id = btn.dataset.id;
+                        const name = btn.dataset.name;
+
+                        currentDeleteId = id;
+                        deleteItemName.textContent = name;
+                        deleteForm.action = `/registration/${id}`;
+                        deleteModal.classList.remove('hidden');
+                        deleteModal.classList.add('flex');
+                    }
                 });
-            });
 
             // Function to show the delete confirmation modal
             function showDeleteModal(registrationId, registrationName) {
@@ -382,7 +388,7 @@
                 deleteItemName.textContent = registrationName;
 
                 // Set the action URL for the form
-                deleteForm.action = `/registration/${registrationId}`;
+                deleteForm.action = `/registration/${id}`;
 
                 // Show the modal with a fade-in effect
                 deleteModal.classList.remove('hidden');

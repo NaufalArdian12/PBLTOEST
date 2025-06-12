@@ -36,35 +36,13 @@ class ToeicTestController extends Controller
         if ($user->admins) {
             $validated['admin_id'] = $user->admins->id;
         } else {
-            return redirect()->back()->with('error', 'User tidak memiliki akses admin');
+            return redirect()->back()->with('error', 'User does not have admin access');
         }
 
         ToeicTestModels::create($validated);
         return redirect()->route('toeic.index')->with('success', 'TOEIC Test successfully created');
     }
 
-    public function list(Request $request)
-    {
-        $toeic_test = ToeicTestModels::select('id', 'toeic_test_name');
-
-        return DataTables::of($toeic_test)
-            // menambahkan kolom index / no urut (default nama kolom: DT_RowIndex)
-            ->addIndexColumn()
-            ->addColumn('action', function ($toeic_test) {  // menambahkan kolom action
-                $btn = '<button onclick="modalAction(\'' . url('/toeic_test/' . $toeic_test->id . '/show_ajax') . '\')"
-    class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded text-sm mr-1">Detail</button>';
-
-                $btn .= '<button onclick="modalAction(\'' . url('/toeic_test/' . $toeic_test->id . '/edit_ajax') . '\')"
-    class="bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-1 rounded text-sm mr-1">Edit</button>';
-
-                $btn .= '<button onclick="modalAction(\'' . url('/toeic_test/' . $toeic_test->id . '/delete_ajax') . '\')"
-    class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded text-sm">Delete</button>';
-
-                return $btn;
-            })
-            ->rawColumns(['action']) // memberitahu bahwa kolom aksi adalah html
-            ->make(true);
-    }
 
     // Menampilkan detail toeic_test
     public function show(string $id)

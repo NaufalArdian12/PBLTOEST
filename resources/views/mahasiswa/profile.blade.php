@@ -3,59 +3,78 @@
 @section('content')
     <div class="container mx-auto px-4">
         <!-- Header -->
-        <div class="flex justify-between items-center mb-6 px-6 py-4 bg-white shadow-sm rounded-xl">
-            <div class="flex items-center gap-3">
-                <img src="{{ asset('images/Logo.png') }}" alt="Logo" class="w-24">
-            </div>
-            <div class="flex items-center gap-4">
-                <img src="{{ asset('images/bell-alert.png') }}" alt="Notification" class="w-5 h-5">
-
-                <!-- User Profile Dropdown -->
-                <div class="relative group">
-                    <div
-                        class="flex items-center gap-2 cursor-pointer py-2 px-3 rounded-lg hover:bg-gray-50 transition-colors duration-200">
-                        <span class="text-gray-700">Hi, {{ auth()->user()->name }}</span>
-                        <svg class="w-4 h-4 text-gray-500 group-hover:text-gray-700 transition-transform duration-200 group-hover:rotate-180"
-                            fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                        </svg>
+        <div class="sticky top-0 z-50 bg-white/80 backdrop-blur-md shadow-lg rounded-2xl mb-8 border border-white/20">
+            <div class="flex justify-between items-center px-8 py-6 z-40">
+                <div class="flex items-center gap-4">
+                    <div class="relative">
+                        <img src="{{ asset('images/Logo.png') }}" alt="Logo" class="w-28 h-auto drop-shadow-md">
                     </div>
-
-                    <!-- Dropdown Menu -->
-                    <div
-                        class="absolute right-0 top-full mt-2 w-48 bg-white rounded-xl shadow-lg border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
-                        <div class="py-2">
-                            <!-- Profile Option -->
-                            <a href="/profile"
-                                class="flex items-center gap-3 px-4 py-3 text-blue-600 bg-blue-50 transition-colors duration-150">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                                </svg>
-                                <div>
-                                    <div class="font-medium text-sm">Profile</div>
-                                    <div class="text-xs text-blue-400">Update your information</div>
+                </div>
+                <div class="flex items-center gap-4">
+                    <div class="relative items-center gap-6 z-40">
+                        <!-- Enhanced User Profile Dropdown -->
+                        <div class="relative group">
+                            <div
+                                class="flex items-center gap-3 cursor-pointer py-3 px-4 rounded-xl bg-blue-50 hover:bg-blue-100 transition-all duration-300 border border-blue-100">
+                                <div
+                                    class="w-10 h-10 bg-blue-200 rounded-full flex items-center justify-center text-blue-600 font-semibold text-sm">
+                                    {{ strtoupper(substr(auth()->user()->name, 0, 2)) }}
                                 </div>
-                            </a>
+                                <div class="text-left">
+                                    <span class="text-gray-800 font-medium block">Hi, {{ auth()->user()->name }}</span>
+                                    <span class="text-gray-500 text-xs">Welcome back!</span>
+                                </div>
+                                <svg class="w-5 h-5 text-gray-400 group-hover:text-gray-600 transition-all duration-200 group-hover:rotate-180"
+                                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </div>
 
-                            <!-- Divider -->
-                            <div class="border-t border-gray-100 my-1"></div>
+                            <!-- Enhanced Dropdown Menu - FIXED Z-INDEX -->
+                            <div
+                                class="absolute right-0 top-full mt-3 w-64 bg-white/95 backdrop-blur-md rounded-2xl shadow-xl border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 transform translate-y-2 group-hover:translate-y-0">
+                                <div class="p-2">
+                                    <!-- Profile Option -->
+                                    <a href="/profile"
+                                        class="flex items-center gap-4 px-4 py-3 text-gray-700 hover:bg-blue-50 transition-all duration-200 rounded-xl group/item">
+                                        <div
+                                            class="w-10 h-10 bg-gradient-to-br from-blue-100 to-blue-200 rounded-xl flex items-center justify-center group-hover/item:scale-110 transition-transform">
+                                            <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor"
+                                                viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                            </svg>
+                                        </div>
+                                        <div>
+                                            <div class="font-semibold text-sm text-gray-800">Profile Settings</div>
+                                            <div class="text-xs text-gray-500">Update your information</div>
+                                        </div>
+                                    </a>
 
-                            <!-- Logout Option -->
-                            <form method="POST" action="{{ route('logout') }}" class="w-full">
-                                @csrf
-                                <button type="submit"
-                                    class="w-full flex items-center gap-3 px-4 py-3 text-red-600 hover:bg-red-50 transition-colors duration-150 text-left">
-                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-                                    </svg>
-                                    <div>
-                                        <div class="font-medium text-sm">Logout</div>
-                                        <div class="text-xs text-red-400">Sign out of your account</div>
-                                    </div>
-                                </button>
-                            </form>
+                                    <div class="border-t border-gray-100 my-2"></div>
+
+                                    <!-- Logout Option -->
+                                    <form method="POST" action="{{ route('logout') }}" class="w-full">
+                                        @csrf
+                                        <button type="submit"
+                                            class="w-full flex items-center gap-4 px-4 py-3 text-red-600 hover:bg-red-50 transition-all duration-200 rounded-xl text-left group/item">
+                                            <div
+                                                class="w-10 h-10 bg-gradient-to-br from-red-100 to-red-200 rounded-xl flex items-center justify-center group-hover/item:scale-110 transition-transform">
+                                                <svg class="w-5 h-5 text-red-600" fill="none" stroke="currentColor"
+                                                    viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                        d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                                                </svg>
+                                            </div>
+                                            <div>
+                                                <div class="font-semibold text-sm">Sign Out</div>
+                                                <div class="text-xs text-red-400">Logout from your account</div>
+                                            </div>
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -162,41 +181,53 @@
                                     <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                                 @enderror
                             </div>
+                            <!-- Campus (selalu tampil) -->
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Campus</label>
+                                <input type="text" id="campus_display"
+                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-100 cursor-not-allowed"
+                                    readonly>
+                            </div>
 
-                            <!-- Program Study -->
+                            <!-- Major (readonly, tampil jika ada major) -->
+                            <div id="major-wrapper" style="display: none;">
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Major</label>
+                                <input type="text" id="major_display"
+                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-100 cursor-not-allowed"
+                                    readonly>
+                            </div>
                             <div>
                                 <label for="study_program_id" class="block text-sm font-medium text-gray-700 mb-2">Program
                                     Study</label>
                                 <select id="study_program_id" name="study_program_id"
                                     class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200">
-                                    <option value="study_program_id" disabled selected>
-                                        {{ auth()->user()->students->studyprogram->study_program_name ?? 'Select Study Program' }}
-                                    </option>
+                                    <option disabled selected>Select Study Program</option>
                                     @foreach ($studyPrograms as $program)
-                                        <option value="{{ $program->id }}" {{ auth()->user()->students && auth()->user()->students->study_program_id == $program->id ? 'selected' : '' }}>
+                                        <option value="{{ $program->id }}" data-major="{{ $program->major->major_name ?? '' }}"
+                                            data-campus="{{ $program->campus->campus_name ?? '' }}" {{ auth()->user()->students->study_program_id == $program->id ? 'selected' : '' }}>
                                             {{ $program->study_program_name }}
                                         </option>
                                     @endforeach
                                 </select>
-                                @error('study_program')
+                                @error('study_program_id')
                                     <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                                 @enderror
                             </div>
-
 
                             <!-- Email -->
                             <div>
                                 <label for="email" class="block text-sm font-medium text-gray-700 mb-2">Email
                                     Address</label>
                                 <input type="email" id="email" name="email" value="{{ auth()->user()->email }}" readonly
-                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200">
+                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-100 cursor-not-allowed">
                                 @error('email')
                                     <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                                 @enderror
                             </div>
 
+
                             <!-- Profile Picture -->
-                            <div>
+                            <div class="md:col-span-2">
                                 <label for="pas_photo" class="block text-sm font-medium text-gray-700 mb-2">Pas
                                     Photo</label>
                                 <div class="flex items-center space-x-4">
@@ -243,7 +274,7 @@
                             </div>
 
                             <!-- Scan KTM -->
-                            <div class="md:col-span-2">
+                            <div class="">
                                 <label for="scan_ktm" class="block text-sm font-medium text-gray-700 mb-2">Scan KTM</label>
                                 <div class="flex items-center space-x-4">
                                     <input type="file" id="scan_ktm" name="scan_ktm" accept="image/*"
@@ -273,7 +304,8 @@
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div>
                                     <label for="current_password"
-                                        class="block text-sm font-medium text-gray-700 mb-2">Current Password</label>
+                                        class="block text-sm font-medium text-gray-700 mb-2">Current
+                                        Password</label>
                                     <input type="password" id="current_password" name="current_password"
                                         class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200">
                                     @error('current_password')
@@ -292,7 +324,8 @@
                                 </div>
                                 <div>
                                     <label for="password_confirmation"
-                                        class="block text-sm font-medium text-gray-700 mb-2">Confirm New Password</label>
+                                        class="block text-sm font-medium text-gray-700 mb-2">Confirm
+                                        New Password</label>
                                     <input type="password" id="password_confirmation" name="password_confirmation"
                                         class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200">
                                     @error('password_confirmation')
@@ -321,4 +354,38 @@
             </div>
         </div>
     </div>
+    <script>
+        function updateMajorAndCampusDisplay() {
+            const select = document.getElementById('study_program_id');
+            const selectedOption = select.options[select.selectedIndex];
+
+            const major = selectedOption.getAttribute('data-major');
+            const campus = selectedOption.getAttribute('data-campus');
+
+            const majorWrapper = document.getElementById('major-wrapper');
+            const majorInput = document.getElementById('major_display');
+            const campusInput = document.getElementById('campus_display');
+
+            // Tampilkan Major jika ada
+            if (major && major.trim() !== '') {
+                majorWrapper.style.display = 'block';
+                majorInput.value = major;
+            } else {
+                majorWrapper.style.display = 'none';
+                majorInput.value = '';
+            }
+
+            // Selalu update Campus
+            campusInput.value = campus || 'Unknown';
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            updateMajorAndCampusDisplay();
+
+            document.getElementById('study_program_id').addEventListener('change', function () {
+                updateMajorAndCampusDisplay();
+            });
+        });
+    </script>
+
 @endsection

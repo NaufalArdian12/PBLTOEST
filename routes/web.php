@@ -110,7 +110,7 @@ Route::middleware(['auth', 'verified', 'role:Admin'])->group(function () {
     Route::put('/registration/{id}/', [RegistrationApprovalController::class, 'update'])->name('registration.update');
     Route::get('/registration/create', [RegistrationApprovalController::class, 'create'])->name('registration.create');
     Route::post('/registration/store', [RegistrationApprovalController::class, 'store'])->name('registration.store');
-    Route::get('/registration/{id}/delete_ajax', [RegistrationApprovalController::class, 'delete'])->name('registration.delete');
+    Route::delete('/registration/{id}/', [RegistrationApprovalController::class, 'destroy'])->name('registration.delete');
 
 });
 
@@ -121,6 +121,8 @@ Route::middleware(['auth', 'verified', 'role:Student'])->group(function () {
     Route::post('/pendaftaran', [EnrollmentController::class, 'store'])->name('pendaftaran.store');
     Route::get('/registrasi/create', [RegistrationController::class, 'create'])->name('registrasi.create');
     Route::post('/registrasi', [RegistrationController::class, 'store'])->name('registrasi.store');
+    Route::post('/toeic/register/{toeic_test}', [RegistrationApprovalController::class, 'autoRegister'])->name('toeic.autoRegister');
+
 });
 
 // Universal Authenticated Routes
