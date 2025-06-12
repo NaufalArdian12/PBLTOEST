@@ -32,15 +32,14 @@
                         expand their employment opportunities.
                     </p>
 
-                    <div class="flex flex-col-reverse sm:flex-row gap-2 w-full sm:w-auto">
-                        <a href=""
-                            class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition text-center">
-                            Have Certificate?
+                    <div class="flex flex-col-reverse sm:flex-row gap-3 w-full sm:w-auto" data-stagger-child>
+                        <a href="/register"
+                            class="px-4 sm:px-6 py-2 sm:py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-center transform hover:scale-105 transition-transform text-sm sm:text-base">
+                            Campus TOEIC Test
                         </a>
-
-                        <a href=""
-                            class="px-6 py-3 border border-blue-600 text-blue-600 rounded-lg hover:bg-blue-50 transition text-center">
-                            Need Certificate?
+                        <a href="https://smartcart.id/product/toeic-listening-reading"
+                            class="px-4 sm:px-6 py-2 sm:py-3 border border-blue-600 text-blue-600 rounded-lg hover:bg-blue-50 text-center transform hover:scale-105 transition-transform text-sm sm:text-base">
+                            Independent TOEIC Test
                         </a>
                     </div>
                 </div>
