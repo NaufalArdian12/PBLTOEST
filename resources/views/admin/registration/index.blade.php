@@ -1,6 +1,6 @@
 @extends('layouts.admin.admin')
 
-@section('title', 'Dashboard')
+@section('title', 'Registration')
 
 @section('content')
     <div class="flex h-screen bg-gray-50">
@@ -8,10 +8,10 @@
         <div class="flex-1 overflow-auto">
             <div class="p-6">
                 <!-- Header with Actions -->
-                <div class="mb-8">
+                <div class="mb-3">
                     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
                         <div>
-                            <h1 class="text-3xl font-bold text-gray-900">Dashboard</h1>
+                            <h1 class="text-3xl font-bold text-gray-900">Registration</h1>
                             <p class="mt-1 text-sm text-gray-500">Manage student registrations and monitor statistics</p>
                         </div>
                         <div class="mt-4 sm:mt-0 flex flex-col sm:flex-row gap-3">
@@ -36,110 +36,49 @@
                         </div>
                     </div>
                 </div>
+                <div class=" py-5 border-b border-gray-200 bg-gray-50">
+                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
+                        <!-- Add New Button -->
+                        <a href="{{ route('registration.create') }}">
+                            <button type="button"
+                                class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200">
+                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M12 4v16m8-8H4">
+                                    </path>
+                                </svg>
+                                Add New Registration
+                            </button>
+                        </a>
 
-                <!-- Enhanced Statistics Cards -->
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-                    <!-- Total Students -->
-                    <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow">
-                        <div class="flex items-center justify-between">
-                            <div class="flex-1">
-                                <p class="text-sm font-medium text-gray-600 mb-1">Total Students</p>
-                                <p class="text-3xl font-bold text-gray-900">{{ number_format($totalMahasiswa) }}</p>
-                                <div class="flex items-center mt-2">
-                                    <svg class="w-4 h-4 text-green-500 mr-1" fill="none" stroke="currentColor"
+                        <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+                            <!-- Status Filter -->
+                            <select id="statusFilter" onchange="filterByStatus()"
+                                class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-sm">
+                                <option value="">All Status</option>
+                                <option value="active">Approved</option>
+                                <option value="inactive">Rejected</option>
+                                <option value="pending">Pending</option>
+                            </select>
+
+                            <!-- Search Input -->
+                            <div class="relative">
+                                <input type="text" id="searchInput" placeholder="Search students..."
+                                    class="pl-10 pr-4 py-2 w-full sm:w-64 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-sm">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor"
                                         viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M7 17l9.2-9.2M17 7H7v10"></path>
+                                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                                     </svg>
-                                    <span>{{ number_format($totalMahasiswa) }}</span>
-                                    <span class="text-sm text-gray-500 ml-1">from last month</span>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-
-                    <!-- Student Enrollment -->
-                    <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow">
-                        <div class="flex items-center justify-between">
-                            <div class="flex-1">
-                                <p class="text-sm font-medium text-gray-600 mb-1">Student Enrollment</p>
-                                <p class="text-3xl font-bold text-gray-900">{{ number_format($mahasiswaMendaftar) }}</p>
-                                <div class="flex items-center mt-2">
-                                    <div class="w-4 h-4 bg-gray-400 rounded-full mr-1"></div>
-                                    <span class="text-sm text-gray-500">No change from last month</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Students Not Accepted -->
-                    <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow">
-                        <div class="flex items-center justify-between">
-                            <div class="flex-1">
-                                <p class="text-sm font-medium text-gray-600 mb-1">Pending Review</p>
-                                <p class="text-3xl font-bold text-gray-900">{{ number_format($mahasiswaBelumAcc) }}</p>
-                                <div class="flex items-center mt-2">
-                                    <div class="w-4 h-4 bg-yellow-400 rounded-full mr-1"></div>
-                                    <span class="text-sm text-yellow-600">Requires attention</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Acceptance Rate -->
-                    <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow">
-                        <div class="flex items-center justify-between">
-                            <div class="flex-1">
-                                <p class="text-sm font-medium text-gray-600 mb-1">Acceptance Rate</p>
-                                <p class="text-3xl font-bold text-gray-900">
-                                    {{ $totalMahasiswa > 0 ? number_format((($totalMahasiswa - $mahasiswaBelumAcc) / $totalMahasiswa) * 100, 1) : 0 }}%
-                                </p>
-                                <div class="flex items-center mt-2">
-                                    <div class="flex-1 bg-gray-200 rounded-full h-2">
-                                        <div class="bg-green-500 h-2 rounded-full"
-                                            style="width: {{ $totalMahasiswa > 0 ? (($totalMahasiswa - $mahasiswaBelumAcc) / $totalMahasiswa) * 100 : 0 }}%">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
                         </div>
                     </div>
                 </div>
-
                 <!-- Enhanced Student Registration Table -->
                 <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-                    <div class="px-6 py-5 border-b border-gray-200 bg-gray-50">
-                        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-                            <div>
-                                <h2 class="text-xl font-semibold text-gray-900">Student Registration Management</h2>
-                                <p class="text-sm text-gray-600 mt-1">Review and process student applications</p>
-                            </div>
-                            <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
-                                <!-- Status Filter -->
-                                <select id="statusFilter" onchange="filterByStatus()"
-                                    class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-sm">
-                                    <option value="">All Status</option>
-                                    <option value="active">Approved</option>
-                                    <option value="inactive">Rejected</option>
-                                    <option value="pending">Pending</option>
-                                </select>
 
-                                <!-- Search Input -->
-                                <div class="relative">
-                                    <input type="text" id="searchInput" placeholder="Search students..."
-                                        class="pl-10 pr-4 py-2 w-full sm:w-64 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-sm">
-                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                        <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor"
-                                            viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                                        </svg>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
                     <!-- Bulk Actions -->
                     <div id="bulkActions" class="hidden px-6 py-3 bg-blue-50 border-b border-blue-200">
@@ -286,54 +225,42 @@
                                             @endif
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                            <div class="flex items-center gap-2">
-                                                @if($registration->status !== 'active')
-                                                    <form action="{{ route('registration.approve', $registration->id) }}"
-                                                        method="POST" class="inline">
-                                                        @csrf
-                                                        @method('PATCH')
-                                                        <button type="submit" onclick="showApproveModal('{{ $registration->id }}')"
-                                                            class="inline-flex items-center px-3 py-1 border border-green-300 shadow-sm text-xs font-medium rounded-md text-green-700 bg-white hover:bg-green-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors">
-                                                            <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
-                                                                <path fill-rule="evenodd"
-                                                                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                                                                    clip-rule="evenodd"></path>
-                                                            </svg>
-                                                            Approve
-                                                        </button>
-                                                    </form>
-                                                @endif
-
-                                                @if($registration->status !== 'inactive')
-                                                    <form action="{{ route('registration.reject', $registration->id) }}"
-                                                        method="POST" class="inline">
-                                                        @csrf
-                                                        @method('PATCH')
-                                                        <button type="submit" onclick="showRejectModal('{{ $registration->id }}')"
-                                                            class="inline-flex items-center px-3 py-1 border border-red-300 shadow-sm text-xs font-medium rounded-md text-red-700 bg-white hover:bg-red-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-colors">
-                                                            <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
-                                                                <path fill-rule="evenodd"
-                                                                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                                                                    clip-rule="evenodd"></path>
-                                                            </svg>
-                                                            Reject
-                                                        </button>
-                                                    </form>
-                                                @endif
-                                                <a href="{{ route('student.show', $registration->student->id) }}">
-                                                    <button class="text-gray-400 hover:text-blue-600 transition-colors"
-                                                        title="View Details">
-                                                        <svg class="w-4 h-4" fill="none" stroke="currentColor"
-                                                            viewBox="0 0 24 24">
-                                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                                stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                                stroke-width="2"
-                                                                d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z">
-                                                            </path>
-                                                        </svg>
-                                                    </button>
+                                            <div class="flex items-center space-x-3">
+                                                <!-- View Button -->
+                                                <a href="{{ route('student.show', $registration->student->id) }}"
+                                                    class="text-indigo-600 hover:text-indigo-900 transition-colors duration-150"
+                                                    title="View Details">
+                                                    <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                            d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                            d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z">
+                                                        </path>
+                                                    </svg>
                                                 </a>
+
+                                                <!-- Edit Button -->
+                                                <a href="{{route('registration.edit', $registration->id)}}"
+                                                    class="text-yellow-600 hover:text-yellow-900 transition-colors duration-150"
+                                                    title="Edit">
+                                                    <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                            d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z">
+                                                        </path>
+                                                    </svg>
+                                                </a>
+
+                                                <!-- Delete Button -->
+                                                <button type="button"
+                                                    class="text-red-600 hover:text-red-900 transition-colors duration-150 delete-btn"
+                                                    title="Delete" data-id="{{ $registration->id }}"
+                                                    data-name="{{ $registration->student->user->name ?? 'N/A' }}">
+                                                    <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16">
+                                                        </path>
+                                                    </svg>
+                                                </button>
                                             </div>
                                         </td>
                                     </tr>
@@ -368,36 +295,7 @@
                         </table>
                     </div>
 
-                    <div id="approveModal"
-                        class="fixed inset-0 z-50 hidden bg-gray-900/50 flex justify-center items-center">
-                        <div class="bg-white p-6 rounded-lg shadow-lg w-96">
-                            <h3 class="text-lg font-semibold text-gray-900 mb-4">Are you sure?</h3>
-                            <p class="text-sm text-gray-600 mb-6">This action cannot be undone. Do you want to approve this
-                                registration?</p>
-                            <div class="flex justify-end space-x-3">
-                                <button onclick="closeModal()"
-                                    class="px-4 py-2 bg-gray-300 rounded-md text-sm font-medium text-gray-800 hover:bg-gray-400 focus:outline-none">Cancel</button>
-                                <button id="confirmApproveButton"
-                                    class="px-4 py-2 bg-green-600 rounded-md text-sm font-medium text-white hover:bg-green-700 focus:outline-none"
-                                    onclick="approveRegistration()">Confirm</button>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Reject Confirmation Modal -->
-                    <div id="rejectModal" class="fixed inset-0 z-50 hidden bg-gray-900/50 flex justify-center items-center">
-                        <div class="bg-white p-6 rounded-lg shadow-lg w-96">
-                            <h3 class="text-lg font-semibold text-gray-900 mb-4">Are you sure?</h3>
-                            <p class="text-sm text-gray-600 mb-6">This action cannot be undone. Do you want to reject this
-                                registration?</p>
-                            <div class="flex justify-end space-x-3">
-                                <button onclick="closeRejectModal()"
-                                    class="px-4 py-2 bg-gray-300 rounded-md text-sm font-medium text-gray-800 hover:bg-gray-400 focus:outline-none">Cancel</button>
-                                <button id="confirmRejectButton"
-                                    class="px-4 py-2 bg-red-600 rounded-md text-sm font-medium text-white hover:bg-red-700 focus:outline-none"
-                                    onclick="rejectRegistration()">Confirm</button>
-                            </div>
-                        </div>
-                    </div>
+
 
                     <!-- Enhanced Pagination -->
                     @if($registrations instanceof \Illuminate\Pagination\Paginator || $registrations instanceof \Illuminate\Pagination\LengthAwarePaginator)
@@ -415,6 +313,7 @@
                             </div>
                         </div>
                     @endif
+
             </div>
         </div>
     </div>
@@ -429,7 +328,118 @@
         <p>Something went wrong, please try again!</p>
     </div>
 
+    <!-- Delete Confirmation Modal -->
+    <div id="deleteModal" class="fixed inset-0 bg-gray-600/50 hidden items-center justify-center z-50">
+        <div class="bg-white rounded-lg shadow-xl max-w-md w-full mx-4">
+            <div class="px-6 py-4 border-b border-gray-200">
+                <h3 class="text-lg font-medium text-gray-900">Confirm Delete</h3>
+            </div>
+            <div class="px-6 py-4">
+                <p class="text-sm text-gray-600 mb-4">
+                    Are you sure you want to delete "<span id="deleteItemName" class="font-semibold"></span>"?
+                    This action cannot be undone.
+                </p>
+            </div>
+            <div class="px-6 py-4 border-t border-gray-200 flex justify-end space-x-3">
+                <button type="button" id="cancelDelete"
+                    class="px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                    Cancel
+                </button>
+                <form id="deleteForm" method="POST" class="inline" action="/major/:id">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit"
+                        class="px-4 py-2 border border-transparent rounded-md text-sm font-medium text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+                        Delete
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Initialize the delete button functionality
+            const deleteButtons = document.querySelectorAll('.delete-btn');
+
+            document.addEventListener('click', function(e) {
+                    if (e.target.closest('.delete-btn')) {
+                        const btn = e.target.closest('.delete-btn');
+                        const id = btn.dataset.id;
+                        const name = btn.dataset.name;
+
+                        currentDeleteId = id;
+                        deleteItemName.textContent = name;
+                        deleteForm.action = `/registration/${id}`;
+                        deleteModal.classList.remove('hidden');
+                        deleteModal.classList.add('flex');
+                    }
+                });
+
+            // Function to show the delete confirmation modal
+            function showDeleteModal(registrationId, registrationName) {
+                const deleteModal = document.getElementById('deleteModal');
+                const deleteItemName = document.getElementById('deleteItemName');
+                const deleteForm = document.getElementById('deleteForm');
+                const cancelDeleteBtn = document.getElementById('cancelDelete');
+                const deleteButton = deleteForm.querySelector('button[type="submit"]');
+
+                // Set the name of the item to be deleted
+                deleteItemName.textContent = registrationName;
+
+                // Set the action URL for the form
+                deleteForm.action = `/registration/${id}`;
+
+                // Show the modal with a fade-in effect
+                deleteModal.classList.remove('hidden');
+                deleteModal.classList.add('flex');
+                deleteModal.classList.add('opacity-0');
+                setTimeout(() => {
+                    deleteModal.classList.remove('opacity-0');
+                    deleteModal.classList.add('opacity-100');
+                }, 0); // Trigger the transition immediately
+
+                // Disable the delete button to prevent multiple clicks
+                deleteButton.disabled = true;
+
+                // Bind cancel button to hide the modal
+                cancelDeleteBtn.onclick = function () {
+                    closeModal();
+                };
+
+                // Close modal when clicking outside the modal content area
+                deleteModal.addEventListener('click', function (e) {
+                    if (e.target === deleteModal) {
+                        closeModal();
+                    }
+                });
+
+                // Function to close the modal
+                function closeModal() {
+                    deleteModal.classList.remove('opacity-100');
+                    deleteModal.classList.add('opacity-0');
+                    setTimeout(() => {
+                        deleteModal.classList.add('hidden');
+                    }, 300); // Wait for the fade-out transition to complete
+                }
+
+                // Form submission handler (for deleting)
+                deleteForm.onsubmit = function () {
+                    deleteButton.disabled = true;  // Disable submit button during submission
+                };
+            }
+        });
+
+        // Function to export data
+        function exportData() {
+            // Redirect to the export route
+            window.location.href = '/registration/export';
+        }
+        // Function to refresh data
+        function refreshData() {
+            // Reload the current page to refresh data
+            location.reload();
+        }
         let rejectButton; // This will store the button that will trigger the reject action
 
         // Function to handle the reject action after confirmation

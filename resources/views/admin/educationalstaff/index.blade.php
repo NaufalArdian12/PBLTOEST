@@ -1,7 +1,7 @@
 @extends('layouts.admin.admin')
 
-@section('title', 'Major Management')
-@section('header', 'Manage Major')
+@section('title', 'Educational Staff Management')
+@section('header', 'Manage Educational Staff')
 
 @section('content')
     <div class="flex h-screen bg-gray-100">
@@ -11,9 +11,8 @@
                 <!-- Header Section -->
                 <div class="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between">
                     <div>
-                        <h1 class="text-2xl font-bold text-gray-900">Manage Major</h1>
-                        <p class="mt-1 text-sm text-gray-600">Create, view, and manage Majors across different
-                            Majores</p>
+                        <h1 class="text-2xl font-bold text-gray-900">Manage Educational Staff</h1>
+                        <p class="mt-1 text-sm text-gray-600">Create, view, and manage Educational Staff</p>
                     </div>
                 </div>
 
@@ -21,16 +20,13 @@
                 <div class="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-3 sm:space-y-0">
                     <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-3">
                         <!-- Add New Button -->
-                        <a href="{{ route('major.create') }}">
-                            <button type="button"
-                                class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200">
-                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M12 4v16m8-8H4">
-                                    </path>
-                                </svg>
-                                Add New Major
-                            </button>
+                        <a href=""
+                            class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200">
+                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4">
+                                </path>
+                            </svg>
+                            Add New Educational Staff
                         </a>
 
                         <!-- Bulk Actions -->
@@ -50,18 +46,18 @@
 
                     <!-- Filter and Search -->
                     <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-3">
-                        <!-- Major Filter -->
-                        <select id="majorFilter"
+                        <!-- Educational Staff Filter -->
+                        <select id="educationalstaffFilter"
                             class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-sm">
-                            <option value="">All Majors</option>
-                            @foreach($majors as $major)
-                                <option value="{{ $major->major_name }}">{{ $major->major_name }}</option>
+                            <option value="">All Educational Staffs</option>
+                            @foreach($educationalstaffs as $educationalstaff)
+                                <option value="{{ $educationalstaff->user->name}}">{{ $educationalstaff->user->name }}</option>
                             @endforeach
                         </select>
 
                         <!-- Search Input -->
                         <div class="relative">
-                            <input type="text" placeholder="Search majors..." id="searchmajor"
+                            <input type="text" placeholder="Search educationalstaffs..." id="searcheducationalstaff"
                                 class="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-sm min-w-64">
                             <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                 <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -82,7 +78,22 @@
                     </div>
                 </div>
 
-                <!-- major Table -->
+                @if(session('error'))
+                    <div class="mb-6 bg-red-50 border border-red-200 rounded-md p-4">
+                        <div class="flex">
+                            <svg class="h-5 w-5 text-red-400" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd"
+                                    d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                                    clip-rule="evenodd"></path>
+                            </svg>
+                            <div class="ml-3">
+                                <p class="text-sm text-red-800">{{ session('error') }}</p>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+
+                <!-- educationalstaff Table -->
                 <div class="bg-white rounded-lg shadow-sm border border-gray-200">
                     <div class="px-6 py-4 border-b border-gray-200">
                         <div class="flex items-center justify-between">
@@ -116,19 +127,7 @@
                                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                         <button type="button" class="group inline-flex items-center hover:text-gray-700"
                                             id="sortByName">
-                                            Major Name
-                                            <svg class="ml-1 h-3 w-3 text-gray-400 group-hover:text-gray-500" fill="none"
-                                                stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"></path>
-                                            </svg>
-                                        </button>
-                                    </th>
-                                    <th
-                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        <button type="button" class="group inline-flex items-center hover:text-gray-700"
-                                            id="sortBymajor">
-                                            Major
+                                            Educational Staff Name
                                             <svg class="ml-1 h-3 w-3 text-gray-400 group-hover:text-gray-500" fill="none"
                                                 stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -142,42 +141,32 @@
                                     </th>
                                 </tr>
                             </thead>
-                            <tbody class="bg-white divide-y divide-gray-200" id="majorTableBody">
-                                @forelse($majors as $index => $major)
+                            <tbody class="bg-white divide-y divide-gray-200" id="educationalstaffTableBody">
+                                @forelse($educationalstaffs as $index => $educationalstaff)
                                     <tr class="hover:bg-gray-50 transition-colors duration-150"
-                                        data-major="{{ $major->major_name ?? '' }}">
+                                        data-educationalstaff="{{ $educationalstaff->user->name ?? '' }}">
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             <input type="checkbox"
                                                 class="row-checkbox rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-                                                value="{{ $major->id }}" data-name="{{ $major->major_name }}">
+                                                value="{{ $educationalstaff->id }}" data-name="{{ $educationalstaff->user->name ?? '' }}">
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                                             {{ $index + 1 }}
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             <div class="text-sm font-medium text-gray-900">
-                                                {{ $major->major_name }}
+                                                {{ $educationalstaff->user->name ?? '' }}
                                             </div>
-                                            @if($major->description)
+                                            @if($educationalstaff->description)
                                                 <div class="text-sm text-gray-500 truncate max-w-xs">
-                                                    {{ Str::limit($major->description, 50) }}
+                                                    {{ Str::limit($educationalstaff->description, 50) }}
                                                 </div>
                                             @endif
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            <div class="flex items-center">
-                                                <div class="flex-shrink-0">
-                                                    <div class="h-2 w-2 bg-green-400 rounded-full"></div>
-                                                </div>
-                                                <div class="ml-2 text-sm text-gray-900">
-                                                    {{ $major->campus->campus_name ?? '-' }}
-                                                </div>
-                                            </div>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                             <div class="flex items-center space-x-3">
                                                 <!-- View Button -->
-                                                <a href="{{ route('major.show', $major->id) }}"
+                                                <a href=""
                                                     class="text-indigo-600 hover:text-indigo-900 transition-colors duration-150"
                                                     title="View Details">
                                                     <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -190,7 +179,7 @@
                                                 </a>
 
                                                 <!-- Edit Button -->
-                                                <a href="{{route('major.edit', $major->id)}}"
+                                                <a href=""
                                                     class="text-yellow-600 hover:text-yellow-900 transition-colors duration-150"
                                                     title="Edit">
                                                     <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -203,8 +192,8 @@
                                                 <!-- Delete Button -->
                                                 <button type="button"
                                                     class="text-red-600 hover:text-red-900 transition-colors duration-150 delete-btn"
-                                                    title="Delete" data-id="{{ $major->id }}"
-                                                    data-name="{{ $major->major_name }}">
+                                                    title="Delete" data-id="{{ $educationalstaff->id }}"
+                                                    data-name="{{ $educationalstaff->user->name ?? '' }}">
                                                     <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                             d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16">
@@ -224,12 +213,11 @@
                                                         d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
                                                     </path>
                                                 </svg>
-                                                <h3 class="text-sm font-medium text-gray-900 mb-1">No majors found</h3>
-                                                <p class="text-sm text-gray-500 mb-4">Get started by creating your first major.
-                                                </p>
-                                                <a href="{{ route('admin.major.create') }}"
+                                                <h3 class="text-sm font-medium text-gray-900 mb-1">No educationalstaffs found</h3>
+                                                <p class="text-sm text-gray-500 mb-4">Get started by creating your first educationalstaff.</p>
+                                                <a href="{{ route('admin.educationalstaff.create') }}"
                                                     class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700">
-                                                    Add Major
+                                                    Add Educational Staff
                                                 </a>
                                             </div>
                                         </td>
@@ -252,9 +240,9 @@
                     </div>
 
                     <!-- Pagination -->
-                    @if(method_exists($majors, 'links'))
+                    @if(method_exists($educationalstaffs, 'links'))
                         <div class="px-6 py-4 border-t border-gray-200 bg-gray-50">
-                            {{ $majors->links() }}
+                            {{ $educationalstaffs->links() }}
                         </div>
                     @endif
                 </div>
@@ -279,7 +267,7 @@
                     class="px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
                     Cancel
                 </button>
-                <form id="deleteForm" method="POST" class="inline" action="/major/:id">
+                <form id="deleteForm" method="POST" class="inline">
                     @csrf
                     @method('DELETE')
                     <button type="submit"
@@ -295,10 +283,10 @@
         <script>
             document.addEventListener('DOMContentLoaded', function () {
                 // DOM Elements
-                const searchInput = document.getElementById('searchmajor');
+                const searchInput = document.getElementById('searcheducationalstaff');
                 const clearSearchBtn = document.getElementById('clearSearch');
-                const majorFilter = document.getElementById('majorFilter');
-                const tableBody = document.getElementById('majorTableBody');
+                const educationalstaffFilter = document.getElementById('educationalstaffFilter');
+                const tableBody = document.getElementById('educationalstaffTableBody');
                 const noResultsMessage = document.getElementById('noResultsMessage');
                 const visibleCountSpan = document.getElementById('visibleCount');
                 const selectAllCheckbox = document.getElementById('selectAll');
@@ -309,20 +297,13 @@
                 const deleteForm = document.getElementById('deleteForm');
                 const deleteItemName = document.getElementById('deleteItemName');
                 const cancelDeleteBtn = document.getElementById('cancelDelete');
-                const createMajorModal = document.getElementById('createMajorModal');
-                const createMajorForm = document.getElementById('createMajorForm');
-                const cancelCreateBtn = document.getElementById('cancelBtn');
-                const submitCreateBtn = document.getElementById('submitBtn');
-                const majorNameInput = document.getElementById('major_name');
-                const majorNameError = document.getElementById('major_name_error');
 
                 let currentDeleteId = null;
-                let isLoading = false; // Tambahkan ini
 
                 // Search functionality
                 function performSearch() {
                     const searchTerm = searchInput.value.toLowerCase().trim();
-                    const selectedmajor = majorFilter.value.toLowerCase();
+                    const selectededucationalstaff = educationalstaffFilter.value.toLowerCase();
                     const rows = tableBody.querySelectorAll('tr');
                     let visibleCount = 0;
 
@@ -330,12 +311,12 @@
                         if (row.children.length === 1) return; // Skip empty state row
 
                         const text = row.textContent.toLowerCase();
-                        const major = row.dataset.major?.toLowerCase() || '';
+                        const educationalstaff = row.dataset.educationalstaff?.toLowerCase() || '';
 
                         const matchesSearch = searchTerm === '' || text.includes(searchTerm);
-                        const matchesmajor = selectedmajor === '' || major.includes(selectedmajor);
+                        const matcheseducationalstaff = selectededucationalstaff === '' || educationalstaff.includes(selectededucationalstaff);
 
-                        if (matchesSearch && matchesmajor) {
+                        if (matchesSearch && matcheseducationalstaff) {
                             row.style.display = '';
                             visibleCount++;
                         } else {
@@ -357,7 +338,7 @@
 
                 // Event listeners for search and filter
                 searchInput.addEventListener('input', performSearch);
-                majorFilter.addEventListener('change', performSearch);
+                educationalstaffFilter.addEventListener('change', performSearch);
 
                 clearSearchBtn.addEventListener('click', function () {
                     searchInput.value = '';
@@ -411,7 +392,7 @@
 
                         currentDeleteId = id;
                         deleteItemName.textContent = name;
-                        deleteForm.action = `/major/${id}`;
+                        deleteForm.action = ``.replace(':id', id);
                         deleteModal.classList.remove('hidden');
                         deleteModal.classList.add('flex');
                     }
@@ -436,7 +417,7 @@
                     const checkedBoxes = document.querySelectorAll('.row-checkbox:checked');
                     const names = Array.from(checkedBoxes).map(cb => cb.dataset.name);
 
-                    if (confirm(`Are you sure you want to delete ${checkedBoxes.length} major(s)?\n\n${names.join('\n')}\n\nThis action cannot be undone.`)) {
+                    if (confirm(`Are you sure you want to delete ${checkedBoxes.length} educationalstaff(s)?\n\n${names.join('\n')}\n\nThis action cannot be undone.`)) {
                         const ids = Array.from(checkedBoxes).map(cb => cb.value);
 
                         // Create and submit bulk delete form
@@ -523,7 +504,7 @@
 
                 // Sort event listeners
                 document.getElementById('sortByName')?.addEventListener('click', () => sortTable('Name', 2));
-                document.getElementById('sortBymajor')?.addEventListener('click', () => sortTable('major', 4));
+                document.getElementById('sortByeducationalstaff')?.addEventListener('click', () => sortTable('educationalstaff', 4));
 
                 // Initialize
                 updateBulkActions();
@@ -587,12 +568,12 @@
                         if (submitBtn) {
                             submitBtn.disabled = true;
                             submitBtn.innerHTML = `
-                                                        <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                                                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                                                        </svg>
-                                                        Processing...
-                                                    `;
+                                        <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                        </svg>
+                                        Processing...
+                                    `;
                         }
                     });
                 });
@@ -731,7 +712,7 @@
             }
 
             /* Search input enhancements */
-            #searchmajor:focus {
+            #searcheducationalstaff:focus {
                 box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
                 border-color: #3b82f6;
             }

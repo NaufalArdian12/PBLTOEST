@@ -1,7 +1,7 @@
 @extends('layouts.admin.admin')
 
-@section('title', 'Tambah Program Studi')
-@section('header', 'Tambah Program Studi')
+@section('title', 'Create Study Program')
+@section('header', 'Create Study Program')
 
 @section('content')
     <div class="container mx-auto px-4 py-6">

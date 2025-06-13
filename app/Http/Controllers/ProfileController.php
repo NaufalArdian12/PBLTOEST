@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rules\Password;
+use App\Models\StudyProgramModels;
+use App\Models\StudentModels;
 
 class ProfileController extends Controller
 {
@@ -13,12 +15,12 @@ class ProfileController extends Controller
     // Menampilkan halaman profile berdasahrkan role user
     public function index()
     {
-        $user = auth()->user();
+        $studyPrograms = StudyProgramModels::all();
         // Cek apakah user adalah admin
         if (auth()->user()->role->name === 'Admin') {
             return view('admin.profile');
-        } else{
-            return view('mahasiswa.profile');
+        } else {
+            return view('mahasiswa.profile', compact('studyPrograms'));
         }
     }
     // Menampilkan form edit profile
@@ -28,59 +30,75 @@ class ProfileController extends Controller
         return view('profile.edit', compact('user'));
     }
 
-    // Mengupdate data profile
+
     public function update(Request $request)
     {
         $user = auth()->user();
 
-        // Validasi untuk data user
         $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
             'NIM' => 'nullable|string|max:20',
-            'pas_photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'scan_ktp' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'scan_ktm' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'current_address' => 'nullable|string|max:255',
+            'origin_address' => 'nullable|string|max:255',
+            'telephone_number' => 'nullable|string|max:20',
+            'study_program_id' => 'nullable|exists:study_programs,id',
+            'pas_photo' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'scan_ktp' => 'nullable|image|mimes:jpeg,png,jpg,pdf|max:2048',
+            'scan_ktm' => 'nullable|image|mimes:jpeg,png,jpg,pdf|max:2048',
+            'current_password' => 'nullable|string',
+            'password' => 'nullable|string|min:8|confirmed',
         ]);
 
-        // Update data user
+        // Update user name
         $user->update([
             'name' => $request->name,
-            'email' => $request->email,
         ]);
 
-        // Update atau create data student
-        if ($user->student) {
-            $studentData = [
-                'NIM' => $request->NIM,
-            ];
-
-            // Handle file uploads
-            if ($request->hasFile('pas_photo')) {
-                $studentData['pas_photo'] = $this->uploadFile($request->file('pas_photo'), 'pas_photos');
+        // Update password jika current_password diisi
+        if ($request->filled('current_password')) {
+            if (!Hash::check($request->current_password, $user->password)) {
+                return back()->withErrors(['current_password' => 'Password saat ini salah'])->withInput();
             }
 
-            if ($request->hasFile('scan_ktp')) {
-                $studentData['scan_ktp'] = $this->uploadFile($request->file('scan_ktp'), 'ktp_scans');
+            if ($request->filled('password')) {
+                $user->update([
+                    'password' => bcrypt($request->password)
+                ]);
             }
-
-            if ($request->hasFile('scan_ktm')) {
-                $studentData['scan_ktm'] = $this->uploadFile($request->file('scan_ktm'), 'ktm_scans');
-            }
-
-            $user->student()->update($studentData);
-        } else {
-            // Jika student belum ada, buat baru
-            $user->student()->create([
-                'NIM' => $request->NIM,
-                'pas_photo' => $request->hasFile('pas_photo') ? $this->uploadFile($request->file('pas_photo'), 'pas_photos') : null,
-                'scan_ktp' => $request->hasFile('scan_ktp') ? $this->uploadFile($request->file('scan_ktp'), 'ktp_scans') : null,
-                'scan_ktm' => $request->hasFile('scan_ktm') ? $this->uploadFile($request->file('scan_ktm'), 'ktm_scans') : null,
-            ]);
         }
 
-        return redirect()->route('profile.edit')->with('success', 'Profile updated successfully!');
+        // Update atau create student data
+        $studentsData = [
+            'NIM' => $request->NIM,
+            'current_address' => $request->current_address,
+            'origin_address' => $request->origin_address,
+            'telephone_number' => $request->telephone_number,
+            'study_program_id' => $request->study_program_id,
+        ];
+
+        // File uploads
+        if ($request->hasFile('pas_photo')) {
+            $studentsData['pas_photo'] = $request->file('pas_photo')->store('photos');
+        }
+
+        if ($request->hasFile('scan_ktp')) {
+            $studentsData['scan_ktp'] = $request->file('scan_ktp')->store('scans');
+        }
+
+        if ($request->hasFile('scan_ktm')) {
+            $studentsData['scan_ktm'] = $request->file('scan_ktm')->store('scans');
+        }
+
+        if ($user->students) {
+            $user->students()->update($studentsData);
+        } else {
+            $user->students()->create($studentsData);
+        }
+
+        return redirect()->route('profile')->with('success', 'Profil berhasil diperbarui');
     }
+
+
 
     // Mengupdate password
     public function updatePassword(Request $request)

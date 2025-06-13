@@ -19,6 +19,7 @@ class AdminModels extends Model
     public $timestamps = true;
 
     protected $fillable = [
+        'user_id',
     ];
 
     // Relationships

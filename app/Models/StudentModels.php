@@ -22,13 +22,12 @@ class StudentModels extends Model
         'NIM',
         'NIK',
         'study_program_id',
-        'major_id',
         'scan_ktp',
         'scan_ktm',
         'pas_photo',
         'current_address',
         'origin_address',
-        'phone_number',
+        'telephone_number',
     ];
 
     // Relationships
