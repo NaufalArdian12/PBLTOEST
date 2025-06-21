@@ -433,7 +433,7 @@
         // Function to export data
         function exportData() {
             // Redirect to the export route
-            window.location.href = '/registration/export';
+            window.location.href = '/registration/export_excelw';
         }
         // Function to refresh data
         function refreshData() {

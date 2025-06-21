@@ -29,8 +29,8 @@ class DashboardController extends Controller
                 'mahasiswaMendaftar',
                 'mahasiswaBelumAcc',
                 'registrations',
-                'admin'
-            ));
+                'admin' 
+            ))->with('success', 'Login successful!');
         } else {
             // Ambil TOEIC test beserta jumlah pendaftar
             $toeicTests = ToeicTestModels::withCount('registrations')->get();
@@ -43,7 +43,7 @@ class DashboardController extends Controller
                 $registeredTestId = $registration?->toeic_test_id;
             }
 
-            return view('mahasiswa.dashboard', compact('toeicTests', 'registeredTestId'));
+            return view('mahasiswa.dashboard', compact('toeicTests', 'registeredTestId'))->with('success', 'Login successful!');
         }
     }
 
