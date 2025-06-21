@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Models\StudentModels;
 use App\Models\UserModels;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -9,6 +10,7 @@ use Illuminate\Auth\Events\Registered;
 use App\Http\Requests\SignUpRequest;
 use App\Http\Requests\SignInRequest;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
@@ -39,33 +41,41 @@ class AuthController extends Controller
     }
 
 
-    // Proses login
     public function login(SignInRequest $request)
     {
-        // Data sudah tervalidasi pada saat request diterima
-        $credentials = $request->only('email', 'password');
+        // Ambil data input
+        $identity = $request->input('NIM'); // bisa berisi NIM atau email
+        $password = $request->input('password');
 
-        if (Auth::attempt($credentials)) {
-            // Cek peran pengguna setelah login
-            $user = Auth::user();
+        $user = null;
 
-            // Jika peran pengguna adalah admin
-            if ($user->role === 'admin') {
-                return redirect()->route('dashboard'); // Ganti dengan rute dashboard admin
-            }
+        if (filter_var($identity, FILTER_VALIDATE_EMAIL)) {
+            // Login via email
+            $user = UserModels::where('email', $identity)->first();
+        } else {
+            // Login via NIM → ambil student lalu user-nya
+            $student = StudentModels::where('NIM', $identity)->first();
+            $user = $student?->user; // null safe
+        }
 
-            // Jika peran pengguna adalah mahasiswa
-            if ($user->role === 'student') {
-                return redirect()->route('dashboard'); // Ganti dengan rute dashboard mahasiswa
-            }
+        // Cek apakah user ada dan password cocok
+        if ($user && Hash::check($password, $user->password)) {
+            Auth::login($user);
 
-            // Jika tidak ada peran yang cocok, arahkan ke dashboard default (misalnya)
-            return redirect()->route('dashboard');
+            // Cek role user dan redirect sesuai peran
+            return match ($user->role) {
+                'admin' => redirect()->route('dashboard'), // admin
+                'student' => redirect()->route('dashboard'), // mahasiswa
+                default => redirect()->route('dashboard'), // fallback
+            };
         }
 
         // Jika login gagal
-        return back()->withErrors(['email' => 'Email atau password salah.']);
+        return back()->withErrors([
+            'NIM' => 'NIM/email atau password salah.',
+        ])->withInput();
     }
+
 
 
     public function resend(Request $request)
@@ -73,7 +83,7 @@ class AuthController extends Controller
         if ($request->user()->hasVerifiedEmail()) {
             if (Auth::user()->role === 'Admin') {
                 return view('admin.dashboard.index');
-            }elseif (Auth::user()->role === 'Student') {
+            } elseif (Auth::user()->role === 'Student') {
                 return view('mahasiswa.dashboard');
             }
         }

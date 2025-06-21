@@ -7,11 +7,9 @@ use App\Models\UserModels;
 use App\Models\MajorModels;
 use App\Models\StudyProgramModels;
 use Illuminate\Http\Request;
-use App\Http\Requests\UpdateStudentRequest;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreStudentRequest;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
 
@@ -143,7 +141,6 @@ class StudentController extends Controller
     public function store(StoreStudentRequest $request)
     {
         try {
-
             $request->validated();
             // Simpan file dan ambil path-nya
             $scan_ktp_path = $request->file('scan_ktp')->store('private/scans');
@@ -157,7 +154,6 @@ class StudentController extends Controller
                 'password' => bcrypt($request->password),
                 'role' => 'Student',
             ]);
-
             // Buat data mahasiswa terkait dan simpan path file
             $student = StudentModels::create([
                 'user_id' => $user->id,
@@ -171,7 +167,6 @@ class StudentController extends Controller
                 'origin_address' => $request->origin_address,
                 'telephone_number' => $request->telephone_number,
             ]);
-
             // Redirect setelah data berhasil disimpan
             return redirect()->route('student.index')->with('success', 'Data mahasiswa berhasil ditambahkan');
         } catch (\Exception $e) {
@@ -245,8 +240,6 @@ class StudentController extends Controller
         }
     }
 
-
-
     public function delete_ajax(Request $request, $id)
     {
         if ($request->ajax() || $request->wantsJson()) {
@@ -282,6 +275,4 @@ class StudentController extends Controller
 
         abort(404);
     }
-
-
 }

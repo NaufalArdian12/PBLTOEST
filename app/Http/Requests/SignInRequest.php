@@ -14,19 +14,18 @@ class SignInRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => 'required|email|exists:users,email', // Validasi email, harus ada dalam tabel 'users'
-            'password' => 'required|min:6', // Validasi password
+            'NIM' => 'required|string',       // Boleh NIM atau email, jadi cukup string saja
+            'password' => 'required|min:8',   // Validasi password tetap
         ];
     }
 
     public function messages()
     {
         return [
-            'email.required' => 'Email harus diisi.',
-            'email.email' => 'Email tidak valid.',
-            'email.exists' => 'Email tidak ditemukan.',
+            'NIM.required' => 'NIM atau Email harus diisi.',
             'password.required' => 'Password harus diisi.',
-            'password.min' => 'Password minimal 6 karakter.',
+            'password.min' => 'Password minimal 8 karakter.',
         ];
     }
+
 }
