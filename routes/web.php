@@ -18,6 +18,8 @@ use App\Http\Controllers\Admin\ToeicTestController;
 use App\Http\Controllers\Mahasiswa\RegistrationController;
 use App\Http\Controllers\Mahasiswa\EnrollmentController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PasswordResetController;
+
 
 // Public Routes
 Route::get('/', fn() => view('welcome'))->name('home');
@@ -32,6 +34,11 @@ Route::get('/email/verify/{id}/{hash}', [VerificationController::class, 'verify'
 Route::post('/email/resend', [VerificationController::class, 'resend'])->name('verification.resend');
 Route::get('/auth/redirect', [SocialiteController::class, 'redirect'])->name('auth.redirect');
 Route::get('/auth/google/callback', [SocialiteController::class, 'callback']);
+Route::get('/forgot-password', [PasswordResetController::class, 'showForgotForm'])->name('password.request');
+Route::post('/forgot-password', [PasswordResetController::class, 'sendResetLink'])->name('password.email');
+Route::get('/reset-password/{token}', [PasswordResetController::class, 'showResetForm'])->name('password.reset');
+Route::post('/reset-password', [PasswordResetController::class, 'resetPassword'])->name('password.update');
+
 
 // Admin Role Routes (no prefix)
 Route::middleware(['auth', 'verified', 'role:Admin'])->group(function () {
@@ -111,6 +118,7 @@ Route::middleware(['auth', 'verified', 'role:Admin'])->group(function () {
     Route::get('/registration/create', [RegistrationApprovalController::class, 'create'])->name('registration.create');
     Route::post('/registration/store', [RegistrationApprovalController::class, 'store'])->name('registration.store');
     Route::delete('/registration/{id}/', [RegistrationApprovalController::class, 'destroy'])->name('registration.delete');
+    Route::get('/registration/export_excel', [RegistrationApprovalController::class, 'export_excel'])->name('registration.export_excel');
 
 });
 

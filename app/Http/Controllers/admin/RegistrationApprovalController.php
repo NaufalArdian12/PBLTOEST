@@ -12,6 +12,8 @@ use Illuminate\Database\QueryException;
 use App\Mail\RegistrationApprovedMail;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Auth;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\IOFactory;
 
 
 class RegistrationApprovalController extends Controller
@@ -106,6 +108,62 @@ class RegistrationApprovalController extends Controller
 
         return redirect()->route('dashboard')->with('success', 'Registration deleted successfully.');
     }
+
+
+    public function export_excel()
+    {
+        $data = RegistrationModels::with(['student', 'toeicTest'])
+            ->where('status', 'active') // hanya ambil yang status-nya "approve"
+            ->orderBy('registration_date', 'desc')
+            ->get();
+
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+
+        // Header
+        $sheet->setCellValue('A1', 'No');
+        $sheet->setCellValue('B1', 'NIM');
+        $sheet->setCellValue('C1', 'Name');
+        $sheet->setCellValue('D1', 'Test Date');
+        $sheet->setCellValue('E1', 'Register Date');
+        $sheet->setCellValue('F1', 'Status');
+
+        $sheet->getStyle('A1:F1')->getFont()->setBold(true);
+
+        // Data
+        $no = 1;
+        $baris = 2;
+        foreach ($data as $value) {
+            $sheet->setCellValue('A' . $baris, $no);
+            $sheet->setCellValue('B' . $baris, $value->student->NIM ?? '-');
+            $sheet->setCellValue('C' . $baris, $value->student->user->name ?? '-');
+            $sheet->setCellValue('D' . $baris, $value->toeicTest->date ?? '-');
+            $sheet->setCellValue('E' . $baris, $value->registration_date);
+            $sheet->setCellValue('F' . $baris, $value->status);
+            $baris++;
+            $no++;
+        }
+
+        foreach (range('A', 'F') as $columnID) {
+            $sheet->getColumnDimension($columnID)->setAutoSize(true);
+        }
+
+        $sheet->setTitle('Data Pendaftaran TOEIC');
+        $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
+        $filename = 'Data_Pendaftaran_TOEIC_' . date('Ymd_His') . '.xlsx';
+
+        // Headers
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header("Content-Disposition: attachment; filename=\"$filename\"");
+        header('Cache-Control: max-age=0');
+        header('Expires: 0');
+        header('Pragma: public');
+
+        $writer->save('php://output');
+        exit;
+    }
+
+    // nah ini ambil dari data studentnya kan dari stundet model berarti bisa yak
     // Method untuk menampilkan form edit pendaftaran
     public function edit($id)
     {
