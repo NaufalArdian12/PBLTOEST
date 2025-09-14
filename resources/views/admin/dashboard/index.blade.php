@@ -143,7 +143,7 @@
                         </div>
                     </div>
 
-                    <!-- Bulk Actions -->
+                    {{-- <!-- Bulk Actions -->
                     <div id="bulkActions" class="hidden px-6 py-3 bg-blue-50 border-b border-blue-200">
                         <div class="flex items-center justify-between">
                             <div class="flex items-center">
@@ -160,7 +160,7 @@
                                 </button>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
 
                     <!-- Enhanced Table -->
                     <div class="overflow-x-auto">
@@ -196,14 +196,14 @@
                                         onclick="sortTable(5)">
                                         Registration Date
                                     </th>
-                                    <th
+                                    {{-- <th
                                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                         Status
                                     </th>
                                     <th
                                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                         Action
-                                    </th>
+                                    </th> --}}
                                 </tr>
                             </thead>
                             <tbody class="bg-white divide-y divide-gray-200" id="tableBody">
@@ -252,7 +252,7 @@
                                                     class="text-xs text-gray-500">{{ $registration->created_at->format('H:i') }}</span>
                                             </div>
                                         </td>
-                                        <td class="px-6 py-4 whitespace-nowrap">
+                                        {{-- <td class="px-6 py-4 whitespace-nowrap">
                                             @if($registration->status == 'active')
                                                 <span
                                                     class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800 border border-green-200">
@@ -286,8 +286,8 @@
                                                     Pending
                                                 </span>
                                             @endif
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                        </td> --}}
+                                        {{-- <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                             <div class="flex items-center gap-2">
                                                 @if($registration->status !== 'active')
                                                     <form action="{{ route('registration.approve', $registration->id) }}"
@@ -337,7 +337,7 @@
                                                     </button>
                                                 </a>
                                             </div>
-                                        </td>
+                                        </td> --}}
                                     </tr>
                                 @empty
                                     <tr id="noDataRow">

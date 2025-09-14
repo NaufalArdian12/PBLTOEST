@@ -134,7 +134,7 @@
                     <div class="flex items-center justify-between mb-8">
                         <div>
                             <h1 class="text-3xl font-bold text-gray-800 mb-2">Available TOEIC Tests</h1>
-                            <p class="text-gray-600">Choose your preferred test schedule</p>
+                            {{-- <p class="text-gray-600">Choose your preferred test schedule</p> --}}
                         </div>
                         <div class="bg-blue-50 rounded-2xl p-4">
                             <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -168,24 +168,7 @@
                                         </div>
                                     </div>
 
-                                    <!-- Participants Info -->
-                                    <div class="flex items-center mb-4 p-3 bg-gray-50 rounded-xl">
-                                        <div class="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center mr-3">
-                                            <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor"
-                                                viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                                            </svg>
-                                        </div>
-                                        <div>
-                                            <span
-                                                class="text-lg font-bold text-gray-800">{{ $test->registrations_count }}</span>
-                                            <span class="text-gray-500">/ {{ $test->max_participants }}</span>
-                                            <div class="text-xs text-gray-500">Participants</div>
-                                        </div>
-                                    </div>
-
-                                    <!-- Date Info -->
+                                    {{-- <!-- Date Info -->
                                     <div class="flex items-center mb-6 p-3 bg-purple-50 rounded-xl">
                                         <div class="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center mr-3">
                                             <svg class="w-4 h-4 text-purple-600" fill="none" stroke="currentColor"
@@ -200,7 +183,7 @@
                                             </div>
                                             <div class="text-xs text-gray-500">Test Date</div>
                                         </div>
-                                    </div>
+                                    </div> --}}
 
                                     <!-- Tags -->
                                     <div class="flex flex-wrap gap-2">
@@ -249,7 +232,12 @@
                                                 </svg>
                                                 <span>Registered</span>
                                             </div>
-
+                                            <div
+                                                class="bg-white text-black px-4 py-2 rounded-full flex items-center justify-center w-full">
+                                                <a href="https://itc-indonesia.com/biaya-tes-2/" target="_blank">
+                                                <span>Paid Test</span>
+                                                </a>
+                                            </div>
                                             {{-- Zoom Link --}}
                                             @if ($test->zoom_link)
                                                 <a href="{{ $test->zoom_link }}" target="_blank"
@@ -278,7 +266,6 @@
                                             </button>
                                         </div>
                                     @endif
-
                                 </div>
                             </div>
                         @endforeach
@@ -361,25 +348,8 @@
                                     </svg>
                                 </div>
                                 <div>
-                                    <div class="font-bold text-gray-800">Lorem Task</div>
-                                    <div class="text-red-600 text-sm font-medium">Overdue: Sunday, 29-09-2024</div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div
-                            class="bg-gradient-to-r from-yellow-50 to-orange-50 rounded-xl p-4 border-l-4 border-yellow-400">
-                            <div class="flex items-center gap-3">
-                                <div class="w-10 h-10 bg-yellow-100 rounded-full flex items-center justify-center">
-                                    <svg class="w-5 h-5 text-yellow-600" fill="none" stroke="currentColor"
-                                        viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                    </svg>
-                                </div>
-                                <div>
-                                    <div class="font-bold text-gray-800">Ipsum Task</div>
-                                    <div class="text-yellow-600 text-sm font-medium">Due: Sunday, 30-09-2024</div>
+                                    <div class="font-bold text-gray-800">Toeic Test</div>
+                                    <div class="text-red-600 text-sm font-medium">Overdue: Sunday, 29-09-2025</div>
                                 </div>
                             </div>
                         </div>

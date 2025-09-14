@@ -179,7 +179,7 @@
                         expand their employment opportunities.
                     </p>
 
-                    <div class="flex flex-col-reverse sm:flex-row gap-3 w-full sm:w-auto" data-stagger-child>
+                    {{-- <div class="flex flex-col-reverse sm:flex-row gap-3 w-full sm:w-auto" data-stagger-child>
                         <a href="#"
                             class="px-4 sm:px-6 py-2 sm:py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-center transform hover:scale-105 transition-transform text-sm sm:text-base">
                             Have Certificate?
@@ -188,7 +188,7 @@
                             class="px-4 sm:px-6 py-2 sm:py-3 border border-blue-600 text-blue-600 rounded-lg hover:bg-blue-50 text-center transform hover:scale-105 transition-transform text-sm sm:text-base">
                             Need Certificate?
                         </a>
-                    </div>
+                    </div> --}}
                 </div>
 
                 <!-- Right image with slide-in effect -->
@@ -290,7 +290,7 @@
         <section class="w-full mx-auto bg-blue-600 py-8 sm:py-12 rounded-2xl bg-gradient-to-b from-blue-800 via-blue-700 to-blue-600 via-30% from-10% animate-fade-in">
             <div class="container mx-auto px-4 sm:px-6">
                 <h2 class="text-xl sm:text-2xl md:text-3xl font-bold text-center text-white">Take a Look At Our Customer Interest 🤩</h2>
-                <p class="text-sm sm:text-base text-center text-white mb-6 sm:mb-8 mt-2">Your comments help us provide even better service 🛠️</p>
+                <p class="text-sm sm:text-base text-center text-white mb-6 sm:mb-8 mt-2">Your comments help us provide even better service 🛠</p>
 
                 <div class="flex flex-col md:flex-row justify-center items-center gap-4 sm:gap-6 mx-4 sm:mx-8 testimonial-cards" data-stagger data-stagger-delay="200">
                     <div class="w-full md:w-1/3 bg-white p-4 sm:p-6 rounded-lg shadow-md hover:shadow-lg transition-transform transform hover:-translate-y-2 animate-fade-in testimonial-card" data-stagger-child>
@@ -332,7 +332,7 @@
         <section class="py-8 sm:py-12 animate-fade-in" data-stagger data-stagger-delay="100">
             <div class="container mx-auto px-4 sm:px-6">
                 <h2 class="text-xl sm:text-2xl md:text-3xl font-bold text-center mb-4">
-                    Frequently Asked Questions 🤷🏻‍♂️
+                    Frequently Asked Questions 🤷🏻‍♂
                 </h2>
                 <p class="text-center text-xs sm:text-sm pb-6 sm:pb-8 md:pb-12 text-gray-500">
                     Got questions? Check out the FAQs below for quick answers<br class="hidden sm:block">
@@ -370,7 +370,7 @@
                         </div>
                     </div>
 
-                    <div class="p-4 sm:p-6 bg-white rounded-lg shadow-md hover:shadow-lg transition-transform transform hover:-translate-y-1 animate-fade-in" data-stagger-child>
+                    {{-- <div class="p-4 sm:p-6 bg-white rounded-lg shadow-md hover:shadow-lg transition-transform transform hover:-translate-y-1 animate-fade-in" data-stagger-child>
                         <div class="flex items-start gap-2 sm:gap-3">
                             <img src="/images/WhatIs.png" alt="Icon" class="h-6 sm:h-8 md:h-10 lg:h-12 flex-shrink-0">
                             <div>
@@ -378,9 +378,9 @@
                                 <p class="text-gray-600 mt-1 sm:mt-2 text-sm sm:text-base">Results are typically available within 5-7 business days after taking the exam.</p>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
 
-                    <div class="p-4 sm:p-6 bg-white rounded-lg shadow-md hover:shadow-lg transition-transform transform hover:-translate-y-1 animate-fade-in" data-stagger-child>
+                    {{-- <div class="p-4 sm:p-6 bg-white rounded-lg shadow-md hover:shadow-lg transition-transform transform hover:-translate-y-1 animate-fade-in" data-stagger-child>
                         <div class="flex items-start gap-2 sm:gap-3">
                             <img src="/images/WhatIs.png" alt="Icon" class="h-6 sm:h-8 md:h-10 lg:h-12 flex-shrink-0">
                             <div>
@@ -388,9 +388,9 @@
                                 <p class="text-gray-600 mt-1 sm:mt-2 text-sm sm:text-base">TOEIC certificates are valid for two years from the date of issue.</p>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
 
-                    <div class="p-4 sm:p-6 bg-white rounded-lg shadow-md hover:shadow-lg transition-transform transform hover:-translate-y-1 animate-fade-in" data-stagger-child>
+                    {{-- <div class="p-4 sm:p-6 bg-white rounded-lg shadow-md hover:shadow-lg transition-transform transform hover:-translate-y-1 animate-fade-in" data-stagger-child>
                         <div class="flex items-start gap-2 sm:gap-3">
                             <img src="/images/WhatIs.png" alt="Icon" class="h-6 sm:h-8 md:h-10 lg:h-12 flex-shrink-0">
                             <div>
@@ -398,7 +398,7 @@
                                 <p class="text-gray-600 mt-1 sm:mt-2 text-sm sm:text-base">Yes, you can retake the exam as many times as you need. There's no limit on attempts.</p>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </section>

@@ -40,7 +40,6 @@ class AuthController extends Controller
         return view('auth.login');
     }
 
-
     public function login(SignInRequest $request)
     {
         // Ambil data input
@@ -75,8 +74,6 @@ class AuthController extends Controller
             'NIM' => 'NIM/email atau password salah.',
         ])->withInput();
     }
-
-
 
     public function resend(Request $request)
     {

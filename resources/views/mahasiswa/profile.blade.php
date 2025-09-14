@@ -225,24 +225,23 @@
                                 @enderror
                             </div>
 
-
                             <!-- Profile Picture -->
                             <div class="md:col-span-2">
                                 <label for="pas_photo" class="block text-sm font-medium text-gray-700 mb-2">Pas
                                     Photo</label>
                                 <div class="flex items-center space-x-4">
-                                    <input type="file" id="pas_photo" name="pas_photo" accept="image/*"
+                                    <input type="file" id="pas_photo" name="pas_photo" accept="image/*" 
                                         class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 transition-colors duration-200">
                                 </div>
                                 <p class="text-xs text-gray-500 mt-1">Maximum file size: 2MB. Supported formats: JPG, PNG,
                                     GIF</p>
                                 @if(auth()->user()->students && auth()->user()->students->pas_photo)
                                     <p class="text-sm text-gray-600 mt-1">
-                                        File saat ini: <span class="font-medium">Sudah diunggah</span>
+                                        Get this file: <span class="font-medium">Uploaded</span>
                                     </p>
                                     <a href="{{ route('student.showPasPhoto', auth()->user()->students->id) }}" target="_blank"
                                         class="text-blue-500 underline text-sm">
-                                        Lihat file
+                                        See File
                                     </a>
                                 @endif
                                 @error('pas_photo')
@@ -261,11 +260,11 @@
                                     GIF</p>
                                 @if(auth()->user()->students && auth()->user()->students->scan_ktp)
                                     <p class="text-sm text-gray-600 mt-1">
-                                        File saat ini: <span class="font-medium">Sudah diunggah</span>
+                                        Get this file: <span class="font-medium">Uploaded</span>
                                     </p>
                                     <a href="{{ route('student.showKtp', auth()->user()->students->id) }}" target="_blank"
                                         class="text-blue-500 underline text-sm">
-                                        Lihat file
+                                        See FIle
                                     </a>
                                 @endif
                                 @error('scan_ktp')
@@ -284,11 +283,11 @@
                                     GIF</p>
                                 @if(auth()->user()->students && auth()->user()->students->scan_ktm)
                                     <p class="text-sm text-gray-600 mt-1">
-                                        File saat ini: <span class="font-medium">Sudah diunggah</span>
+                                        Get this file: <span class="font-medium">Uploaded</span>
                                     </p>
                                     <a href="{{ route('student.showKtm', auth()->user()->students->id) }}" target="_blank"
                                         class="text-blue-500 underline text-sm">
-                                        Lihat file
+                                        See FIle
                                     </a>
                                 @endif
 
