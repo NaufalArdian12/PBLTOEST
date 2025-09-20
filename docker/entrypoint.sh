@@ -13,7 +13,6 @@
 php artisan route:clear
 php artisan optimize
 php artisan db:table
-cat /var/www/html/.env
 
 # Start supervisor
 exec /usr/bin/supervisord -c /etc/supervisord.conf

@@ -68,7 +68,7 @@ COPY docker/entrypoint.sh /entrypoint.sh
 
 # Set permissions and prepare for SQLite
 RUN chown -R www-data:www-data /var/www/html \
-    && chmod -R 755 storage bootstrap/cache \
+    && chmod -R 777 storage bootstrap/cache \
     && chmod +x /entrypoint.sh
 
 EXPOSE 80
