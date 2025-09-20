@@ -17,14 +17,18 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libpng-dev \
     libjpeg-dev \
     libfreetype6-dev \
+    libpng16-16 \
+    libfreetype-dev \
+	libjpeg62-turbo-dev \
+	libpng-dev \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install -j$(nproc) \
+    gd \
     pdo_pgsql \
     pgsql \
     opcache \
     intl \
     zip \
-    gd \
     bcmath \
     soap \
     && apt-get autoremove -y && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
