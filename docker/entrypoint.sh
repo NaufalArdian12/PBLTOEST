@@ -7,6 +7,12 @@
 #    chown www-data:www-data /var/www/html/database/database.sqlite
 #fi
 
+if[ ! -f /var/www/html/storage/logs/laravel.log ]; then
+    touch /var/www/html/storage/logs/laravel.log
+    chmod 777 /var/www/html/storage/logs/laravel.log
+    chown www-data:www-data /var/www/html/storage/logs/laravel.log
+fi
+
 # Run migrations
 # php artisan migrate --force
 

@@ -66,11 +66,8 @@ COPY docker/nginx.conf /etc/nginx/nginx.conf
 COPY docker/supervisord.conf /etc/supervisord.conf
 COPY docker/entrypoint.sh /entrypoint.sh
 
-
-# Set permissions and prepare for SQLite
+# Set permissions and prepare for storage
 RUN chown -R www-data:www-data /var/www/html \
-    && chmod -R 775 ./storage ./bootstrap/cache  \
-    && touch /var/www/html/storage/logs/laravel.log \
     && chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache \
     && chmod +x /entrypoint.sh
 
