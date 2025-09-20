@@ -12,7 +12,6 @@
 
 php artisan route:clear
 php artisan optimize
-php artisan db:table
 
 # Start supervisor
 exec /usr/bin/supervisord -c /etc/supervisord.conf
