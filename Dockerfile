@@ -4,25 +4,35 @@ FROM php:8.4-fpm-alpine
 RUN apk add --no-cache nginx supervisor nodejs npm
 
 # Install PHP extensions
-RUN apk update && apk add --no-cache \
+RUN set -eux; \
+  apk update; \
+  # runtime libs & tools
+  apk add --no-cache \
     curl \
     unzip \
-    libpq-dev \
-    libonig-dev \
-    libssl-dev \
-    libxml2-dev \
-    libcurl4-openssl-dev \
-    libicu-dev \
+    icu-libs \
+    libzip \
+    libpng \
+    libjpeg-turbo \
+    freetype \
+    postgresql-libs; \
+  apk add --no-cache --virtual .build-deps \
+    $PHPIZE_DEPS \
+    icu-dev \
     libzip-dev \
     libpng-dev \
-    libjpeg-dev \
-    libfreetype6-dev \
-    libpng16-16 \
-    libfreetype-dev \
-	libjpeg62-turbo-dev \
-	libpng-dev \
-    && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install -j$(nproc) \
+    libjpeg-turbo-dev \
+    freetype-dev \
+    postgresql-dev \
+    libxml2-dev \
+    zlib-dev \
+    oniguruma \
+    oniguruma-dev \
+    curl-dev; \
+  docker-php-ext-configure gd --with-freetype --with-jpeg; \
+  docker-php-ext-install -j"$(nproc)" \
+    mbstring \
+    curl \
     gd \
     pdo_pgsql \
     pgsql \
@@ -30,7 +40,8 @@ RUN apk update && apk add --no-cache \
     intl \
     zip \
     bcmath \
-    soap
+    soap; \
+  apk del .build-deps
 
 
 # Install composer
