@@ -4,7 +4,35 @@ FROM php:8.4-fpm-alpine
 RUN apk add --no-cache nginx supervisor nodejs npm
 
 # Install PHP extensions
-RUN docker-php-ext-install pdo pdo_pgsql pgsql intl zip gd bcmath soap opcache
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    curl \
+    unzip \
+    libpq-dev \
+    libonig-dev \
+    libssl-dev \
+    libxml2-dev \
+    libcurl4-openssl-dev \
+    libicu-dev \
+    libzip-dev \
+    libpng-dev \
+    libjpeg-dev \
+    libfreetype6-dev \
+    libpng16-16 \
+    libfreetype-dev \
+	libjpeg62-turbo-dev \
+	libpng-dev \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install -j$(nproc) \
+    gd \
+    pdo_pgsql \
+    pgsql \
+    opcache \
+    intl \
+    zip \
+    bcmath \
+    soap \
+    && apt-get autoremove -y && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
 
 # Install composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
@@ -35,4 +63,4 @@ RUN chown -R www-data:www-data /var/www/html \
 
 EXPOSE 80
 
-CMD ["/start.sh"]
+CMD ["/entrypoint.sh"]
