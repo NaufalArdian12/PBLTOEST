@@ -66,9 +66,10 @@ COPY docker/nginx.conf /etc/nginx/nginx.conf
 COPY docker/supervisord.conf /etc/supervisord.conf
 COPY docker/entrypoint.sh /entrypoint.sh
 
+
 # Set permissions and prepare for SQLite
 RUN chown -R www-data:www-data /var/www/html \
-    && chmod -R 777 storage bootstrap/cache \
+    && chmod -R 775 ./storage ./bootstrap/cache  \
     && chmod +x /entrypoint.sh
 
 EXPOSE 80
