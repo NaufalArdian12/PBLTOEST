@@ -4,7 +4,7 @@ FROM php:8.4-fpm-alpine
 RUN apk add --no-cache nginx supervisor nodejs npm
 
 # Install PHP extensions
-RUN apk update && apk add -y --no-install-recommends \
+RUN apk update && apk add --no-cache \
     curl \
     unzip \
     libpq-dev \
