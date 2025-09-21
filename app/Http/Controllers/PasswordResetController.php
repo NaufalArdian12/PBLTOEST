@@ -1,7 +1,7 @@
 <?php
-namespace app\Http\Controllers;
+namespace App\Http\Controllers;
 
-use app\Models\UserModels;
+use App\Models\UserModels;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;

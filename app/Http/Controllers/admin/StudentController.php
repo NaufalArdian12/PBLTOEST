@@ -1,14 +1,14 @@
 <?php
 
-namespace app\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin;
 
-use app\Models\StudentModels;
-use app\Models\UserModels;
-use app\Models\MajorModels;
-use app\Models\StudyProgramModels;
+use App\Models\StudentModels;
+use App\Models\UserModels;
+use App\Models\MajorModels;
+use App\Models\StudyProgramModels;
 use Illuminate\Http\Request;
-use app\Http\Controllers\Controller;
-use app\Http\Requests\StoreStudentRequest;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreStudentRequest;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 

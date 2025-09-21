@@ -1,10 +1,10 @@
 <?php
 
-namespace app\Models;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use app\Models\StudyProgramModels;
+use App\Models\StudyProgramModels;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class MajorModels extends Model

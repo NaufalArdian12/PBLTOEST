@@ -1,13 +1,13 @@
 <?php
-namespace app\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin;
 
-use app\Models\MajorModels;
-use app\Models\StudyProgramModels;
-use app\Http\Requests\StoreMajorRequest;
-use app\Http\Requests\UpdateMajorRequest;
+use App\Models\MajorModels;
+use App\Models\StudyProgramModels;
+use App\Http\Requests\StoreMajorRequest;
+use App\Http\Requests\UpdateMajorRequest;
 use Illuminate\Http\Request;
-use app\Http\Controllers\Controller;
-use app\Models\campusModels;
+use App\Http\Controllers\Controller;
+use App\Models\campusModels;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\DB;
 use Exception;

@@ -1,13 +1,13 @@
 <?php
 
-namespace app\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use app\Models\ToeicTestModels;
-use app\Http\Controllers\Controller;
+use App\Models\ToeicTestModels;
+use App\Http\Controllers\Controller;
 use Yajra\DataTables\Facades\DataTables;
-use app\Http\Requests\StoreToeicTestRequest;
-use app\Http\Requests\UpdateToeicTestRequest;
+use App\Http\Requests\StoreToeicTestRequest;
+use App\Http\Requests\UpdateToeicTestRequest;
 
 class ToeicTestController extends Controller
 {

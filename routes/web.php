@@ -2,23 +2,23 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
-use app\Http\Controllers\Auth\AuthController;
-use app\Http\Controllers\Auth\VerificationController;
-use app\Http\Controllers\Auth\SocialiteController;
-use app\Http\Controllers\Admin\DashboardController;
-use app\Http\Controllers\Mahasiswa\MahasiswaController;
-use app\Http\Controllers\Admin\AdminController;
-use app\Http\Controllers\Admin\CampusController;
-use app\Http\Controllers\Admin\EduStaffController;
-use app\Http\Controllers\Admin\MajorController;
-use app\Http\Controllers\Admin\RegistrationApprovalController;
-use app\Http\Controllers\Admin\StudentController;
-use app\Http\Controllers\Admin\StudyProgramController;
-use app\Http\Controllers\Admin\ToeicTestController;
-use app\Http\Controllers\Mahasiswa\RegistrationController;
-use app\Http\Controllers\Mahasiswa\EnrollmentController;
-use app\Http\Controllers\ProfileController;
-use app\Http\Controllers\PasswordResetController;
+use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Auth\VerificationController;
+use App\Http\Controllers\Auth\SocialiteController;
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Mahasiswa\MahasiswaController;
+use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\CampusController;
+use App\Http\Controllers\Admin\EduStaffController;
+use App\Http\Controllers\Admin\MajorController;
+use App\Http\Controllers\Admin\RegistrationApprovalController;
+use App\Http\Controllers\Admin\StudentController;
+use App\Http\Controllers\Admin\StudyProgramController;
+use App\Http\Controllers\Admin\ToeicTestController;
+use App\Http\Controllers\Mahasiswa\RegistrationController;
+use App\Http\Controllers\Mahasiswa\EnrollmentController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PasswordResetController;
 
 
 // Public Routes

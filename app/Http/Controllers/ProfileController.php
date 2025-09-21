@@ -1,13 +1,13 @@
 <?php
 
-namespace app\Http\Controllers;
+namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rules\Password;
-use app\Models\StudyProgramModels;
-use app\Models\StudentModels;
+use App\Models\StudyProgramModels;
+use App\Models\StudentModels;
 
 class ProfileController extends Controller
 {

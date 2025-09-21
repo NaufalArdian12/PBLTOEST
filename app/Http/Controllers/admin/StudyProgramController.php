@@ -1,15 +1,15 @@
 <?php
 
-namespace app\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin;
 
-use app\Models\CampusModels;
+use App\Models\CampusModels;
 use Illuminate\Http\Request;
-use app\Models\StudyProgramModels;
-use app\Models\MajorModels;
-use app\Http\Controllers\Controller;
+use App\Models\StudyProgramModels;
+use App\Models\MajorModels;
+use App\Http\Controllers\Controller;
 use Yajra\DataTables\Facades\DataTables;
-use app\Http\Requests\StoreStudyProgramRequest;
-use app\Http\Requests\UpdateStudyProgramRequest;
+use App\Http\Requests\StoreStudyProgramRequest;
+use App\Http\Requests\UpdateStudyProgramRequest;
 
 
 class StudyProgramController extends Controller

@@ -1,13 +1,13 @@
 <?php
 
-namespace app\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin;
 
-use app\Models\UserModels;
-use app\Models\EducationalStaffModels;
+use App\Models\UserModels;
+use App\Models\EducationalStaffModels;
 use Illuminate\Http\Request;
-use app\Http\Controllers\Controller;
-use app\Http\Requests\StoreEduStaffRequest;
-use app\Http\Requests\UpdateEduStaffRequest;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreEduStaffRequest;
+use App\Http\Requests\UpdateEduStaffRequest;
 
 class EduStaffController extends Controller
 {

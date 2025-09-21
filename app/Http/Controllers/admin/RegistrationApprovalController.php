@@ -1,15 +1,15 @@
 <?php
-namespace app\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin;
 
-use app\Models\CampusModels;
-use app\Models\Registration;
-use app\Models\RegistrationModels;
-use app\Models\StudentModels;
-use app\Models\ToeicTestModels;
+use App\Models\CampusModels;
+use App\Models\Registration;
+use App\Models\RegistrationModels;
+use App\Models\StudentModels;
+use App\Models\ToeicTestModels;
 use Illuminate\Http\Request;
-use app\Http\Controllers\Controller;
+use App\Http\Controllers\Controller;
 use Illuminate\Database\QueryException;
-use app\Mail\RegistrationApprovedMail;
+use App\Mail\RegistrationApprovedMail;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Auth;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;

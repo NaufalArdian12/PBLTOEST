@@ -1,13 +1,13 @@
 <?php
 
-namespace app\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin;
 
-use app\Models\UserModels;
-use app\Models\AdminModels;
+use App\Models\UserModels;
+use App\Models\AdminModels;
 use Illuminate\Http\Request;
-use app\Http\Controllers\Controller;
-use app\Http\Requests\StoreAdminRequest;
-use app\Http\Requests\UpdateAdminRequest;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreAdminRequest;
+use App\Http\Requests\UpdateAdminRequest;
 use Illuminate\Support\Facades\Hash;
 use Exception;
 

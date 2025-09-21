@@ -1,13 +1,13 @@
 <?php
 
-namespace app\Http\Controllers\Mahasiswa;
+namespace App\Http\Controllers\Mahasiswa;
 
-use app\Http\Controllers\Controller;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use app\Models\StudentModels;
-use app\Models\RegistrationModels;
-use app\Http\Requests\RegistrationRequest;
+use App\Models\StudentModels;
+use App\Models\RegistrationModels;
+use App\Http\Requests\RegistrationRequest;
 
 class RegistrationController extends Controller
 {

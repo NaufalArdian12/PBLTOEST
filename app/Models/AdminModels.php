@@ -1,12 +1,12 @@
 <?php
 
-namespace app\Models;
+namespace App\Models;
 
 use Carbon\Traits\Timestamp;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use app\Models\UserModels;
-use app\Models\ToeicTestModels;
+use App\Models\UserModels;
+use App\Models\ToeicTestModels;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class AdminModels extends Model

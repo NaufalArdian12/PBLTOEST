@@ -1,13 +1,13 @@
 <?php
 
-namespace app\Models;
+namespace App\Models;
 
 use Carbon\Traits\Timestamp;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use app\Models\UserModels;
-use app\Models\StudyProgramModels;
-use app\Models\RegistrationModels;
+use App\Models\UserModels;
+use App\Models\StudyProgramModels;
+use App\Models\RegistrationModels;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class StudentModels extends Model

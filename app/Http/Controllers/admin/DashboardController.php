@@ -1,12 +1,12 @@
 <?php
 
-namespace app\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin;
 
-use app\Models\StudentModels;
-use app\Models\RegistrationModels;
-use app\Http\Controllers\Controller;
+use App\Models\StudentModels;
+use App\Models\RegistrationModels;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use app\Models\ToeicTestModels;
+use App\Models\ToeicTestModels;
 use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller

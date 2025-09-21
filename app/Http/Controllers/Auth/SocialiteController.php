@@ -1,13 +1,13 @@
 <?php
 
-namespace app\Http\Controllers\Auth;
+namespace App\Http\Controllers\Auth;
 
-use app\Http\Controllers\Controller;
-use app\Models\UserModels;
+use App\Http\Controllers\Controller;
+use App\Models\UserModels;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
-use app\Models\StudentModels;
+use App\Models\StudentModels;
 
 class SocialiteController extends Controller
 {

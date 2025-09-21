@@ -1,14 +1,14 @@
 <?php
 
-namespace app\Http\Controllers\Mahasiswa;
+namespace App\Http\Controllers\Mahasiswa;
 
 use Illuminate\Http\Request;
-use app\Models\Student;
-use app\Models\StudentModels;
+use App\Models\Student;
+use App\Models\StudentModels;
 use Illuminate\Support\Facades\Auth;
-use app\Http\Controllers\Controller;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
-use app\Http\Requests\EnrollmentRequest;
+use App\Http\Requests\EnrollmentRequest;
 
 class EnrollmentController extends Controller
 {

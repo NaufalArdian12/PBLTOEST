@@ -1,14 +1,14 @@
 <?php
-namespace app\Http\Controllers\Auth;
+namespace App\Http\Controllers\Auth;
 
-use app\Http\Controllers\Controller;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
-use app\Models\UserModels;
-use app\Models\StudentModels;
-use app\Models\StudyProgramModels;
+use App\Models\UserModels;
+use App\Models\StudentModels;
+use App\Models\StudyProgramModels;
 
 class VerificationController extends Controller
 {

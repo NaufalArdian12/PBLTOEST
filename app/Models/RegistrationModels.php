@@ -1,11 +1,11 @@
 <?php
 
-namespace app\Models;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use app\Models\StudentModels;
-use app\Models\ToeicTestModels;
+use App\Models\StudentModels;
+use App\Models\ToeicTestModels;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class RegistrationModels extends Model
