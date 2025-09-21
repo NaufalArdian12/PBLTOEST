@@ -18,7 +18,6 @@ fi
 
 npm install
 npm run build
-npm run dev
 
 php artisan route:clear
 php artisan optimize
