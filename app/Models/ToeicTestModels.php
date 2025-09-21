@@ -5,10 +5,10 @@ namespace App\Models;
 use Carbon\Traits\Timestamp;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\AdminModels;
-use App\Models\RegistrationModels;
-use App\Models\StudentModels;
-use App\Models\EducationalStaffModels;
+use app\Models\AdminModels;
+use app\Models\RegistrationModels;
+use app\Models\StudentModels;
+use app\Models\EducationalStaffModels;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ToeicTestModels extends Model

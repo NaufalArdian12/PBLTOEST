@@ -1,13 +1,13 @@
 <?php
 namespace App\Http\Controllers\Admin;
 
-use App\Models\MajorModels;
-use App\Models\StudyProgramModels;
-use App\Http\Requests\StoreMajorRequest;
-use App\Http\Requests\UpdateMajorRequest;
+use app\Models\MajorModels;
+use app\Models\StudyProgramModels;
+use app\Http\Requests\StoreMajorRequest;
+use app\Http\Requests\UpdateMajorRequest;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Models\campusModels;
+use app\Http\Controllers\Controller;
+use app\Models\campusModels;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\DB;
 use Exception;
@@ -60,7 +60,7 @@ class MajorController extends Controller
     {
         try {
             $major = MajorModels::findOrFail($id);
-            $campus = campusModels::findOrFail($major->campus_id);  
+            $campus = campusModels::findOrFail($major->campus_id);
 
             return view('admin.major.show', compact('major', 'campus'));
         } catch (Exception $e) {

@@ -4,8 +4,8 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use App\Models\EducationalStaffModels;
-use App\Models\StudyProgramModels;
+use app\Models\EducationalStaffModels;
+use app\Models\StudyProgramModels;
 
 class ProgramStudySeeder extends Seeder
 {

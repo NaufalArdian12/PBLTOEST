@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use App\Models\ToeicTestModels;
-use App\Http\Controllers\Controller;
+use app\Models\ToeicTestModels;
+use app\Http\Controllers\Controller;
 use Yajra\DataTables\Facades\DataTables;
-use App\Http\Requests\StoreToeicTestRequest;
-use App\Http\Requests\UpdateToeicTestRequest;
+use app\Http\Requests\StoreToeicTestRequest;
+use app\Http\Requests\UpdateToeicTestRequest;
 
 class ToeicTestController extends Controller
 {

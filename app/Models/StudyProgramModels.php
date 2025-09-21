@@ -5,8 +5,8 @@ namespace App\Models;
 use Carbon\Traits\Timestamp;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\StudentModels;
-use App\Models\MajorModels;
+use app\Models\StudentModels;
+use app\Models\MajorModels;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class StudyProgramModels extends Model

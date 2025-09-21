@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\CampusModels;
+use app\Models\CampusModels;
 use Illuminate\Http\Request;
-use App\Models\StudyProgramModels;
-use App\Models\MajorModels;
-use App\Http\Controllers\Controller;
+use app\Models\StudyProgramModels;
+use app\Models\MajorModels;
+use app\Http\Controllers\Controller;
 use Yajra\DataTables\Facades\DataTables;
-use App\Http\Requests\StoreStudyProgramRequest;
-use App\Http\Requests\UpdateStudyProgramRequest;
+use app\Http\Requests\StoreStudyProgramRequest;
+use app\Http\Requests\UpdateStudyProgramRequest;
 
 
 class StudyProgramController extends Controller

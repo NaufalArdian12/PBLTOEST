@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\Mahasiswa;
 
 use Illuminate\Http\Request;
-use App\Models\Student;
-use App\Models\StudentModels;
+use app\Models\Student;
+use app\Models\StudentModels;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\Controller;
+use app\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
-use App\Http\Requests\EnrollmentRequest;
+use app\Http\Requests\EnrollmentRequest;
 
 class EnrollmentController extends Controller
 {

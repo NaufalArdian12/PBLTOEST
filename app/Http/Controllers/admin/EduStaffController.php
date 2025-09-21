@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\UserModels;
-use App\Models\EducationalStaffModels;
+use app\Models\UserModels;
+use app\Models\EducationalStaffModels;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreEduStaffRequest;
-use App\Http\Requests\UpdateEduStaffRequest;
+use app\Http\Controllers\Controller;
+use app\Http\Requests\StoreEduStaffRequest;
+use app\Http\Requests\UpdateEduStaffRequest;
 
 class EduStaffController extends Controller
 {

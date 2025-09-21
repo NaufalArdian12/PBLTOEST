@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Models\StudentModels;
-use App\Models\UserModels;
+use app\Models\StudentModels;
+use app\Models\UserModels;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Auth\Events\Registered;
-use App\Http\Requests\SignUpRequest;
-use App\Http\Requests\SignInRequest;
-use App\Http\Controllers\Controller;
+use app\Http\Requests\SignUpRequest;
+use app\Http\Requests\SignInRequest;
+use app\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller

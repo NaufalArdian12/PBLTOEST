@@ -6,8 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rules\Password;
-use App\Models\StudyProgramModels;
-use App\Models\StudentModels;
+use app\Models\StudyProgramModels;
+use app\Models\StudentModels;
 
 class ProfileController extends Controller
 {

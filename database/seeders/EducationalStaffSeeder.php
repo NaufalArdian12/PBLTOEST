@@ -4,8 +4,8 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use App\Models\UserModels;
-use App\Models\EducationalStaffModels;
+use app\Models\UserModels;
+use app\Models\EducationalStaffModels;
 use Illuminate\Support\Facades\Hash;
 
 class EducationalStaffSeeder extends Seeder

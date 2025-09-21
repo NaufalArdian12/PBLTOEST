@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\StudentModels;
-use App\Models\RegistrationModels;
-use App\Http\Controllers\Controller;
+use app\Models\StudentModels;
+use app\Models\RegistrationModels;
+use app\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\ToeicTestModels;
+use app\Models\ToeicTestModels;
 use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
@@ -29,7 +29,7 @@ class DashboardController extends Controller
                 'mahasiswaMendaftar',
                 'mahasiswaBelumAcc',
                 'registrations',
-                'admin' 
+                'admin'
             ))->with('success', 'Login successful!');
         } else {
             // Ambil TOEIC test beserta jumlah pendaftar

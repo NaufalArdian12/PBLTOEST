@@ -1,9 +1,9 @@
 <?php
 namespace App\Http\Controllers\Mahasiswa;
 
-use App\Http\Controllers\Controller;
-use App\Models\StudentModels;
-use App\Models\User;  // Import model User
+use app\Http\Controllers\Controller;
+use app\Models\StudentModels;
+use app\Models\User;  // Import model User
 use Illuminate\Http\Request;
 
 class MahasiswaController extends Controller

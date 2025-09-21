@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Mahasiswa;
 
-use App\Http\Controllers\Controller;
+use app\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\StudentModels;
-use App\Models\RegistrationModels;
-use App\Http\Requests\RegistrationRequest;
+use app\Models\StudentModels;
+use app\Models\RegistrationModels;
+use app\Http\Requests\RegistrationRequest;
 
 class RegistrationController extends Controller
 {
@@ -22,7 +22,7 @@ class RegistrationController extends Controller
     /**
      * Simpan data registrasi.
      */
-    public function store(RegistrationRequest $request) 
+    public function store(RegistrationRequest $request)
     {
         // Data sudah tervalidasi pada saat request diterima
         // Ambil mahasiswa berdasarkan user yang login
