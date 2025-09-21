@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace app\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use app\Models\ToeicTestModels;

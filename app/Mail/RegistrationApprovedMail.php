@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Mail;
+namespace app\Mail;
 
 use app\Models\RegistrationModels;
 use Illuminate\Bus\Queueable;

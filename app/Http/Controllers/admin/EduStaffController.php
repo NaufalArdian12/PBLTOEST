@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace app\Http\Controllers\Admin;
 
 use app\Models\UserModels;
 use app\Models\EducationalStaffModels;

@@ -1,5 +1,5 @@
 <?php
-namespace App\Http\Controllers;
+namespace app\Http\Controllers;
 
 use app\Models\UserModels;
 use Illuminate\Support\Facades\DB;
