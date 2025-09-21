@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\Auth\SocialiteController;
-use App\Http\Controllers\Admin\DashboardController;
+use app\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Mahasiswa\MahasiswaController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\CampusController;
