@@ -20,7 +20,7 @@ npm install
 npm run build
 
 php artisan route:clear
-php artisan optimize
+php artisan optimize:clear
 
 # Start supervisor
 exec /usr/bin/supervisord -c /etc/supervisord.conf
