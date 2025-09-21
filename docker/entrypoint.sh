@@ -16,8 +16,8 @@ fi
 # Run migrations
 # php artisan migrate --force
 
-php artisan route:clear
-php artisan optimize
+#php artisan route:clear
+#php artisan optimize
 
 # Start supervisor
 exec /usr/bin/supervisord -c /etc/supervisord.conf
