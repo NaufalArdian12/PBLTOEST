@@ -21,6 +21,7 @@ npm run build
 
 php artisan route:clear
 php artisan optimize:clear
+composer dump-autoload -o
 
 # Start supervisor
 exec /usr/bin/supervisord -c /etc/supervisord.conf
