@@ -1,66 +1,173 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+# PBLTOEST
 
-## About Laravel
+Aplikasi web berbasis Laravel + Blade untuk **TOEST** (nama aplikasi / kepanjangan, deskripsi domain).  
+Ganti deskripsi ini sesuai dengan kebutuhan proyekmu.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## 📂 Struktur Direktori Utama
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+```
+app/  
+bootstrap/  
+config/  
+database/  
+public/  
+resources/  
+routes/  
+storage/  
+tests/  
+.env.example  
+artisan  
+composer.json  
+package.json  
+vite.config.js  
+…  
+```
 
-## Learning Laravel
+- `app/` — berisi kode utama Laravel (Models, Controllers, dll)  
+- `resources/views` — file Blade templates  
+- `public/` — file statis (CSS, JS, gambar)  
+- `routes/` — definisi route aplikasi  
+- `database/migrations` & `database/seeders` — migrasi dan data awal  
+- `tests/` — unit test / feature test  
+- `.env.example` — contoh konfigurasi environment  
+- `vite.config.js`, `package.json` dsb — konfigurasi frontend / build assets
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+---
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## 🛠️ Teknologi & Dependency
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- PHP (versi …)  
+- Laravel (versi …)  
+- Blade template engine  
+- MySQL / PostgreSQL / SQLite (sesuaikan dengan pengaturan)  
+- Node.js & NPM / Yarn (untuk build frontend)  
+- Vite (untuk bundling asset)  
+- (tambahkan library / package tambahan jika ada)
 
-## Laravel Sponsors
+---
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## 🚀 Instalasi & Setup
 
-### Premium Partners
+1. Clone repositori  
+   ```bash
+   git clone https://github.com/NaufalArdian12/PBLTOEST.git
+   cd PBLTOEST
+   ```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+2. Install dependency backend  
+   ```bash
+   composer install
+   ```
 
-## Contributing
+3. Install dependency frontend  
+   ```bash
+   npm install
+   # atau yarn install
+   ```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+4. Copy file environment & konfigurasi  
+   ```bash
+   cp .env.example .env
+   ```
 
-## Code of Conduct
+5. Atur konfigurasi `.env`, terutama:
+   ```
+   APP_NAME=…
+   APP_URL=http://localhost:8000
+   DB_CONNECTION=mysql
+   DB_HOST=127.0.0.1
+   DB_PORT=3306
+   DB_DATABASE=nama_database
+   DB_USERNAME=user
+   DB_PASSWORD=password
+   ```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+6. Generate key aplikasi  
+   ```bash
+   php artisan key:generate
+   ```
 
-## Security Vulnerabilities
+7. Jalankan migrasi & seeder (jika ada)  
+   ```bash
+   php artisan migrate
+   php artisan db:seed
+   ```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+8. Build frontend & jalankan dev server  
+   ```bash
+   npm run dev
+   # atau yarn dev
+   ```
 
-## License
+9. Jalankan aplikasi  
+   ```bash
+   php artisan serve
+   ```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Aplikasi akan bisa diakses di `http://localhost:8000` (atau sesuai APP_URL).
+
+---
+
+## 🎯 Fitur & Modul Utama
+
+| Modul / Fitur | Keterangan |
+|----------------|------------|
+| Autentikasi / Login / Register | Pengguna dapat mendaftar & login |
+| Role / Hak Akses | Beberapa jenis pengguna (admin, user, dsb) dengan akses berbeda |
+| CRUD Data | Menambah, mengubah, menghapus data utama |
+| Validasi Form | Validasi input sebelum disimpan |
+| Upload Gambar / File | Fitur upload file (jika ada) |
+| Tampilan Responsive | Layout yang responsif untuk perangkat mobile / desktop |
+| (Fitur lainnya…) | … |
+
+---
+
+## 🖼️ Screenshot / Preview
+
+> Upload screenshot di folder `docs/` atau `public/img/` lalu refer di sini.
+
+![Tampilan Dashboard](path/to/screenshot-dashboard.png)  
+![Tampilan Form Input](path/to/screenshot-form.png)  
+
+---
+
+## ✅ Testing
+
+Jalankan unit test (jika ada):  
+
+```bash
+php artisan test
+# atau
+vendor/bin/phpunit
+```
+
+---
+
+## ⚠️ Catatan / Pengingat
+
+- Jangan commit file `.env`  
+- Backup database secara berkala  
+- Pastikan `APP_ENV=production`, `APP_DEBUG=false` di server produksi  
+- Atur permission folder `storage/` & `bootstrap/cache`
+
+---
+
+## 📄 Lisensi
+
+MIT License (atau lisensi lain sesuai keputusanmu)
+
+---
+
+## 👥 Kontributor
+
+- Naufal Ardian Ramadhan
+
+---
+
+## 📬 Kontak
+
+- Email: naufal@example.com  
+- GitHub: [NaufalArdian12](https://github.com/NaufalArdian12)
