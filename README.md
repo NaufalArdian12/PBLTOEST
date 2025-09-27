@@ -129,8 +129,8 @@ Aplikasi akan bisa diakses di `http://localhost:8000` (atau sesuai APP_URL).
 
 > Upload screenshot di folder `docs/` atau `public/img/` lalu refer di sini.
 
-![Tampilan Dashboard](path/to/screenshot-dashboard.png)  
-![Tampilan Form Input](path/to/screenshot-form.png)  
+![Tampilan Dashboard](docs/Loginform.png)  
+![Tampilan Form Input](docs/Landingpage.png)  
 
 ---
 
