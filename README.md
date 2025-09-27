@@ -1,11 +1,11 @@
 
 # PBLTOEST
 
-Aplikasi web berbasis Laravel + Blade untuk **TOEST** Web App untuk membantu pendaftaran TOEIC Test Politeknik Negeri Malang.
+A web application built with **Laravel** and **Blade** for the **TOEST Web App**, designed to assist with TOEIC Test registration at Politeknik Negeri Malang.
 
 ---
 
-## 📂 Struktur Direktori Utama
+## 📂 Project Structure
 
 ```
 app/  
@@ -25,146 +25,146 @@ vite.config.js
 …  
 ```
 
-- `app/` — berisi kode utama Laravel (Models, Controllers, dll)  
-- `resources/views` — file Blade templates  
-- `public/` — file statis (CSS, JS, gambar)  
-- `routes/` — definisi route aplikasi  
-- `database/migrations` & `database/seeders` — migrasi dan data awal  
-- `tests/` — unit test / feature test  
-- `.env.example` — contoh konfigurasi environment  
-- `vite.config.js`, `package.json` dsb — konfigurasi frontend / build assets
+- `app/` — contains the main Laravel code (Models, Controllers, etc.)  
+- `resources/views` — Blade template files  
+- `public/` — static files (CSS, JS, images)  
+- `routes/` — application route definitions  
+- `database/migrations` & `database/seeders` — database migrations and seeders  
+- `tests/` — unit/feature tests  
+- `.env.example` — environment configuration example  
+- `vite.config.js`, `package.json` — frontend/build configuration  
 
 ---
 
-## 🛠️ Teknologi & Dependency
+## 🛠️ Technology & Dependencies
 
-- PHP (versi …)  
-- Laravel (versi …)  
+- PHP (version …)  
+- Laravel (version …)  
 - Blade template engine  
-- MySQL / PostgreSQL / SQLite (sesuaikan dengan pengaturan)  
-- Node.js & NPM / Yarn (untuk build frontend)  
-- Vite (untuk bundling asset)  
-- (tambahkan library / package tambahan jika ada)
+- MySQL / PostgreSQL / SQLite (depending on your setup)  
+- Node.js & NPM / Yarn (for frontend build)  
+- Vite (for asset bundling)  
+- (Add any other libraries/packages if applicable)  
 
 ---
 
-## 🚀 Instalasi & Setup
+## 🚀 Installation & Setup
 
-1. Clone repositori  
+1. Clone the repository  
    ```bash
    git clone https://github.com/NaufalArdian12/PBLTOEST.git
    cd PBLTOEST
    ```
 
-2. Install dependency backend  
+2. Install backend dependencies  
    ```bash
    composer install
    ```
 
-3. Install dependency frontend  
+3. Install frontend dependencies  
    ```bash
    npm install
-   # atau yarn install
+   # or yarn install
    ```
 
-4. Copy file environment & konfigurasi  
+4. Copy the environment file & configure it  
    ```bash
    cp .env.example .env
    ```
 
-5. Atur konfigurasi `.env`, terutama:
+5. Update `.env` settings, especially:
    ```
    APP_NAME=…
    APP_URL=http://localhost:8000
    DB_CONNECTION=mysql
    DB_HOST=127.0.0.1
    DB_PORT=3306
-   DB_DATABASE=nama_database
-   DB_USERNAME=user
-   DB_PASSWORD=password
+   DB_DATABASE=your_database
+   DB_USERNAME=your_user
+   DB_PASSWORD=your_password
    ```
 
-6. Generate key aplikasi  
+6. Generate the application key  
    ```bash
    php artisan key:generate
    ```
 
-7. Jalankan migrasi & seeder (jika ada)  
+7. Run migrations & seeders (if any)  
    ```bash
    php artisan migrate
    php artisan db:seed
    ```
 
-8. Build frontend & jalankan dev server  
+8. Build frontend assets & start dev server  
    ```bash
    npm run dev
-   # atau yarn dev
+   # or yarn dev
    ```
 
-9. Jalankan aplikasi  
+9. Start the application  
    ```bash
    php artisan serve
    ```
 
-Aplikasi akan bisa diakses di `http://localhost:8000` (atau sesuai APP_URL).
+The app will be accessible at `http://localhost:8000` (or as defined in APP_URL).
 
 ---
 
-## 🎯 Fitur & Modul Utama
+## 🎯 Features & Modules
 
-| Modul / Fitur | Keterangan |
-|----------------|------------|
-| Autentikasi / Login / Register | Pengguna dapat mendaftar & login |
-| Role / Hak Akses | Beberapa jenis pengguna (admin, user, dsb) dengan akses berbeda |
-| CRUD Data | Menambah, mengubah, menghapus data utama |
-| Validasi Form | Validasi input sebelum disimpan |
-| Upload Gambar / File | Fitur upload file (jika ada) |
-| Tampilan Responsive | Layout yang responsif untuk perangkat mobile / desktop |
-| (Fitur lainnya…) | … |
+| Feature / Module      | Description                                    |
+|------------------------|------------------------------------------------|
+| Authentication         | User registration & login system               |
+| Role-Based Access      | Different roles (admin, user, etc.) with permissions |
+| CRUD Operations        | Create, Read, Update, Delete main data         |
+| Form Validation        | Validate inputs before submission              |
+| File Upload            | Upload images or documents (if applicable)     |
+| Responsive UI          | Mobile & desktop friendly interface            |
+| (Additional Features…) | …                                              |
 
 ---
 
-## 🖼️ Screenshot / Preview
+## 🖼️ Screenshots / Preview
 
-![Tampilan Dashboard](docs/Loginform.png)  
-![Tampilan Form Input](docs/Landingpage.png)  
+![Login Page](docs/Loginform.png)  
+![Landing Page](docs/Landingpage.png)  
 
 ---
 
 ## ✅ Testing
 
-Jalankan unit test (jika ada):  
+Run unit tests (if any):  
 
 ```bash
 php artisan test
-# atau
+# or
 vendor/bin/phpunit
 ```
 
 ---
 
-## ⚠️ Catatan / Pengingat
+## ⚠️ Notes / Reminders
 
-- Jangan commit file `.env`  
-- Backup database secara berkala  
-- Pastikan `APP_ENV=production`, `APP_DEBUG=false` di server produksi  
-- Atur permission folder `storage/` & `bootstrap/cache`
-
----
-
-## 📄 Lisensi
-
-MIT License (atau lisensi lain sesuai keputusanmu)
+- Do **not** commit the `.env` file  
+- Regularly back up your database  
+- For production, set `APP_ENV=production` and `APP_DEBUG=false`  
+- Ensure proper permissions for `storage/` & `bootstrap/cache` folders  
 
 ---
 
-## 👥 Kontributor
+## 📄 License
 
-- Naufal Ardian Ramadhan
+MIT License (or another license if applicable)
 
 ---
 
-## 📬 Kontak
+## 👥 Contributors
 
-- Email: naufal@example.com  
+- Naufal Ardian Ramadhan  
+
+---
+
+## 📬 Contact
+
+- Email: naufalportofolio12@gmail.com  
 - GitHub: [NaufalArdian12](https://github.com/NaufalArdian12)
