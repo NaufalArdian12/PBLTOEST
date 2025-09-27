@@ -1,8 +1,7 @@
 
 # PBLTOEST
 
-Aplikasi web berbasis Laravel + Blade untuk **TOEST** (nama aplikasi / kepanjangan, deskripsi domain).  
-Ganti deskripsi ini sesuai dengan kebutuhan proyekmu.
+Aplikasi web berbasis Laravel + Blade untuk **TOEST** Web App untuk membantu pendaftaran TOEIC Test Politeknik Negeri Malang.
 
 ---
 
@@ -126,8 +125,6 @@ Aplikasi akan bisa diakses di `http://localhost:8000` (atau sesuai APP_URL).
 ---
 
 ## 🖼️ Screenshot / Preview
-
-> Upload screenshot di folder `docs/` atau `public/img/` lalu refer di sini.
 
 ![Tampilan Dashboard](docs/Loginform.png)  
 ![Tampilan Form Input](docs/Landingpage.png)  
