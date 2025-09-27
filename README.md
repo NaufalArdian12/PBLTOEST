@@ -131,18 +131,6 @@ The app will be accessible at `http://localhost:8000` (or as defined in APP_URL)
 
 ---
 
-## ✅ Testing
-
-Run unit tests (if any):  
-
-```bash
-php artisan test
-# or
-vendor/bin/phpunit
-```
-
----
-
 ## ⚠️ Notes / Reminders
 
 - Do **not** commit the `.env` file  
